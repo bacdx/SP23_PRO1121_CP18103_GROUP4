@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">SP23_PRO1121_CP18103_GROUP4</string>
+    <string name="open_draw">open_drawable</string>
+    <string name="close_draw">close_drawable</string>
 </resources>
