@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="#F2CB05"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activity.Login">
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="254dp"
+        android:src="@drawable/login"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
+        />
+    <com.google.android.material.textfield.TextInputLayout
+        app:boxStrokeColor="#6200EE"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:textColorHint="#6200EE"
+        android:hint="Tên đăng nhập"
+        app:expandedHintEnabled="false"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        >
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        app:boxStrokeColor="#6200EE"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:textColorHint="#6200EE"
+        android:hint="Mật Khẩu"
+        app:passwordToggleEnabled="true"
+        app:expandedHintEnabled="false"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        >
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+    </com.google.android.material.textfield.TextInputLayout>
+       <CheckBox
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:text="Nhớ Mật Khẩu"
+           android:textColor="#0F6392"
+           android:textStyle="bold"
+           android:layout_marginHorizontal="20dp"
+           />
+       <Button
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:text="Đăng Nhập"
+           android:layout_gravity="center"
+           android:backgroundTint="#D98B2B"
+           android:textStyle="bold"
+           android:textColor="@color/black"
+           />
+
+</LinearLayout>
