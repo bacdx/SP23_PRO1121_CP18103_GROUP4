@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_Home"
+        android:icon="@drawable/ic_baseline_home_24_nav_home"
+        android:title="Home"/>
+    <item
+        android:title="Quản Lý"
+        >
+        <menu
+            >
+            <group
+                android:checkableBehavior="single"
+                >
+                <item
+                    android:id="@+id/nav_ThucDon"
+                    android:icon="@drawable/ic_baseline_menu_book_24_nav_thuc_don"
+                    android:title="Thực Đơn"/>
+                <item
+                    android:id="@+id/nav_BanAn"
+                    android:icon="@drawable/ic_baseline_restaurant_menu_24_nav_ban_an"
+                    android:title="Bàn Ăn"/>
+                <item
+                    android:id="@+id/nav_HoaDon"
+                    android:icon="@drawable/ic_baseline_sticky_note_2_24_nav_hoa_don"
+                    android:title="Hóa Đơn"/>
+            </group>
+        </menu>
+    </item>
+
+    <item
+        android:title="Thống Kê"
+        >
+        <menu
+            >
+            <group
+                android:checkableBehavior="single"
+                >
+                <item
+                    android:id="@+id/nav_Top5"
+                    android:icon="@drawable/ic_baseline_looks_5_24_nav_top5"
+                    android:title="Top 5 Món Ăn Ngon Nhất"/>
+                <item
+                    android:id="@+id/nav_DoanhThu"
+                    android:icon="@drawable/ic_baseline_trending_up_24_nav_thongke"
+                    android:title="Thống Kê Doanh Thu"/>
+            </group>
+        </menu>
+    </item>
+
+    <item
+        android:title="Người Dùng"
+        >
+        <menu
+            >
+            <group
+                android:checkableBehavior="single"
+                >
+                <item
+                    android:id="@+id/nav_AddThanhVien"
+                    android:icon="@drawable/ic_baseline_person_add_alt_24_add_user"
+                    android:title="Thêm Tài Khoản"/>
+                <item
+                    android:id="@+id/nav_DoiMK"
+                    android:icon="@drawable/ic_baseline_key_24_nav_doi_mk"
+                    android:title="Đổi Mật Khẩu"/>
+                <item
+                    android:id="@+id/nav_DangXuat"
+                    android:icon="@drawable/ic_baseline_exit_to_app_24_nav_dang_xuat"
+                    android:title="Đăng Xuất"/>
+            </group>
+        </menu>
+    </item>
+</menu>

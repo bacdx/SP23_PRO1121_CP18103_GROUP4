@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".Fragment.HomeFragment">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+        <ViewFlipper
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:id="@+id/home_viewFlipper"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="190dp"
+
+            >
+            <!--            card view menu-->
+            <androidx.cardview.widget.CardView
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_centerHorizontal="true"
+                app:cardElevation="10dp"
+                app:cardCornerRadius="10dp"
+                android:id="@+id/cardView_thucDon"
+                android:layout_margin="10dp"
+                >
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:padding="5dp"
+                    android:background="#F2CB05"
+                    android:layout_centerHorizontal="true"
+                    android:id="@+id/ln_thucDon"
+                    >
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:src="@drawable/image_37"
+                        android:layout_gravity="center_horizontal"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Thực Đơn"
+                        android:gravity="center_horizontal"
+                        android:textStyle="bold"
+                        android:textColor="#000000"/>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!--            card view thống kê-->
+            <androidx.cardview.widget.CardView
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_centerHorizontal="true"
+                app:cardElevation="10dp"
+                app:cardCornerRadius="10dp"
+                android:id="@+id/cardView_thongKe"
+                android:layout_margin="10dp"
+                android:layout_toLeftOf="@id/cardView_thucDon"
+                >
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:padding="5dp"
+                    android:layout_centerHorizontal="true"
+                    android:id="@+id/ln_thongKe"
+                    android:background="#F2CB05"
+                    >
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:src="@drawable/image_36"
+                        android:layout_gravity="center_horizontal"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Thống Kê"
+                        android:gravity="center_horizontal"
+                        android:textStyle="bold"
+                        android:textColor="#000000"/>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!--            card view bàn ăn-->
+            <androidx.cardview.widget.CardView
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_centerHorizontal="true"
+                app:cardElevation="10dp"
+                app:cardCornerRadius="10dp"
+                android:id="@+id/cardView_banAn"
+                android:layout_margin="10dp"
+                android:layout_toRightOf="@id/cardView_thucDon"
+                >
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:padding="5dp"
+                    android:background="#F2CB05"
+                    android:layout_centerHorizontal="true"
+                    android:id="@+id/ln_banAn"
+                    >
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:src="@drawable/img_ban_an"
+                        android:layout_gravity="center_horizontal"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Bàn Ăn"
+                        android:gravity="center_horizontal"
+                        android:textStyle="bold"
+                        android:textColor="#000000"/>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!--            card view hóa đơn-->
+            <androidx.cardview.widget.CardView
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                app:cardElevation="10dp"
+                app:cardCornerRadius="10dp"
+                android:id="@+id/cardView_hoaDon"
+                android:layout_marginLeft="115dp"
+                android:layout_below="@id/cardView_thucDon"
+                >
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:padding="5dp"
+                    android:background="#F2CB05"
+                    android:id="@+id/ln_hoaDon"
+                    >
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:src="@drawable/img_hoa_don"
+                        android:layout_gravity="center_horizontal"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Hóa Đơn"
+                        android:gravity="center_horizontal"
+                        android:textStyle="bold"
+                        android:textColor="#000000"/>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!--            card view nhân lực-->
+            <androidx.cardview.widget.CardView
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_centerHorizontal="true"
+                app:cardElevation="10dp"
+                app:cardCornerRadius="10dp"
+                android:id="@+id/cardView_nhanLuc"
+                android:layout_toRightOf="@id/cardView_hoaDon"
+                android:layout_marginLeft="20dp"
+                android:layout_below="@id/cardView_thucDon"
+                >
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:padding="5dp"
+                    android:id="@+id/ln_nhanLuc"
+                    android:background="#F2CB05"
+                    >
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:src="@drawable/img_nhan_luc"
+                        android:layout_gravity="center_horizontal"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Nhân Lực"
+                        android:gravity="center_horizontal"
+                        android:textStyle="bold"
+                        android:textColor="#000000"/>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="#D98B2B"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
+                android:text="Menu Quán Ăn"
+                android:textColor="#fff"
+                android:textSize="18dp"
+                android:textStyle="bold" />
+            <TextView
+                android:id="@+id/tvMenu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:text="Xem tất cả >>"
+                android:layout_centerVertical="true"
+                android:layout_margin="10dp"
+                android:textColor="#fff"
+                />
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/banner_menu_fast_food"
+                android:layout_margin="10dp"
+                android:layout_gravity="center"
+                android:background="@drawable/shape_custom_dialog"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Menu Fast Food"
+                android:layout_centerInParent="true"
+                android:textColor="#fff"
+                android:textStyle="bold"
+                android:textSize="20dp"/>
+        </RelativeLayout>
+    </LinearLayout>
+
+</FrameLayout>
