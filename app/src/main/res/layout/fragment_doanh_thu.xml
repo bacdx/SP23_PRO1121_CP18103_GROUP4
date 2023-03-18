@@ -17,10 +17,11 @@
 
         <ImageView
             android:layout_width="70dp"
-            android:layout_height="100dp"
-            android:src="@drawable/lich"
+            android:layout_height="100dp"/>
 
-            />
+            <!--android:src="@drawable/lich"-->
+
+
 
         <EditText
             android:layout_width="250dp"
@@ -44,7 +45,7 @@
         <ImageView
             android:layout_width="70dp"
             android:layout_height="100dp"
-            android:src="@drawable/lich"
+            android:src="@drawable/ic_baseline_menu_book_24_nav_thuc_don"
             />
 
         <EditText
