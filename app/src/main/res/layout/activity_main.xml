@@ -21,10 +21,11 @@
             android:layout_height="?attr/actionBarSize"
             android:id="@+id/main_toolBar"
             android:background="#D98B2B"/>
+
         <FrameLayout
+            android:id="@+id/mainFrame_collection_fragment"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/mainFrame_collection_fragment"/>
+            android:layout_height="match_parent" />
     </LinearLayout>
     <com.google.android.material.navigation.NavigationView
         android:layout_width="match_parent"

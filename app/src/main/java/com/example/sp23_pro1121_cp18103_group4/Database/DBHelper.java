@@ -9,18 +9,20 @@ import androidx.annotation.Nullable;
 import com.example.sp23_pro1121_cp18103_group4.data.Data;
 
 public class DBHelper extends SQLiteOpenHelper {
-    public Data data=new Data();
+    public Data data = new Data();
     public static final String DBName = "FAST_FOOD";
     public static final int DBVersion = 1;
+
     public DBHelper(@Nullable Context context) {
 
         super(context, DBName, null, DBVersion);
     }
-    private static  final String TABLE_BAN="create table Ban (" +
+
+    private static final String TABLE_BAN = "create table Ban (" +
             "maBan integer not null primary key," +
             "tenBan text not null ," +
-            "status text not null);" ;
-    private  static final  String TABLE_MON_TRONG_BAN="create table MonTrongBan (" +
+            "status text not null);";
+    private static final String TABLE_MON_TRONG_BAN = "create table MonTrongBan (" +
             "id integer not null primary key ," +
             "maBan integer references Ban(maBan)," +
             "maMon integer references Mon(maMon)," +
@@ -34,22 +36,22 @@ public class DBHelper extends SQLiteOpenHelper {
             "trangThai text not null," +
             "maLoaiMon integer references LoaiMon(maLoaiMon)," +
             "imgMon text)";
-private  static final String TABLE_NHANVIEN="create table NhanVien(" +
-        "maNV integer not null primary key," +
-        "name text," +
-        "user text," +
-        "passWord text," +
-        "email text," +
-        "status text);";
-    private  static  final String TABLE_HOADON="create table HoaDon(" +
+    private static final String TABLE_NHANVIEN = "create table NhanVien(" +
+            "maNV integer not null primary key," +
+            "name text," +
+            "user text," +
+            "passWord text," +
+            "email text," +
+            "status text);";
+    private static final String TABLE_HOADON = "create table HoaDon(" +
             "maHoaDon integer not null primary key," +
             "maBan integer references Ban(maBan)," +
             "maNV integer references NhanVien(maNV)," +
             "ngayLap date not null," +
-            "maKH integer references KhachHang(maKH)," +
+            "maKhachHang integer references KhachHang(maKhachHang)," +
             "tongTien integer); ";
-    private static  final  String TABLE_kHACH_HANG="create table KhachHang(" +
-            "maKH integer not null primary key," +
+    private static final String TABLE_kHACH_HANG = "create table KhachHang(" +
+            "maKhachHang integer not null primary key," +
             "name text," +
             "numberPhone text);";
 

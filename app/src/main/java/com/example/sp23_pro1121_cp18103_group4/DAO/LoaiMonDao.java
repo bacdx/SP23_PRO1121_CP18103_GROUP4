@@ -11,7 +11,6 @@ import com.example.sp23_pro1121_cp18103_group4.Model.LoaiMon;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class LoaiMonDao {
     private SQLiteDatabase db;
 
@@ -58,4 +57,5 @@ public class LoaiMonDao {
         }
         return list;
     }
+
 }

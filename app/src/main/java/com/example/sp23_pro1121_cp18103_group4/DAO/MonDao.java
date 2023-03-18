@@ -11,7 +11,6 @@ import com.example.sp23_pro1121_cp18103_group4.Model.Mon;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class MonDao {
     private SQLiteDatabase db;
 
@@ -66,4 +65,5 @@ public class MonDao {
         }
         return list;
     }
+
 }
