@@ -7,31 +7,69 @@ import android.database.sqlite.SQLiteOpenHelper;
 import androidx.annotation.Nullable;
 
 public class DBHelper extends SQLiteOpenHelper {
-    public static final String DBName = "DB1";
+    public static final String DBName = "FAST_FOOD";
     public static final int DBVersion = 1;
     public DBHelper(@Nullable Context context) {
+
         super(context, DBName, null, DBVersion);
     }
+    private static  final String TABLE_BAN="create table Ban (" +
+            "maBan integer not null primary key," +
+            "tenBan text not null ," +
+            "status text not null);" ;
+    private  static final  String TABLE_MON_TRONG_BAN="create table MonTrongBan (" +
+            "id integer not null primary key ," +
+            "maBan integer references Ban(maBan)," +
+            "maMon integer references Mon(maMon)," +
+            "soLuong integer);";
+    private static final String TABLE_LOAI_MON = "create table LoaiMon (maLoaiMon integer primary key autoincrement," +
+            "tenLoaiMon text not null," +
+            "imgLoaiMon text)";
+    private static final String TABLE_MON = "Create Table Mon(maMon integer primary key autoincrement," +
+            "tenMon text not null," +
+            "giaTien integer ," +
+            "trangThai text not null," +
+            "maLoaiMon integer references LoaiMon(maLoaiMon)," +
+            "imgMon text)";
+private  static final String TABLE_NHANVIEN="create table NhanVien(" +
+        "maNV integer not null primary key," +
+        "name text," +
+        "user text," +
+        "passWord text," +
+        "email text," +
+        "status text);";
+    private  static  final String TABLE_HOADON="create table HoaDon(" +
+            "maHoaDon integer not null primary key," +
+            "maBan integer references Ban(maBan)," +
+            "maNV integer references NhanVien(maNV)," +
+            "ngayLap date not null," +
+            "maKH integer references KhachHang(maKH)," +
+            "tongTien integer); ";
+    private static  final  String TABLE_kHACH_HANG="create table KhachHang(" +
+            "maKH integer not null primary key," +
+            "name text," +
+            "numberPhone text);";
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String CreateTableLoaiMon = "Create Table LoaiMon (maLoaiMon integer primary key autoincrement," +
-                "tenLoaiMon text not null," +
-                "imgLoaiMon blob)";
-        db.execSQL(CreateTableLoaiMon);
-        String CreateTableMon = "Create Table Mon(maMon integer primary key autoincrement," +
-                "tenMon text not null," +
-                "giaTien integer ," +
-                "trangThai text not null," +
-                "maLoaiMon integer references LoaiMon(maLoaiMon)," +
-                "imgMon blob)";
-        db.execSQL(CreateTableMon);
+        db.execSQL(TABLE_NHANVIEN);
+        db.execSQL(TABLE_LOAI_MON);
+        db.execSQL(TABLE_MON);
+        db.execSQL(TABLE_BAN);
+        db.execSQL(TABLE_MON_TRONG_BAN);
+        db.execSQL(TABLE_kHACH_HANG);
+        db.execSQL(TABLE_HOADON);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        String DropTableLoaiMon = "Drop table if exists LoaiMon";
-        db.execSQL(DropTableLoaiMon);
+        db.execSQL("Drop table if exists NhanVien");
+        db.execSQL("Drop table if exists LoaiMon");
+        db.execSQL("Drop table if exists Mon");
+        db.execSQL("Drop table if exists Ban");
+        db.execSQL("Drop table if exists MonTrongBan");
+        db.execSQL("Drop table if exists KhachHang");
+        db.execSQL("Drop table if exists HoaDon");
         //khoi tao lai database
         onCreate(db);
     }
