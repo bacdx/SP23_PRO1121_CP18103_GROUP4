@@ -12,7 +12,6 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
-import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,7 +31,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.sp23_pro1121_cp18103_group4.DAO.MonDao;
 import com.example.sp23_pro1121_cp18103_group4.Model.Mon;
-import com.example.sp23_pro1121_cp18103_group4.MonActivity;
 import com.example.sp23_pro1121_cp18103_group4.R;
 
 import java.io.ByteArrayOutputStream;

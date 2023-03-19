@@ -65,4 +65,5 @@ public class Mon {
     public void setImgMon(byte[] imgMon) {
         this.imgMon = imgMon;
     }
+
 }

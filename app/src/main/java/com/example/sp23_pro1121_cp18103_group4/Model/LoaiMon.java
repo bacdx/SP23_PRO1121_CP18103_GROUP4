@@ -13,6 +13,7 @@ public class LoaiMon {
         this.tenLoaiMon = tenLoaiMon;
     }
 
+
     public int getMaLoaiMon() {
         return maLoaiMon;
     }
