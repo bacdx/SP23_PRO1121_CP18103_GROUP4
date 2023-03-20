@@ -6,10 +6,10 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
 
-import com.example.sp23_pro1121_cp18103_group4.data.Data;
+
 
 public class DBHelper extends SQLiteOpenHelper {
-    public Data data = new Data();
+//    public Data data = new Data();
     public static final String DBName = "FAST_FOOD";
     public static final int DBVersion = 1;
 
@@ -19,9 +19,9 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     private static final String TABLE_BAN = "create table Ban (" +
-            "maBan integer not null primary key," +
+            "maBan integer not null primary key autoincrement," +
             "tenBan text not null ," +
-            "status text not null);";
+            "status text );";
     private static final String TABLE_MON_TRONG_BAN = "create table MonTrongBan (" +
             "id integer not null primary key ," +
             "maBan integer references Ban(maBan)," +
@@ -64,13 +64,13 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL(TABLE_MON_TRONG_BAN);
         db.execSQL(TABLE_kHACH_HANG);
         db.execSQL(TABLE_HOADON);
-        db.execSQL(data.insertNhanVien);
-        db.execSQL(data.insertLoaiMon);
-        db.execSQL(data.insertMon);
-        db.execSQL(data.insertBan);
-        db.execSQL(data.insertMonTrongBan);
-        db.execSQL(data.insertKhachHang);
-        db.execSQL(data.insertHoaDon);
+//        db.execSQL(data.insertNhanVien);
+//        db.execSQL(data.insertLoaiMon);
+//        db.execSQL(data.insertMon);
+//        db.execSQL(data.insertBan);
+//        db.execSQL(data.insertMonTrongBan);
+//        db.execSQL(data.insertKhachHang);
+//        db.execSQL(data.insertHoaDon);
     }
 
     @Override
