@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.example.sp23_pro1121_cp18103_group4.Database.DBHelper;
+import com.example.sp23_pro1121_cp18103_group4.Model.MonTrongBan;
 
 import java.util.ArrayList;
 
@@ -27,14 +28,14 @@ public class MonTrongBanDAO {
     }
     public ContentValues getValue(MonTrongBan monTrongBan){
         ContentValues values=new ContentValues();
-        values.put("maBan",monTrongBan.setMaBan);
-        values.put("maMon",monTrongBan.setMaMon);
-        values.put("soLuong",monTrongBan.setSoLuong);
+        values.put("maBan",monTrongBan.getMaBan());
+        values.put("maMon",monTrongBan.getMaMon());
+        values.put("soLuong",monTrongBan.getSoLuong());
         return values;
     }
     public int update(MonTrongBan monTrongBan){
         ContentValues values= getValue(monTrongBan);
-        return db.update("MonTrongBan",values,"id=?",new String[]{monTrongBan.id});
+        return db.update("MonTrongBan",values,"id=?",new String[]{String.valueOf(monTrongBan.getId())});
 
     }
     public int delete (String id){
@@ -47,10 +48,10 @@ return db.delete("MonTrongBan","id=?",new String[]{id});
         MonTrongBan monTrongBan=new MonTrongBan();
         cursor.moveToFirst();
         do {
-            monTrongBan.setID(cursor.getInt(0));
+            monTrongBan.setId(cursor.getInt(0));
             monTrongBan.setMaBan(cursor.getString(1));
             monTrongBan.setMaMon(cursor.getString(2));
-            monTrongBan.setSoLuong(cursor.getString(3));
+            monTrongBan.setSoLuong(cursor.getInt(3));
             list.add(monTrongBan);
         }while (cursor.moveToNext());
         cursor.close();
