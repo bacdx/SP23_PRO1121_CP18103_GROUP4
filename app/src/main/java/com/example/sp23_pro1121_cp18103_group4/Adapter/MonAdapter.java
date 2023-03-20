@@ -66,6 +66,24 @@ public class MonAdapter extends RecyclerView.Adapter<MonAdapter.MyViewHolder> {
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         Mon mon = list.get(position);
         holder.mon_tvTenMon.setText(mon.getTenMon());
+
+
+        holder.mon_tvTenMon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Dialog dialog = new Dialog(mContext, androidx.appcompat.R.style.Theme_AppCompat);
+                dialog.setContentView(R.layout.dialogthemmontrongban);
+
+
+
+
+
+                dialog.show();
+            }
+        });
+
+
         holder.mon_tvGiaTien.setText("Giá tiền: " + mon.getGiaTien());
         if (mon.getTrangThai().equals("Còn hàng")) {
             holder.mon_tvTrangThai.setText(mon.getTrangThai());
