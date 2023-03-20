@@ -11,7 +11,7 @@ import androidx.annotation.Nullable;
 public class DBHelper extends SQLiteOpenHelper {
 //    public Data data = new Data();
     public static final String DBName = "FAST_FOOD";
-    public static final int DBVersion = 2;
+    public static final int DBVersion = 1;
 
     public DBHelper(@Nullable Context context) {
 
@@ -23,7 +23,7 @@ public class DBHelper extends SQLiteOpenHelper {
             "tenBan text not null ," +
             "status text );";
     private static final String TABLE_MON_TRONG_BAN = "create table MonTrongBan (" +
-            "id integer not null primary key ," +
+            "id integer not null primary key autoincrement," +
             "maBan integer references Ban(maBan)," +
             "maMon integer references Mon(maMon)," +
             "soLuong integer);";

@@ -3,6 +3,7 @@ package com.example.sp23_pro1121_cp18103_group4.Adapter;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -99,11 +100,22 @@ public class BanAnAdapter extends RecyclerView.Adapter<BanAnAdapter.ViewBanan> {
                 FragmentTransaction transaction = ((AppCompatActivity) context).getSupportFragmentManager().beginTransaction();
                 transaction.replace(R.id.mainFrame_collection_fragment,fragment).commit();
 
-
+                Bundle bundle = new Bundle();
+                bundle.putInt("maban",list.get(index).getId());
+                bundle.putBundle("banan",bundle);
 
             }
         });
 
+
+        holder.hoadon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+
+
+            }
+        });
 
     }
 
@@ -115,7 +127,7 @@ public class BanAnAdapter extends RecyclerView.Adapter<BanAnAdapter.ViewBanan> {
     class ViewBanan extends RecyclerView.ViewHolder{
 
         TextView tenban ;
-        ImageView delete,themmon;
+        ImageView delete,themmon,hoadon;
         ImageButton anh ;
 
         public ViewBanan(@NonNull View itemView) {
@@ -125,6 +137,7 @@ public class BanAnAdapter extends RecyclerView.Adapter<BanAnAdapter.ViewBanan> {
             delete = itemView.findViewById(R.id.delete);
             themmon = itemView.findViewById(R.id.themmon);
             anh  = itemView.findViewById(R.id.anh);
+            hoadon = itemView.findViewById(R.id.hoadon);
 
         }
     }
