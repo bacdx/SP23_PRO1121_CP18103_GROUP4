@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".Fragment.DoanhThuFragment">
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        >
+
+        <ImageView
+            android:layout_width="70dp"
+            android:layout_height="100dp"/>
+
+            <!--android:src="@drawable/lich"-->
+
+
+
+        <EditText
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:hint="                  Từ Ngày "
+            android:textStyle="bold"
+
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        >
+
+        <ImageView
+            android:layout_width="70dp"
+            android:layout_height="100dp"
+            android:src="@drawable/ic_baseline_menu_book_24_nav_thuc_don"
+            />
+
+        <EditText
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:hint="                  Đến  Ngày "
+            android:textStyle="bold"
+            />
+
+    </LinearLayout>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/thongke"
+        android:text="Thống Kê "
+        android:layout_marginLeft="140dp"
+        android:backgroundTint="#FF9800"
+
+        />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tổng Tiền : "
+            android:textStyle="bold"
+            android:textSize="20dp"
+            />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tong"
+            android:text=" 100000 VND "
+            android:textStyle="bold"
+            android:textSize="20dp"
+            android:textColor="#F2cb06"
+            />
+
+    </LinearLayout>
+
+</LinearLayout>
