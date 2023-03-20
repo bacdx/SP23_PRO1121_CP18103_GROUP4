@@ -1,6 +1,7 @@
 package com.example.sp23_pro1121_cp18103_group4.Adapter;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -19,8 +20,10 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.sp23_pro1121_cp18103_group4.DAO.BanAnDao;
+import com.example.sp23_pro1121_cp18103_group4.DAO.MonTrongBanDAO;
 import com.example.sp23_pro1121_cp18103_group4.Database.Fragment.LoaiMonFragment;
 import com.example.sp23_pro1121_cp18103_group4.Model.BanAn;
+import com.example.sp23_pro1121_cp18103_group4.Model.MonTrongBan;
 import com.example.sp23_pro1121_cp18103_group4.R;
 
 import java.util.ArrayList;
@@ -113,7 +116,30 @@ public class BanAnAdapter extends RecyclerView.Adapter<BanAnAdapter.ViewBanan> {
             public void onClick(View view) {
 
 
+                Dialog dialog = new Dialog(context, androidx.appcompat.R.style.Theme_AppCompat);
+                dialog.setContentView(R.layout.dialog_tinh_tien);
 
+                RecyclerView rcv = dialog.findViewById(R.id.rcv);
+                TextView tenban = dialog.findViewById(R.id.tenban);
+                TextView ngay = dialog.findViewById(R.id.ngay);
+
+                MonTrongBanDAO trongBanDAO;
+                MonTrongBan monTrongBan;
+                ArrayList<MonTrongBan> listmtb;
+                MonTrongBanAdapter monTrongBanAdapter;
+
+                listmtb = new ArrayList<>();
+                trongBanDAO = new MonTrongBanDAO(context);
+                monTrongBan = new MonTrongBan();
+
+                tenban.setText(list.get(index).getTenBanAN());
+                ngay.setText("20/03/2023");
+
+                listmtb = trongBanDAO.getAllData();
+                monTrongBanAdapter = new MonTrongBanAdapter(listmtb,context);
+                rcv.setAdapter(monTrongBanAdapter);
+
+                dialog.show();
             }
         });
 

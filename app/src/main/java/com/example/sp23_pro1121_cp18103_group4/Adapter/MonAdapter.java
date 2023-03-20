@@ -88,10 +88,10 @@ public class MonAdapter extends RecyclerView.Adapter<MonAdapter.MyViewHolder> {
                 TextInputEditText soluong = dialog.findViewById(R.id.soluong);
                 Button luu = dialog.findViewById(R.id.luu);
                 Button huy = dialog.findViewById(R.id.huy);
-
-                Bundle bundle = new Bundle();
-                bundle.getBundle("banan");
-                 int maban =  bundle.getInt("maban");
+//
+//                Bundle bundle = new Bundle();
+//                bundle.getBundle("banan");
+//                 int maban =  bundle.getInt("maban");
 
                  monTrongBan = new MonTrongBan();
 
@@ -99,7 +99,7 @@ public class MonAdapter extends RecyclerView.Adapter<MonAdapter.MyViewHolder> {
                      @Override
                      public void onClick(View view) {
                          monTrongBan.setSoLuong(Integer.parseInt(soluong.getText().toString()));
-                         monTrongBan.setMaBan(String.valueOf(maban));
+//                         monTrongBan.setMaBan(String.valueOf(maban));
                          monTrongBan.setMaMon(String.valueOf(mon.getMaMon()));
                          if(trongBanDAO.insert(monTrongBan)>0){
                              Toast.makeText(mContext, "Thành Công", Toast.LENGTH_SHORT).show();
