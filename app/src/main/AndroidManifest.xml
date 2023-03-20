@@ -28,9 +28,8 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-
-            android:name=".DoiMatKhau"
-            android:exported="false" />
+<!--            android:name=".DoiMatKhau"-->
+<!--            android:exported="false" />-->
         <activity
             android:name=".Account"
             android:exported="false" />

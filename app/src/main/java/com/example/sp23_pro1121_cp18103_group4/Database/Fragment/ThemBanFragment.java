@@ -1,4 +1,4 @@
-package com.example.sp23_pro1121_cp18103_group4.Fragment;
+package com.example.sp23_pro1121_cp18103_group4.Database.Fragment;
 
 import android.app.Dialog;
 import android.os.Bundle;
@@ -45,6 +45,8 @@ public class ThemBanFragment extends Fragment {
 
 
 
+
+
         BanAn banAn = new BanAn();
 
         flt.setOnClickListener(new View.OnClickListener() {
@@ -55,36 +57,37 @@ public class ThemBanFragment extends Fragment {
                 dialog.setContentView(R.layout.dialog_banan);
 
 
-                TextInputLayout tenbanan = dialog.findViewById(R.id.tenbanan);
+                TextInputEditText tenbanan = dialog.findViewById(R.id.tenbanan);
                 Button luu = dialog.findViewById(R.id.luu);
                 Button huy = dialog.findViewById(R.id.huy);
+
 
                 luu.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+
                         ArrayList<BanAn> list ;
                         list = new ArrayList<>();
                         BanAnAdapter adapterBanAn;
-
-                        if(tenbanan.getEditText().getText().toString().length()==0){
+                        if(tenbanan.getText().toString().length()==0){
                             Toast.makeText(getContext(), "Không Được Để Trống ", Toast.LENGTH_SHORT).show();
                             return ;
                         }
 
-                        banAn.setTenBanAN(tenbanan.getEditText().getText().toString());
+                        banAn.setTenBanAN(tenbanan.getText().toString());
                         if(daott.InSertBanAN(banAn)>0){
-                            list = daott.getALL();
-                            adapterBanAn = new BanAnAdapter(getContext(),list);
-                            rcv.setAdapter(adapterBanAn);
+
                             Toast.makeText(getContext(), "Thên Thành CÔng ", Toast.LENGTH_SHORT).show();
                         }else{
                             Toast.makeText(getContext(), "Thêm THất Bại", Toast.LENGTH_SHORT).show();
                         }
 
+                        list = daott.getALL();
+                        adapterBanAn = new BanAnAdapter(getContext(),list);
+                        rcv.setAdapter(adapterBanAn);
 
                     }
                 });
-
 
                 dialog.show();
             }

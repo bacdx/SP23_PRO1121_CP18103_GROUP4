@@ -1,3 +1,4 @@
+
 package com.example.sp23_pro1121_cp18103_group4.data;
 
 public  class Data {
@@ -60,3 +61,5 @@ public  class Data {
          "('Nguyen Van B','0399995533','B')," +
          "('tran Van C','0311111535','C');";
 }
+
+
