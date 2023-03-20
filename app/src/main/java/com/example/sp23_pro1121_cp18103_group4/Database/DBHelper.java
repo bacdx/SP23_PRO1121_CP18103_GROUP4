@@ -41,7 +41,10 @@ public class DBHelper extends SQLiteOpenHelper {
             "name text," +
             "user text," +
             "passWord text," +
-            "email text," +
+            "numberPhone text," +
+            "gioTinh text," +
+            "ngaySinh text," +
+            "uyQuyen" +
             "status text);";
     private static final String TABLE_HOADON = "create table HoaDon(" +
             "maHoaDon integer not null primary key," +
@@ -53,7 +56,8 @@ public class DBHelper extends SQLiteOpenHelper {
     private static final String TABLE_kHACH_HANG = "create table KhachHang(" +
             "maKhachHang integer not null primary key," +
             "name text," +
-            "numberPhone text);";
+            "numberPhone text," +
+            "diaChi text);";
 
     @Override
     public void onCreate(SQLiteDatabase db) {
