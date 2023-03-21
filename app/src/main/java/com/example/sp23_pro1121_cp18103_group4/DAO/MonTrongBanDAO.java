@@ -1,5 +1,6 @@
 package com.example.sp23_pro1121_cp18103_group4.DAO;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -64,6 +65,39 @@ return db.delete("MonTrongBan","id=?",new String[]{id});
     public ArrayList<MonTrongBan> getDataByID(String id){
         String getDataByID="select*from MonTrongBan where id=?";
         return getData(getDataByID,id);
+    }
 
+    @SuppressLint("Range")
+    public int getTong(){
+
+        String sql = "select sum(soLuong * giaTien) as tong from MonTrongBan as MTB join Mon as M on MTB.maMon = M.maMon";
+        ArrayList<Integer> list = new ArrayList<>();
+        Cursor c = db.rawQuery(sql,null);
+
+        while(c.moveToNext()){
+            try {
+                list.add(Integer.parseInt(c.getString(c.getColumnIndex("tong"))));
+            }catch (Exception e){
+                list.add(0);
+            }
+        }
+            return list.get(0);
+    }
+
+    @SuppressLint("Range")
+    public int getGIamGia(){
+        String sql = "select ((sum(soLuong * giaTien))*10/100) as tong from MonTrongBan as MTB join Mon as M on MTB.maMon = M.maMon";
+        ArrayList<Integer> list = new ArrayList<>();
+        Cursor c = db.rawQuery(sql,null);
+
+        while(c.moveToNext()){
+
+            try {
+                list.add(Integer.parseInt(c.getString(c.getColumnIndex("tong"))));
+            }catch (Exception e){
+                list.add(0);
+            }
+        }
+        return list.get(0);
     }
 }

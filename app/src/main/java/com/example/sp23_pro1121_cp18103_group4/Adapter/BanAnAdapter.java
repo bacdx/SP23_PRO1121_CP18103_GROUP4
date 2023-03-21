@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -22,6 +24,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.sp23_pro1121_cp18103_group4.DAO.BanAnDao;
 import com.example.sp23_pro1121_cp18103_group4.DAO.MonTrongBanDAO;
 import com.example.sp23_pro1121_cp18103_group4.Database.Fragment.LoaiMonFragment;
+import com.example.sp23_pro1121_cp18103_group4.Database.Fragment.ThemBanFragment;
 import com.example.sp23_pro1121_cp18103_group4.Model.BanAn;
 import com.example.sp23_pro1121_cp18103_group4.Model.MonTrongBan;
 import com.example.sp23_pro1121_cp18103_group4.R;
@@ -114,7 +117,19 @@ public class BanAnAdapter extends RecyclerView.Adapter<BanAnAdapter.ViewBanan> {
         holder.hoadon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                ArrayList<MonTrongBan> listmtb;
+                MonTrongBanDAO trongBanDAO;
+                listmtb = new ArrayList<>();
+                trongBanDAO = new MonTrongBanDAO(context);
 
+                try {
+                    listmtb = trongBanDAO.getAllData();
+                }catch (Exception e){
+                    Toast.makeText(context, "Chưa Thêm Món Ăn Vào Bàn ", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+              
 
                 Dialog dialog = new Dialog(context, androidx.appcompat.R.style.Theme_AppCompat);
                 dialog.setContentView(R.layout.dialog_tinh_tien);
@@ -122,22 +137,51 @@ public class BanAnAdapter extends RecyclerView.Adapter<BanAnAdapter.ViewBanan> {
                 RecyclerView rcv = dialog.findViewById(R.id.rcv);
                 TextView tenban = dialog.findViewById(R.id.tenban);
                 TextView ngay = dialog.findViewById(R.id.ngay);
+                CheckBox checkBox = dialog.findViewById(R.id.check);
+                TextView tong = dialog.findViewById(R.id.tong);
+                Button thanhtoan = dialog.findViewById(R.id.thanhtoan);
 
-                MonTrongBanDAO trongBanDAO;
+
                 MonTrongBan monTrongBan;
-                ArrayList<MonTrongBan> listmtb;
+
                 MonTrongBanAdapter monTrongBanAdapter;
 
-                listmtb = new ArrayList<>();
-                trongBanDAO = new MonTrongBanDAO(context);
+
+
                 monTrongBan = new MonTrongBan();
 
                 tenban.setText(list.get(index).getTenBanAN());
                 ngay.setText("20/03/2023");
 
-                listmtb = trongBanDAO.getAllData();
+
                 monTrongBanAdapter = new MonTrongBanAdapter(listmtb,context);
                 rcv.setAdapter(monTrongBanAdapter);
+
+//                tong.setText(trongBanDAO.getTong()+" VND");
+
+                if (checkBox.isChecked()){
+                    tong.setText(trongBanDAO.getGIamGia()+" VND");
+                }else{
+                    tong.setText(trongBanDAO.getTong()+" VND");
+                }
+
+                thanhtoan.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        ArrayList<MonTrongBan> listmtb;
+                        listmtb = trongBanDAO.getAllData();
+                        if(trongBanDAO.delete(String.valueOf(listmtb.get(index).getId()))>0){
+                            Toast.makeText(context, "Thành CÔng", Toast.LENGTH_SHORT).show();
+
+                            Fragment fragment = new ThemBanFragment();
+                            FragmentTransaction transaction = ((AppCompatActivity) context).getSupportFragmentManager().beginTransaction();
+                            transaction.replace(R.id.mainFrame_collection_fragment,fragment).commit();
+                        }else{
+                            Toast.makeText(context, "Thất Bại", Toast.LENGTH_SHORT).show();
+                        }
+
+                    }
+                });
 
                 dialog.show();
             }
