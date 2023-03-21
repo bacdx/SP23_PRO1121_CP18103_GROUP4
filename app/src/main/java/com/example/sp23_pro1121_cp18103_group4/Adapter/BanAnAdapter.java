@@ -22,10 +22,12 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.sp23_pro1121_cp18103_group4.DAO.BanAnDao;
+import com.example.sp23_pro1121_cp18103_group4.DAO.HoaDonDao;
 import com.example.sp23_pro1121_cp18103_group4.DAO.MonTrongBanDAO;
 import com.example.sp23_pro1121_cp18103_group4.Database.Fragment.LoaiMonFragment;
 import com.example.sp23_pro1121_cp18103_group4.Database.Fragment.ThemBanFragment;
 import com.example.sp23_pro1121_cp18103_group4.Model.BanAn;
+import com.example.sp23_pro1121_cp18103_group4.Model.ModelHoaDon;
 import com.example.sp23_pro1121_cp18103_group4.Model.MonTrongBan;
 import com.example.sp23_pro1121_cp18103_group4.R;
 
@@ -37,6 +39,7 @@ public class BanAnAdapter extends RecyclerView.Adapter<BanAnAdapter.ViewBanan> {
     Context context;
     ArrayList<BanAn> list ;
     BanAnDao daoBanAN;
+    HoaDonDao hoaDonDao;
 
     public BanAnAdapter(Context context, ArrayList<BanAn> list) {
         this.context = context;
@@ -128,9 +131,6 @@ public class BanAnAdapter extends RecyclerView.Adapter<BanAnAdapter.ViewBanan> {
                     Toast.makeText(context, "Chưa Thêm Món Ăn Vào Bàn ", Toast.LENGTH_SHORT).show();
                     return;
                 }
-
-              
-
                 Dialog dialog = new Dialog(context, androidx.appcompat.R.style.Theme_AppCompat);
                 dialog.setContentView(R.layout.dialog_tinh_tien);
 
@@ -141,30 +141,25 @@ public class BanAnAdapter extends RecyclerView.Adapter<BanAnAdapter.ViewBanan> {
                 TextView tong = dialog.findViewById(R.id.tong);
                 Button thanhtoan = dialog.findViewById(R.id.thanhtoan);
 
-
                 MonTrongBan monTrongBan;
-
                 MonTrongBanAdapter monTrongBanAdapter;
-
-
-
                 monTrongBan = new MonTrongBan();
 
+
+
+
                 tenban.setText(list.get(index).getTenBanAN());
-                ngay.setText("20/03/2023");
+                ngay.setText("22/3/2023");
 
 
                 monTrongBanAdapter = new MonTrongBanAdapter(listmtb,context);
                 rcv.setAdapter(monTrongBanAdapter);
-
 //                tong.setText(trongBanDAO.getTong()+" VND");
-
                 if (checkBox.isChecked()){
                     tong.setText(trongBanDAO.getGIamGia()+" VND");
                 }else{
                     tong.setText(trongBanDAO.getTong()+" VND");
                 }
-
                 thanhtoan.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -179,21 +174,30 @@ public class BanAnAdapter extends RecyclerView.Adapter<BanAnAdapter.ViewBanan> {
                         }else{
                             Toast.makeText(context, "Thất Bại", Toast.LENGTH_SHORT).show();
                         }
-
                     }
                 });
+
+                ModelHoaDon hoaDon;
+                hoaDon = new ModelHoaDon();
+                hoaDonDao = new HoaDonDao(context);
+
+                hoaDon.setMaBan(String.valueOf(list.get(index).getId()));
+                hoaDon.setMaKH("KH01");
+                hoaDon.setMaNV("NV01");
+                hoaDon.setNgayLap("21/3/2023");
+                hoaDon.setTongTien(trongBanDAO.getTong());
+
+                hoaDonDao.insertHoaDon(hoaDon);
 
                 dialog.show();
             }
         });
 
     }
-
     @Override
     public int getItemCount() {
         return list.size();
     }
-
     class ViewBanan extends RecyclerView.ViewHolder{
 
         TextView tenban ;
