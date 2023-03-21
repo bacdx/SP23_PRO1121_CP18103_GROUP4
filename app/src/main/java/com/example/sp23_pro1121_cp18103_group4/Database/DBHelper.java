@@ -11,7 +11,7 @@ import androidx.annotation.Nullable;
 public class DBHelper extends SQLiteOpenHelper {
 //    public Data data = new Data();
     public static final String DBName = "FAST_FOOD";
-    public static final int DBVersion = 3;
+    public static final int DBVersion = 4;
 
     public DBHelper(@Nullable Context context) {
 

@@ -45,17 +45,18 @@ public class MonTrongBanAdapter extends RecyclerView.Adapter<MonTrongBanAdapter.
     @Override
     public void onBindViewHolder(@NonNull View_montrongban holder, int position) {
 
+        MonTrongBan monTrongBan = list.get(position);
 
         mon = new Mon();
         monDao = new MonDao(context);
-        mon = monDao.getID(String.valueOf(list.get(position).getId()));
-
-
         int index = position;
+
+
+        mon = monDao.getID(list.get(position).getMaMon());
 
         holder.tenmon.setText(mon.getTenMon());
         holder.soluong.setText(list.get(index).getSoLuong()+"");
-        holder.tongtien.setText(list.get(index).getSoLuong() * mon.getGiaTien()+"");
+        holder.tongtien.setText(list.get(index).getSoLuong() * mon.getGiaTien()+" VND");
 
     }
 

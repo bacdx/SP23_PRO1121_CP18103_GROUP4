@@ -100,7 +100,7 @@ public class MonAdapter extends RecyclerView.Adapter<MonAdapter.MyViewHolder> {
                      public void onClick(View view) {
                          monTrongBan.setSoLuong(Integer.parseInt(soluong.getText().toString()));
 //                         monTrongBan.setMaBan(String.valueOf(maban));
-                         monTrongBan.setMaMon(String.valueOf(mon.getMaMon()));
+                         monTrongBan.setMaMon(String.valueOf(list.get(index).getMaMon()));
                          if(trongBanDAO.insert(monTrongBan)>0){
                              Toast.makeText(mContext, "Thành Công", Toast.LENGTH_SHORT).show();
 
