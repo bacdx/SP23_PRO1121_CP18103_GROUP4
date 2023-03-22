@@ -1,6 +1,8 @@
 package com.example.sp23_pro1121_cp18103_group4.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -54,7 +56,7 @@ public class MonTrongBanAdapter extends RecyclerView.Adapter<MonTrongBanAdapter.
 
         mon = monDao.getID(list.get(position).getMaMon());
 
-        holder.tenmon.setText(mon.getTenMon());
+        holder.tenmon.setText(list.get(position).getTenMon());
         holder.soluong.setText(list.get(index).getSoLuong()+"");
         holder.tongtien.setText(list.get(index).getSoLuong() * mon.getGiaTien()+" VND");
 

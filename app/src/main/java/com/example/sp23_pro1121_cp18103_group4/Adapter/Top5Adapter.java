@@ -32,8 +32,6 @@ public class Top5Adapter extends RecyclerView.Adapter<Top5Adapter.ViewTop5> {
 
         LayoutInflater layoutInflater = LayoutInflater.from(context);
         View viewba = layoutInflater.inflate(R.layout.rcvview_top5,parent,false);
-//        BanAnAdapter.ViewBanan viewBanan = new BanAnAdapter.ViewBanan(viewba);
-//        return viewBanan;
         ViewTop5 top5 = new ViewTop5(viewba);
         return top5;
 

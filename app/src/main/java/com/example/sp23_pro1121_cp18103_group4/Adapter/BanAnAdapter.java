@@ -160,34 +160,26 @@ public class BanAnAdapter extends RecyclerView.Adapter<BanAnAdapter.ViewBanan> {
                 }else{
                     tong.setText(trongBanDAO.getTong()+" VND");
                 }
+
                 thanhtoan.setOnClickListener(new View.OnClickListener() {
                     @Override
-                    public void onClick(View view) {
-                        ArrayList<MonTrongBan> listmtb;
-                        listmtb = trongBanDAO.getAllData();
-                        if(trongBanDAO.delete(String.valueOf(listmtb.get(index).getId()))>0){
-                            Toast.makeText(context, "Thành CÔng", Toast.LENGTH_SHORT).show();
+                    public void onClick(View v) {
+                        ModelHoaDon hoaDon;
+                        hoaDon = new ModelHoaDon();
+                        hoaDonDao = new HoaDonDao(context);
 
-                            Fragment fragment = new ThemBanFragment();
-                            FragmentTransaction transaction = ((AppCompatActivity) context).getSupportFragmentManager().beginTransaction();
-                            transaction.replace(R.id.mainFrame_collection_fragment,fragment).commit();
-                        }else{
-                            Toast.makeText(context, "Thất Bại", Toast.LENGTH_SHORT).show();
-                        }
+                        hoaDon.setMaBan(String.valueOf(list.get(index).getId()));
+                        hoaDon.setMaKH("KH01");
+                        hoaDon.setMaNV("NV01");
+                        hoaDon.setNgayLap("21/3/2023");
+                        hoaDon.setTongTien(trongBanDAO.getTong());
+
+                        hoaDonDao.insertHoaDon(hoaDon);
+                        Toast.makeText(context, "Thành Công", Toast.LENGTH_SHORT).show();
                     }
                 });
 
-                ModelHoaDon hoaDon;
-                hoaDon = new ModelHoaDon();
-                hoaDonDao = new HoaDonDao(context);
 
-                hoaDon.setMaBan(String.valueOf(list.get(index).getId()));
-                hoaDon.setMaKH("KH01");
-                hoaDon.setMaNV("NV01");
-                hoaDon.setNgayLap("21/3/2023");
-                hoaDon.setTongTien(trongBanDAO.getTong());
-
-                hoaDonDao.insertHoaDon(hoaDon);
 
                 dialog.show();
             }

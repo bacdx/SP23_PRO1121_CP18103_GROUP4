@@ -90,20 +90,6 @@ public class HoaDonDao {
         return list.get(0);
     }
 
-    @SuppressLint("Range")
-    public ArrayList<Top5> getTOp5(){
 
-        String sql = "select tongTien as tong from HoaDon group by maHoaDon order by tong desc limit 5";
-        ArrayList<Top5> list = new ArrayList<>();
-        Cursor c = db.rawQuery(sql,null);
-
-        while(c.moveToNext()){
-            Top5 top5 = new Top5();
-            top5.setMahoadon(c.getString(c.getColumnIndex("maHoaDon")));
-            top5.setTongtien(c.getString(c.getColumnIndex("tong")));
-            list.add(top5);
-        }
-        return list;
-    }
 
 }

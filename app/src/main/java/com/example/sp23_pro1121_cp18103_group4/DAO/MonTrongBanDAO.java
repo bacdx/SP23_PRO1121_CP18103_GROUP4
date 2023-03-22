@@ -32,6 +32,7 @@ public class MonTrongBanDAO {
         values.put("maBan",monTrongBan.getMaBan());
         values.put("maMon",monTrongBan.getMaMon());
         values.put("soLuong",monTrongBan.getSoLuong());
+        values.put("tenMon",monTrongBan.getTenMon());
         return values;
     }
     public int update(MonTrongBan monTrongBan){
@@ -53,6 +54,7 @@ return db.delete("MonTrongBan","id=?",new String[]{id});
             monTrongBan.setMaBan(cursor.getString(1));
             monTrongBan.setMaMon(cursor.getString(2));
             monTrongBan.setSoLuong(Integer.parseInt(cursor.getString(3)));
+            monTrongBan.setTenMon(cursor.getString(4));
             list.add(monTrongBan);
         }while (cursor.moveToNext());
         cursor.close();
