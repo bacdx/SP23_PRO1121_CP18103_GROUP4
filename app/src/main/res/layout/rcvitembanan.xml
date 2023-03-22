@@ -7,12 +7,12 @@
     android:layout_height="wrap_content">
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="120dp"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_marginTop="20dp"
         android:layout_marginLeft="40dp"
-        android:background="#3BAFBD"
+        android:background="#59959C"
 
         >
 
@@ -37,18 +37,30 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            >    <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            >
 
-            />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Bàn Trống "
-                android:textStyle="bold"
-                android:textColor="#030"
-                /></LinearLayout>
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="40dp"
+                android:id="@+id/delete"
+                android:src="@drawable/delete"
+                />
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="40dp"
+                android:id="@+id/themmon"
+                android:src="@drawable/themmon"
+                />
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="40dp"
+                android:id="@+id/hoadon"
+                android:src="@drawable/tinhtien"
+                />
+
+                </LinearLayout>
 
     </LinearLayout>
 

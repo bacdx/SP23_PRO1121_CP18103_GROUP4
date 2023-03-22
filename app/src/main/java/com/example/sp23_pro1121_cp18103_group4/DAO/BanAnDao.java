@@ -40,6 +40,7 @@ public class BanAnDao {
         Cursor c = db.rawQuery(sql,SelectArgs);
         while(c.moveToNext()){
             BanAn banAn = new BanAn();
+            banAn.setId(Integer.parseInt(c.getString(c.getColumnIndex("maBan"))));
             banAn.setTenBanAN(c.getString(c.getColumnIndex("tenBan")));
             list.add(banAn);
 
