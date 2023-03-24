@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".Fragment.DoanhThuFragment">
+    tools:context=".Database.Fragment.DoanhThuFragment">
 
 
     <LinearLayout
@@ -16,6 +16,7 @@
         >
 
         <ImageView
+            android:src="@drawable/lich"
             android:layout_width="70dp"
             android:layout_height="100dp"/>
 
@@ -24,12 +25,13 @@
 
 
         <EditText
+            android:id="@+id/tungay"
             android:layout_width="250dp"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:layout_marginTop="20dp"
             android:hint="                  Từ Ngày "
             android:textStyle="bold"
-
+        android:background="@drawable/edittext_back"
             />
 
     </LinearLayout>
@@ -45,15 +47,17 @@
         <ImageView
             android:layout_width="70dp"
             android:layout_height="100dp"
-            android:src="@drawable/ic_baseline_menu_book_24_nav_thuc_don"
+            android:src="@drawable/lich"
             />
 
         <EditText
+            android:id="@+id/denngay"
             android:layout_width="250dp"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:layout_marginTop="20dp"
             android:hint="                  Đến  Ngày "
             android:textStyle="bold"
+            android:background="@drawable/edittext_back"
             />
 
     </LinearLayout>
@@ -65,6 +69,7 @@
         android:text="Thống Kê "
         android:layout_marginLeft="140dp"
         android:backgroundTint="#FF9800"
+
 
         />
 

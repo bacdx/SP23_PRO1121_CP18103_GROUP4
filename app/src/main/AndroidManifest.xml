@@ -23,13 +23,13 @@
         </activity>
         <activity
             android:name=".MonActivity"
-            android:exported="false"
-            android:theme="@style/Dialog">
+            android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-
+<!--            android:name=".DoiMatKhau"-->
+<!--            android:exported="false" />-->
         <activity
             android:name=".Account"
             android:exported="false" />
