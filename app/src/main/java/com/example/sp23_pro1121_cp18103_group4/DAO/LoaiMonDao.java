@@ -13,7 +13,6 @@ import java.util.List;
 
 public class LoaiMonDao {
     private SQLiteDatabase db;
-
     public LoaiMonDao(Context mContext) {
         DBHelper dbHelper = new DBHelper(mContext);
         db = dbHelper.getWritableDatabase();
@@ -33,7 +32,6 @@ public class LoaiMonDao {
     public long updateLoaiMon(LoaiMon loaiMon){
         ContentValues values = new ContentValues();
         values.put("tenLoaiMon",loaiMon.getTenLoaiMon());
-        values.put("imgLoaiMon",loaiMon.getImgLoaiMon());
         return db.update("LoaiMon",values,"maLoaiMon=?",new String[]{String.valueOf(loaiMon.getMaLoaiMon())});
     }
 

@@ -3,27 +3,46 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Database.Fragment.LoaiMonFragment"
-    >
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".Fragment.LoaiMonFragment">
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         >
-        <androidx.appcompat.widget.SearchView
-            android:layout_width="370dp"
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/loaimon_searchView"/>
-        <ImageView
-            android:layout_width="45dp"
-            android:layout_height="47dp"
-            android:layout_toRightOf="@id/loaimon_searchView"
-            android:src="@drawable/ic_baseline_filter_alt_24_filter"
-            android:id="@+id/loaimon_filter"/>
+            app:cardElevation="10dp"
+            app:cardCornerRadius="10dp"
+            android:id="@+id/loaimon_cardView"
+            android:layout_margin="10dp"
+            >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+                <androidx.appcompat.widget.SearchView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.5"
+                    android:id="@+id/loaimon_searchView"/>
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="30dp"
+                    android:layout_weight="0.1"
+                    android:layout_margin="5dp"
+                    android:layout_gravity="center"
+                    android:layout_toRightOf="@id/loaimon_searchView"
+                    android:src="@drawable/ic_baseline_filter_alt_24_filter"
+                    android:id="@+id/loaimon_filter"/>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/loaimon_rcView"
-            android:layout_below="@id/loaimon_searchView"
+            android:layout_below="@id/loaimon_cardView"
             />
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:layout_width="match_parent"
