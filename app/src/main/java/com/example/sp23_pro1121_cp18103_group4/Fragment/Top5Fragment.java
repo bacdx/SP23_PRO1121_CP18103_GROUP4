@@ -1,4 +1,4 @@
-package com.example.sp23_pro1121_cp18103_group4.Database.Fragment;
+package com.example.sp23_pro1121_cp18103_group4.Fragment;
 
 import android.os.Bundle;
 
@@ -22,6 +22,10 @@ import java.util.ArrayList;
 
 public class Top5Fragment extends Fragment {
     RecyclerView rcv;
+    Top5Adapter top5Adapter;
+    HoaDonDao hoaDonDao;
+    ArrayList<Top5> list;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -37,4 +41,15 @@ public class Top5Fragment extends Fragment {
 
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        list = new ArrayList<>();
+        hoaDonDao = new HoaDonDao(getContext());
+        list = hoaDonDao.getTop5();
+        top5Adapter = new Top5Adapter(list,getContext());
+        rcv.setAdapter(top5Adapter);
+
+    }
 }

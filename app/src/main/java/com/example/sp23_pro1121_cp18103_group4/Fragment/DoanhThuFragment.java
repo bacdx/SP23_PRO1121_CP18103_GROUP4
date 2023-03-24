@@ -1,4 +1,4 @@
-package com.example.sp23_pro1121_cp18103_group4.Database.Fragment;
+package com.example.sp23_pro1121_cp18103_group4.Fragment;
 
 import android.app.DatePickerDialog;
 import android.os.Bundle;

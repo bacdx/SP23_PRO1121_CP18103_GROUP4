@@ -43,18 +43,14 @@ public class BanAnDao {
             banAn.setId(Integer.parseInt(c.getString(c.getColumnIndex("maBan"))));
             banAn.setTenBanAN(c.getString(c.getColumnIndex("tenBan")));
             list.add(banAn);
-
         }
         return list;
-
-
     }
 
-    public ArrayList<BanAn> getALL(){
 
+    public ArrayList<BanAn> getALL(){
         String sql = "select * from Ban ";
         return getDS(sql);
-
     }
 
 }

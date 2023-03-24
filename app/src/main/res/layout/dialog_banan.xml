@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:orientation="vertical"
+    android:background="#ffffff"
     android:layout_height="wrap_content">
 
     <TextView
@@ -28,6 +29,7 @@
             android:id="@+id/tenbanan"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:textColor="@color/black"
             android:hint="Nhập Tên Bàn Ăn   " />
     </com.google.android.material.textfield.TextInputLayout>
 
