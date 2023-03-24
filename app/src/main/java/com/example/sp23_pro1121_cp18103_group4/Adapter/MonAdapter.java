@@ -12,6 +12,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
+import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,8 +31,11 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.sp23_pro1121_cp18103_group4.DAO.MonDao;
+import com.example.sp23_pro1121_cp18103_group4.DAO.MonTrongBanDAO;
 import com.example.sp23_pro1121_cp18103_group4.Model.Mon;
+import com.example.sp23_pro1121_cp18103_group4.Model.MonTrongBan;
 import com.example.sp23_pro1121_cp18103_group4.R;
+import com.google.android.material.textfield.TextInputEditText;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
@@ -47,6 +51,11 @@ public class MonAdapter extends RecyclerView.Adapter<MonAdapter.MyViewHolder> {
     CheckBox chkTrangThai;
     int maLoaiMon;
     ImageView imgMon;
+
+    MonTrongBan monTrongBan;
+
+    MonTrongBanDAO trongBanDAO;
+
     private static final int PICK_IMAGE_REQUEST = 100;
     static byte[] imageContent;
     public MonAdapter(Context mContext, List<Mon> list) {
@@ -66,6 +75,48 @@ public class MonAdapter extends RecyclerView.Adapter<MonAdapter.MyViewHolder> {
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         Mon mon = list.get(position);
         holder.mon_tvTenMon.setText(mon.getTenMon());
+
+            int index = position;
+        holder.mon_tvTenMon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Dialog dialog = new Dialog(mContext, androidx.appcompat.R.style.Theme_AppCompat);
+                dialog.setContentView(R.layout.dialogthemmontrongban);
+                trongBanDAO = new MonTrongBanDAO(mContext);
+
+                TextInputEditText soluong = dialog.findViewById(R.id.soluong);
+                Button luu = dialog.findViewById(R.id.luu);
+                Button huy = dialog.findViewById(R.id.huy);
+
+                 monTrongBan = new MonTrongBan();
+//                Intent intent = new Intent();
+//                Bundle bundle = new Bundle();
+//                bundle.putString("tenmon",list.get(position).getTenMon());
+//                intent.pu
+//
+                 luu.setOnClickListener(new View.OnClickListener() {
+                     @Override
+                     public void onClick(View view) {
+                         monTrongBan.setSoLuong(Integer.parseInt(soluong.getText().toString()));
+//                         monTrongBan.setMaBan(String.valueOf(maban));
+                         monTrongBan.setTenMon(list.get(position).getTenMon());
+                         monTrongBan.setMaMon(String.valueOf(mon.getMaMon()));
+                         if(trongBanDAO.insert(monTrongBan)>0){
+                             Toast.makeText(mContext, "Thành Công", Toast.LENGTH_SHORT).show();
+
+
+                         }else{
+                             Toast.makeText(mContext, "Thất Bại", Toast.LENGTH_SHORT).show();
+                         }
+                     }
+                 });
+
+                dialog.show();
+            }
+        });
+
+
         holder.mon_tvGiaTien.setText("Giá tiền: " + mon.getGiaTien());
         if (mon.getTrangThai().equals("Còn hàng")) {
             holder.mon_tvTrangThai.setText(mon.getTrangThai());

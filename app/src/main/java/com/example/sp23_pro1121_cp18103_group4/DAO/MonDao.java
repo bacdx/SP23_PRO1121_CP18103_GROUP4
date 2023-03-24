@@ -66,4 +66,19 @@ public class MonDao {
         return list;
     }
 
+    public Mon getID(String id){
+
+        String sql = "select * from Mon where maMon = ?";
+        List<Mon> list = getData(sql,id);
+        return list.get(0);
+
+    }
+
+    public List<Mon> getID2(String id){
+
+        String sql = "select * from Mon where maMon = ?";
+        return getData(sql,id);
+
+    }
+
 }
