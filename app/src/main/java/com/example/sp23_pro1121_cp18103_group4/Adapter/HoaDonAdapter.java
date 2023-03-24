@@ -1,6 +1,8 @@
 package com.example.sp23_pro1121_cp18103_group4.Adapter;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.sp23_pro1121_cp18103_group4.DAO.HoaDonDao;
 import com.example.sp23_pro1121_cp18103_group4.Model.ModelHoaDon;
 import com.example.sp23_pro1121_cp18103_group4.R;
 
@@ -18,6 +21,7 @@ public class HoaDonAdapter extends RecyclerView.Adapter<HoaDonAdapter.ViewHoaDon
 
     ArrayList<ModelHoaDon> list ;
     Context context;
+    HoaDonDao hoaDonDao ;
 
     public HoaDonAdapter(ArrayList<ModelHoaDon> list, Context context) {
         this.list = list;
@@ -42,6 +46,9 @@ public class HoaDonAdapter extends RecyclerView.Adapter<HoaDonAdapter.ViewHoaDon
         holder.maKhachHang.setText(list.get(position).getMaKH());
         holder.ngayLap.setText(list.get(position).getNgayLap());
         holder.tongTien.setText(list.get(position).getTongTien()+"");
+
+        int index = position;
+        hoaDonDao = new HoaDonDao(context);
 
     }
 

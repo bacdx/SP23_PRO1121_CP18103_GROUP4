@@ -169,7 +169,7 @@ public class BanAnAdapter extends RecyclerView.Adapter<BanAnAdapter.ViewBanan> {
                 monTrongBanAdapter = new MonTrongBanAdapter(listmtb,context);
                 rcv.setAdapter(monTrongBanAdapter);
 
-                tong.setText(trongBanDAO.getTong(String.valueOf(list.get(index).getId()))+" VND");
+                tong.setText(trongBanDAO.getTong(String.valueOf(list.get(index).getId()))+"");
 
                 checkBox1.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -177,9 +177,9 @@ public class BanAnAdapter extends RecyclerView.Adapter<BanAnAdapter.ViewBanan> {
                         boolean check = ((CheckBox)v).isChecked();
 
                         if(check){
-                            tong.setText(trongBanDAO.getGIamGia(String.valueOf(list.get(index).getId()))+ " VND");
+                            tong.setText(trongBanDAO.getGIamGia(String.valueOf(list.get(index).getId()))+"");
                         }else{
-                            tong.setText(trongBanDAO.getTong(String.valueOf(list.get(index).getId()))+" VND");
+                            tong.setText(trongBanDAO.getTong(String.valueOf(list.get(index).getId()))+"");
                         }
                     }
                 });
@@ -189,17 +189,17 @@ public class BanAnAdapter extends RecyclerView.Adapter<BanAnAdapter.ViewBanan> {
                     public void onClick(View v) {
 
 
-//                        ModelHoaDon hoaDon;
-//                        hoaDon = new ModelHoaDon();
-//                        hoaDonDao = new HoaDonDao(context);
-//
-//                        hoaDon.setMaBan(String.valueOf(list.get(index).getId()));
-//                        hoaDon.setMaKH("KH01");
-//                        hoaDon.setMaNV("NV01");
-//                        hoaDon.setNgayLap("21/3/2023");
-//                        hoaDon.setTongTien(Integer.parseInt("30000"));
-//
-//                        hoaDonDao.insertHoaDon(hoaDon);
+                        ModelHoaDon hoaDon;
+                        hoaDon = new ModelHoaDon();
+                        hoaDonDao = new HoaDonDao(context);
+
+                        hoaDon.setMaBan(String.valueOf(list.get(index).getId()));
+                        hoaDon.setMaKH("KH01");
+                        hoaDon.setMaNV("NV01");
+                        hoaDon.setNgayLap(ngay.getText().toString());
+                        hoaDon.setTongTien(Integer.parseInt(tong.getText().toString()));
+
+                        hoaDonDao.insertHoaDon(hoaDon);
 
 
                         try {
