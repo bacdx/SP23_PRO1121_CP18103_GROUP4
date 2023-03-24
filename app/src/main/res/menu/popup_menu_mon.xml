@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:title="Sắp xếp a-z"
+        android:id="@+id/sortUpTenMon"/>
+    <item
+        android:title="Sắp xếp z-a"
+        android:id="@+id/sortDownTenMon"/>
+    <item
+        android:title="Sắp xếp giá tiền tăng dần"
+        android:id="@+id/sortUpGiaTien"/>
+    <item
+        android:title="Sắp xếp giá tiền giảm dần"
+        android:id="@+id/sortDownGiaTien"/>
+    <item
+        android:title="--------------Giá--------------"
+        />
+    <item
+        android:title="Dưới 50.000 đ"
+        android:id="@+id/mon_filterMin"/>
+    <item
+        android:title="Từ 50.000-100.000 đ"
+        android:id="@+id/mon_filterBetween"/>
+    <item
+        android:title="Trên 100.000 đ"
+        android:id="@+id/mon_filterMax"/>
+</menu>
