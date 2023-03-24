@@ -29,9 +29,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         init();
         setDraw();
     }
+
     //ánh xạ
     public void init(){
         drawerLayout = findViewById(R.id.draw_layout);
@@ -50,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()){
+
                     case R.id.nav_Home:
                         replaceFragment(new HomeFragment());
                         break;
