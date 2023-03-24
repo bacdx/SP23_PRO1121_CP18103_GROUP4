@@ -25,10 +25,6 @@
                     android:icon="@drawable/ic_baseline_sticky_note_2_24_nav_hoa_don"
                     android:title="Hóa Đơn"/>
                 <item
-                    android:id="@+id/nav_ThanhVien"
-                    android:icon="@drawable/ic_baseline_people_24_thanhvien"
-                    android:title="Thành Viên"/>
-                <item
                     android:id="@+id/nav_KhachHang"
                     android:icon="@drawable/ic_baseline_account_circle_24_khach_hang"
                     android:title="Khách hàng"/>

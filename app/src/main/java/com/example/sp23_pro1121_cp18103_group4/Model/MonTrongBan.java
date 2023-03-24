@@ -6,6 +6,16 @@ public class MonTrongBan {
     private String maMon;
     private int soLuong;
 
+    String tenMon;
+
+    public String getTenMon() {
+        return tenMon;
+    }
+
+    public void setTenMon(String tenMon) {
+        this.tenMon = tenMon;
+    }
+
     public MonTrongBan() {
     }
 
