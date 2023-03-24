@@ -4,6 +4,8 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+
+
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -28,6 +30,7 @@ import com.example.sp23_pro1121_cp18103_group4.Activity.Dialog_MonTrongBan;
 import com.example.sp23_pro1121_cp18103_group4.DAO.BanAnDao;
 import com.example.sp23_pro1121_cp18103_group4.DAO.HoaDonDao;
 import com.example.sp23_pro1121_cp18103_group4.DAO.MonTrongBanDAO;
+
 import com.example.sp23_pro1121_cp18103_group4.Fragment.LoaiMonFragment;
 import com.example.sp23_pro1121_cp18103_group4.Fragment.ThemBanFragment;
 import com.example.sp23_pro1121_cp18103_group4.Model.BanAn;
@@ -73,6 +76,7 @@ public class BanAnAdapter extends RecyclerView.Adapter<BanAnAdapter.ViewBanan> {
         int index = position;
         daoBanAN = new BanAnDao(context);
 
+
         MonTrongBanDAO trongBanDAO1;
         trongBanDAO1 = new MonTrongBanDAO(context);
 
@@ -82,7 +86,6 @@ public class BanAnAdapter extends RecyclerView.Adapter<BanAnAdapter.ViewBanan> {
 //        }else{
 //
 //        }
-
 
 
         holder.delete.setOnClickListener(new View.OnClickListener() {
@@ -219,12 +222,100 @@ public class BanAnAdapter extends RecyclerView.Adapter<BanAnAdapter.ViewBanan> {
         });
 
 
+        holder.themmon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Fragment fragment = new LoaiMonFragment();
+                FragmentTransaction transaction = ((AppCompatActivity) context).getSupportFragmentManager().beginTransaction();
+                transaction.replace(R.id.mainFrame_collection_fragment,fragment).commit();
+
+                Bundle bundle = new Bundle();
+                bundle.putInt("maban",list.get(index).getId());
+                bundle.putBundle("banan",bundle);
+
+            }
+        });
+
+
+        holder.hoadon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ArrayList<MonTrongBan> listmtb;
+                MonTrongBanDAO trongBanDAO;
+                listmtb = new ArrayList<>();
+                trongBanDAO = new MonTrongBanDAO(context);
+
+                try {
+                    listmtb = trongBanDAO.getAllData();
+                }catch (Exception e){
+                    Toast.makeText(context, "Chưa Thêm Món Ăn Vào Bàn ", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                Dialog dialog = new Dialog(context, androidx.appcompat.R.style.Theme_AppCompat);
+                dialog.setContentView(R.layout.dialog_tinh_tien);
+
+                RecyclerView rcv = dialog.findViewById(R.id.rcv);
+                TextView tenban = dialog.findViewById(R.id.tenban);
+                TextView ngay = dialog.findViewById(R.id.ngay);
+                CheckBox checkBox = dialog.findViewById(R.id.check);
+                TextView tong = dialog.findViewById(R.id.tong);
+                Button thanhtoan = dialog.findViewById(R.id.thanhtoan);
+
+                MonTrongBan monTrongBan;
+                MonTrongBanAdapter monTrongBanAdapter;
+                monTrongBan = new MonTrongBan();
+
+
+
+
+                tenban.setText(list.get(index).getTenBanAN());
+                ngay.setText("22/3/2023");
+
+
+                monTrongBanAdapter = new MonTrongBanAdapter(listmtb,context);
+                rcv.setAdapter(monTrongBanAdapter);
+//                tong.setText(trongBanDAO.getTong()+" VND");
+                if (checkBox.isChecked()){
+                    tong.setText(trongBanDAO.getGIamGia()+" VND");
+                }else{
+                    tong.setText(trongBanDAO.getTong()+" VND");
+                }
+
+                thanhtoan.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        ModelHoaDon hoaDon;
+                        hoaDon = new ModelHoaDon();
+                        hoaDonDao = new HoaDonDao(context);
+
+                        hoaDon.setMaBan(String.valueOf(list.get(index).getId()));
+                        hoaDon.setMaKH("KH01");
+                        hoaDon.setMaNV("NV01");
+                        hoaDon.setNgayLap("21/3/2023");
+                        hoaDon.setTongTien(trongBanDAO.getTong());
+
+                        hoaDonDao.insertHoaDon(hoaDon);
+                        Toast.makeText(context, "Thành Công", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+
+
+                dialog.show();
+            }
+        });
+
+
+
     }
     @Override
     public int getItemCount() {
         return list.size();
     }
     class ViewBanan extends RecyclerView.ViewHolder{
+
+      
 
         TextView tenban,status ;
         ImageView delete,themmon,hoadon;
@@ -238,7 +329,6 @@ public class BanAnAdapter extends RecyclerView.Adapter<BanAnAdapter.ViewBanan> {
             themmon = itemView.findViewById(R.id.themmon);
             anh  = itemView.findViewById(R.id.anh);
             hoadon = itemView.findViewById(R.id.hoadon);
-
 
         }
     }

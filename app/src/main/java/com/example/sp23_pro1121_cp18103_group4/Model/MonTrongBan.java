@@ -6,6 +6,8 @@ public class MonTrongBan {
     private String maMon;
     private int soLuong;
 
+
+
     int giaMon;
 
     public int getGiaMon() {

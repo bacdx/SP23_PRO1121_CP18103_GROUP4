@@ -21,11 +21,8 @@ public class KhachHangDao {
 
     public long insertKhachHang(KhachHang khachHang){
         ContentValues values = new ContentValues();
-        values.put("hoTen",khachHang.getHoTen());
-        values.put("namSinh",khachHang.getNamSinh());
-        values.put("gioiTinh",khachHang.getGioiTinh());
-        values.put("soDT",khachHang.getSoDT());
-        values.put("diaChi",khachHang.getDiaChi());
+        values.put("name",khachHang.getName());
+        values.put("numberPhone",khachHang.getNumberPhone());
         return db.insert("KhachHang",null,values);
     }
 
@@ -35,11 +32,8 @@ public class KhachHangDao {
 
     public long updateKhachHang(KhachHang khachHang){
         ContentValues values = new ContentValues();
-        values.put("hoTen",khachHang.getHoTen());
-        values.put("namSinh",khachHang.getNamSinh());
-        values.put("gioiTinh",khachHang.getGioiTinh());
-        values.put("soDT",khachHang.getSoDT());
-        values.put("diaChi",khachHang.getDiaChi());
+        values.put("name",khachHang.getName());
+        values.put("numberPhone",khachHang.getNumberPhone());
         return db.update("KhachHang",values,"maKhachHang=?",new String[]{String.valueOf(khachHang.getMaKhachHang())});
     }
 
@@ -54,12 +48,9 @@ public class KhachHangDao {
         c.moveToFirst();
         while (!c.isAfterLast()){
             int maKhachHang = c.getInt(0);
-            String hoTen = c.getString(1);
-            int namSinh = c.getInt(2);
-            String gioiTinh = c.getString(3);
-            String soDT = c.getString(4);
-            String diaChi = c.getString(5);
-            KhachHang khachHang = new KhachHang(maKhachHang,hoTen,namSinh,gioiTinh,soDT,diaChi);
+            String name = c.getString(1);
+            String numberPhone = c.getString(2);
+            KhachHang khachHang = new KhachHang(maKhachHang,name,numberPhone);
             list.add(khachHang);
             c.moveToNext();
         }
