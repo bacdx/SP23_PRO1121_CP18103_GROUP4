@@ -30,6 +30,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.sp23_pro1121_cp18103_group4.Activity.Dialog_MonTrongBan;
 import com.example.sp23_pro1121_cp18103_group4.DAO.MonDao;
 import com.example.sp23_pro1121_cp18103_group4.DAO.MonTrongBanDAO;
 import com.example.sp23_pro1121_cp18103_group4.Model.Mon;
@@ -76,43 +77,48 @@ public class MonAdapter extends RecyclerView.Adapter<MonAdapter.MyViewHolder> {
         Mon mon = list.get(position);
         holder.mon_tvTenMon.setText(mon.getTenMon());
 
-            int index = position;
+        int index = position;
         holder.mon_tvTenMon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                Dialog dialog = new Dialog(mContext, androidx.appcompat.R.style.Theme_AppCompat);
-                dialog.setContentView(R.layout.dialogthemmontrongban);
-                trongBanDAO = new MonTrongBanDAO(mContext);
-
-                TextInputEditText soluong = dialog.findViewById(R.id.soluong);
-                Button luu = dialog.findViewById(R.id.luu);
-                Button huy = dialog.findViewById(R.id.huy);
-
-                 monTrongBan = new MonTrongBan();
-//                Intent intent = new Intent();
-//                Bundle bundle = new Bundle();
-//                bundle.putString("tenmon",list.get(position).getTenMon());
-//                intent.pu
 //
-                 luu.setOnClickListener(new View.OnClickListener() {
-                     @Override
-                     public void onClick(View view) {
-                         monTrongBan.setSoLuong(Integer.parseInt(soluong.getText().toString()));
-//                         monTrongBan.setMaBan(String.valueOf(maban));
-                         monTrongBan.setTenMon(list.get(position).getTenMon());
-                         monTrongBan.setMaMon(String.valueOf(mon.getMaMon()));
-                         if(trongBanDAO.insert(monTrongBan)>0){
-                             Toast.makeText(mContext, "Thành Công", Toast.LENGTH_SHORT).show();
+//                Dialog dialog = new Dialog(mContext, androidx.appcompat.R.style.Theme_AppCompat);
+//                dialog.setContentView(R.layout.dialogthemmontrongban);
+//                trongBanDAO = new MonTrongBanDAO(mContext);
+//
+//                TextInputEditText soluong = dialog.findViewById(R.id.soluong);
+//                Button luu = dialog.findViewById(R.id.luu);
+//                Button huy = dialog.findViewById(R.id.huy);
+//
+//
+//
+//                luu.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View view) {
+//                        monTrongBan = new MonTrongBan();
+//                        monTrongBan.setSoLuong(Integer.parseInt(soluong.getText().toString()));
+////                         monTrongBan.setMaBan(String.valueOf(maban));
+//                        monTrongBan.setTenMon(mon.getTenMon());
+//                        monTrongBan.setGiaMon(mon.getGiaTien());
+//                        monTrongBan.setMaMon(String.valueOf(mon.getMaMon()));
+//                        if (trongBanDAO.insert(monTrongBan) > 0) {
+//                            Toast.makeText(mContext, "Thành Công", Toast.LENGTH_SHORT).show();
+//
+//
+//                        } else {
+//                            Toast.makeText(mContext, "Thất Bại", Toast.LENGTH_SHORT).show();
+//                        }
+//                    }
+//                });
 
-
-                         }else{
-                             Toast.makeText(mContext, "Thất Bại", Toast.LENGTH_SHORT).show();
-                         }
-                     }
-                 });
-
-                dialog.show();
+                Intent intent = new Intent(mContext,Dialog_MonTrongBan.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("tenmon",mon.getTenMon());
+                bundle.putInt("giamon",mon.getGiaTien());
+                intent.putExtra("thongtin",bundle);
+                mContext.startActivity(intent);
+//
+//                dialog.show();
             }
         });
 
@@ -126,22 +132,9 @@ public class MonAdapter extends RecyclerView.Adapter<MonAdapter.MyViewHolder> {
             holder.mon_tvTrangThai.setTextColor(Color.RED);
             holder.mon_tvTrangThai.setPaintFlags(holder.mon_tvGiaTien.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
         }
-        Bitmap imageContent = BitmapFactory.decodeByteArray(mon.getImgMon(),0,mon.getImgMon().length);
+        Bitmap imageContent = BitmapFactory.decodeByteArray(mon.getImgMon(), 0, mon.getImgMon().length);
         holder.mon_imgMon.setImageBitmap(imageContent);
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                Bundle bundle = new Bundle();
-//                bundle.putString("tenMon",mon.getTenMon());
-//                bundle.putInt("giaTien",mon.getGiaTien());
-//                bundle.putString("trangThai",mon.getTrangThai());
-//                bundle.putByteArray("imgMon",mon.getImgMon());
-//                Intent mIntent = new Intent(mContext, MonActivity.class);
-//                mIntent.putExtra("monData",bundle);
-//                mContext.startActivity(mIntent);
-                openDialogUpdate(Gravity.CENTER);
-            }
-        });
+
     }
     public void openDialogUpdate(int gravity) {
         Dialog dialog = new Dialog(mContext);

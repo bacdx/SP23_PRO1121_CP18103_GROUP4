@@ -11,7 +11,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.sp23_pro1121_cp18103_group4.DAO.BanAnDao;
 import com.example.sp23_pro1121_cp18103_group4.DAO.MonDao;
+import com.example.sp23_pro1121_cp18103_group4.Model.BanAn;
 import com.example.sp23_pro1121_cp18103_group4.Model.Mon;
 import com.example.sp23_pro1121_cp18103_group4.Model.MonTrongBan;
 import com.example.sp23_pro1121_cp18103_group4.R;
@@ -27,6 +29,8 @@ public class MonTrongBanAdapter extends RecyclerView.Adapter<MonTrongBanAdapter.
     MonDao monDao ;
     Mon mon;
 
+    BanAnDao banAnDao;
+    ArrayList<BanAn> listBanAN;
 
 
     public MonTrongBanAdapter(ArrayList<MonTrongBan> list, Context context) {
@@ -49,16 +53,11 @@ public class MonTrongBanAdapter extends RecyclerView.Adapter<MonTrongBanAdapter.
 
         MonTrongBan monTrongBan = list.get(position);
 
-        mon = new Mon();
-        monDao = new MonDao(context);
         int index = position;
 
-
-        mon = monDao.getID(list.get(position).getMaMon());
-
-        holder.tenmon.setText(list.get(position).getTenMon());
-        holder.soluong.setText(list.get(index).getSoLuong()+"");
-        holder.tongtien.setText(list.get(index).getSoLuong() * mon.getGiaTien()+" VND");
+            holder.tenmon.setText(list.get(position).getTenMon());
+            holder.soluong.setText(list.get(index).getSoLuong()+"");
+            holder.tongtien.setText(list.get(index).getSoLuong() * list.get(index).getGiaMon()+" VND");
 
     }
 
