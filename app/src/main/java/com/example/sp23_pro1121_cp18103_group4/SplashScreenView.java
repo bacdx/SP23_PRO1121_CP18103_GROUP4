@@ -6,8 +6,6 @@ import android.os.Handler;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.sp23_pro1121_cp18103_group4.Activity.Login;
-
 public class SplashScreenView extends AppCompatActivity {
 
     @Override
@@ -18,7 +16,6 @@ public class SplashScreenView extends AppCompatActivity {
             @Override
             public void run() {
                 startActivity(new Intent(SplashScreenView.this,MainActivity.class));
-//                startActivity(new Intent(SplashScreenView.this, Login.class));
             }
         },3000);
     }
