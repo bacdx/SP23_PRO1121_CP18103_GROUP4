@@ -35,7 +35,9 @@ public class MonTrongBanDAO {
         values.put("maMon",monTrongBan.getMaMon());
         values.put("soLuong",monTrongBan.getSoLuong());
         values.put("tenMon",monTrongBan.getTenMon());
+
         values.put("giaMon",monTrongBan.getGiaMon());
+
         return values;
     }
     public int update(MonTrongBan monTrongBan){
@@ -59,6 +61,7 @@ return db.delete("MonTrongBan","id=?",new String[]{id});
             monTrongBan.setSoLuong(Integer.parseInt(cursor.getString(5)));
             monTrongBan.setTenMon(cursor.getString(3));
             monTrongBan.setGiaMon(Integer.parseInt(cursor.getString(4)));
+
             list.add(monTrongBan);
         }while (cursor.moveToNext());
         cursor.close();
@@ -74,11 +77,13 @@ return db.delete("MonTrongBan","id=?",new String[]{id});
     }
 
     @SuppressLint("Range")
+
     public int getTong(String id){
 
         String sql = "select sum(soLuong * giaMon) as tong from MonTrongBan where maBan = ?";
         ArrayList<Integer> list = new ArrayList<>();
         Cursor c = db.rawQuery(sql,new String[]{id});
+
 
         while(c.moveToNext()){
             try {
@@ -91,6 +96,7 @@ return db.delete("MonTrongBan","id=?",new String[]{id});
     }
 
     @SuppressLint("Range")
+
     public int getGIamGia(String id){
         String sql = "select ((sum(soLuong * giaMon))-((sum(soLuong * giaMon))*10/100)) as tong from MonTrongBan where maBan = ?";
         ArrayList<Integer> list = new ArrayList<>();

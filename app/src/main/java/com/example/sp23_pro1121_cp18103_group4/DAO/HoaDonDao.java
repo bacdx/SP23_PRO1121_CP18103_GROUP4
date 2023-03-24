@@ -92,6 +92,7 @@ public class HoaDonDao {
         return list.get(0);
     }
 
+
     @SuppressLint("Range")
     public ArrayList<Top5> getTop5(){
 
@@ -107,5 +108,6 @@ public class HoaDonDao {
         }
         return list;
     }
+
 
 }
