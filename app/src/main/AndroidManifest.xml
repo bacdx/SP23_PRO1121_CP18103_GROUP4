@@ -13,8 +13,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SP23_PRO1121_CP18103_GROUP4"
         tools:targetApi="31">
-        <activity
 
+        <activity
             android:name=".SplashScreenView"
             android:exported="false">
             <meta-data
@@ -37,11 +37,13 @@
             android:name=".ListAccount"
             android:exported="false" />
         <activity
-            android:name=".Activity.Login"
-            android:exported="false" />
+            android:name=".MainActivity"
+            android:exported="false"/>
+
+
 
         <activity
-            android:name=".MainActivity"
+            android:name=".Activity.Login"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -49,9 +51,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
 
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
+
         </activity>
     </application>
 

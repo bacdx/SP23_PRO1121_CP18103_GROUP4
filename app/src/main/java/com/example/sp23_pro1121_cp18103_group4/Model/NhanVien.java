@@ -6,7 +6,7 @@ public class NhanVien {
     String hoten;
     String userName,PassWord,SoDienThoai;
 
-    public NhanVien() {
+    public NhanVien(int id, String hoten, String userName, String passWord, String soDienThoai) {
     }
 
     public int getId() {
