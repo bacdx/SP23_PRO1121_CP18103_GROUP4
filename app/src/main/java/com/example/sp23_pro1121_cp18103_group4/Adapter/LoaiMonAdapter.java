@@ -27,14 +27,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.sp23_pro1121_cp18103_group4.DAO.LoaiMonDao;
 import com.example.sp23_pro1121_cp18103_group4.DAO.MonDao;
-import com.example.sp23_pro1121_cp18103_group4.Fragment.MonFragment;
 import com.example.sp23_pro1121_cp18103_group4.Model.LoaiMon;
 import com.example.sp23_pro1121_cp18103_group4.MonActivity;
 import com.example.sp23_pro1121_cp18103_group4.R;
@@ -75,14 +71,12 @@ public class LoaiMonAdapter extends RecyclerView.Adapter<LoaiMonAdapter.MyViewHo
             @Override
             public void onClick(View v) {
                 Toast.makeText(mContext, ""+loaiMon.getTenLoaiMon(), Toast.LENGTH_SHORT).show();
-                //bundle fragment
+                //bundel activity
+                Intent mIntent = new Intent(mContext, MonActivity.class);
                 Bundle bundle = new Bundle();
-                bundle.putInt("maLoaiMon",loaiMon.getMaLoaiMon());
-                Fragment fragment = new MonFragment();
-                fragment.setArguments(bundle);
-                FragmentTransaction transaction = ((FragmentActivity)mContext).getSupportFragmentManager().beginTransaction();
-                transaction.replace(R.id.mainFrame_collection_fragment,fragment).commit();
-                Toast.makeText(mContext, "" + loaiMon.getMaLoaiMon(), Toast.LENGTH_SHORT).show();
+                bundle.putInt("maLoaiMon", loaiMon.getMaLoaiMon());
+                mIntent.putExtra("getId",bundle);
+                mContext.startActivity(mIntent);
             }
         });
         //set popup menu edit, delete;

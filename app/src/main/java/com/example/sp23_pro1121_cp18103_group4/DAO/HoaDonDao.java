@@ -1,5 +1,6 @@
 package com.example.sp23_pro1121_cp18103_group4.DAO;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -8,6 +9,7 @@ import android.database.sqlite.SQLiteDatabase;
 import com.example.sp23_pro1121_cp18103_group4.Database.DBHelper;
 import com.example.sp23_pro1121_cp18103_group4.Model.LoaiMon;
 import com.example.sp23_pro1121_cp18103_group4.Model.ModelHoaDon;
+import com.example.sp23_pro1121_cp18103_group4.Model.Top5;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,37 +24,34 @@ public class HoaDonDao {
 
     public long insertHoaDon(ModelHoaDon hoaDon) {
         ContentValues values = new ContentValues();
-        values.put("maHoaDon", hoaDon.getMaHoaDon());
         values.put("maBan", hoaDon.getMaBan());
         values.put("maNV", hoaDon.getMaNV());
-        values.put("maKH", hoaDon.getMaKH());
+        values.put("maKhachHang", hoaDon.getMaKH());
         values.put("ngayLap", hoaDon.getNgayLap());
         values.put("tongTien", hoaDon.getTongTien());
-        return db.insert("ModelHoaDon", null, values);
+        return db.insert("HoaDon", null, values);
     }
 
+
+
     public int deleteHoaDon(ModelHoaDon hoaDon) {
-        return db.delete("ModelHoaDon", "maHoaDon", new String[]{String.valueOf(hoaDon.getMaHoaDon())});
+        return db.delete("HoaDon", "maHoaDon", new String[]{String.valueOf(hoaDon.getMaHoaDon())});
     }
 
     public long updateHoaDon(ModelHoaDon hoaDon) {
         ContentValues values = new ContentValues();
-        values.put("maHoaDon", hoaDon.getMaHoaDon());
         values.put("maBan", hoaDon.getMaBan());
         values.put("maNV", hoaDon.getMaNV());
         values.put("maKH", hoaDon.getMaKH());
         values.put("ngayLap", hoaDon.getNgayLap());
         values.put("tongTien", hoaDon.getTongTien());
-        return db.update("ModelHoaDon", values, "maHoaDon", new String[]{String.valueOf(hoaDon.getMaHoaDon())});
+        return db.update("HoaDon", values, "maHoaDon", new String[]{String.valueOf(hoaDon.getMaHoaDon())});
     }
 
-    public List<ModelHoaDon> getAll() {
-        String sql = "Select * from ModelHoaDon";
-        return getData(sql);
-    }
 
-    private List<ModelHoaDon> getData(String sql, String... Arg) {
-        List<ModelHoaDon> list = new ArrayList<>();
+
+    private ArrayList<ModelHoaDon> getData(String sql, String... Arg) {
+        ArrayList<ModelHoaDon> list = new ArrayList<>();
         Cursor c = db.rawQuery(sql, Arg);
         c.moveToFirst();
         while (!c.isAfterLast()) {
@@ -68,4 +67,47 @@ public class HoaDonDao {
         }
         return list;
     }
+
+    public ArrayList<ModelHoaDon> getAll() {
+        String sql = "Select * from HoaDon";
+        return getData(sql);
+    }
+
+
+    @SuppressLint("Range")
+    public int getDoanhThu(String tungay, String denngay){
+
+        String sql = "select sum(tongTien) as doanhthu from HoaDon where ngayLap between ? and ?";
+        ArrayList<Integer> list = new ArrayList<>();
+        Cursor c = db.rawQuery(sql,new String[]{tungay,denngay});
+
+        while(c.moveToNext()){
+
+            try {
+                list.add(Integer.parseInt(c.getString(c.getColumnIndex("doanhthu"))));
+            }catch (Exception e){
+                list.add(0);
+            }
+        }
+        return list.get(0);
+    }
+
+
+    @SuppressLint("Range")
+    public ArrayList<Top5> getTop5(){
+
+        String sql = "select tongTien  from HoaDon order by tongTien desc limit 5";
+        ArrayList<Top5> list = new ArrayList<>();
+
+        Cursor c = db.rawQuery(sql,null);
+        while (c.moveToNext()){
+            Top5 top5 = new Top5();
+            top5.setMahoadon(c.getString(c.getColumnIndex("maHoaDon")));
+            top5.setTongtien(c.getString(c.getColumnIndex("tongTien")));
+            list.add(top5);
+        }
+        return list;
+    }
+
+
 }

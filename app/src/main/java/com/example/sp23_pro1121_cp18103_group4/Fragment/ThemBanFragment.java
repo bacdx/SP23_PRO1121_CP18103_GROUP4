@@ -27,7 +27,10 @@ import java.util.ArrayList;
 
 public class ThemBanFragment extends Fragment {
 
-
+    ArrayList<BanAn> list ;
+    BanAnAdapter adapterBanAn;
+    BanAnDao daott;
+    RecyclerView rcv;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -38,9 +41,9 @@ public class ThemBanFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        RecyclerView rcv = view.findViewById(R.id.rcv);
+         rcv = view.findViewById(R.id.rcv);
         FloatingActionButton flt = view.findViewById(R.id.flt_thembanan);
-        BanAnDao daott;
+
         daott = new BanAnDao(getContext());
 
 
@@ -66,9 +69,9 @@ public class ThemBanFragment extends Fragment {
                     @Override
                     public void onClick(View view) {
 
-                        ArrayList<BanAn> list ;
+
                         list = new ArrayList<>();
-                        BanAnAdapter adapterBanAn;
+
                         if(tenbanan.getText().toString().length()==0){
                             Toast.makeText(getContext(), "Không Được Để Trống ", Toast.LENGTH_SHORT).show();
                             return ;
@@ -94,5 +97,15 @@ public class ThemBanFragment extends Fragment {
         });
 
 
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        daott = new BanAnDao(getContext());
+        list = new ArrayList<>();
+        list = daott.getALL();
+        adapterBanAn = new BanAnAdapter(getContext(),list);
+        rcv.setAdapter(adapterBanAn);
     }
 }

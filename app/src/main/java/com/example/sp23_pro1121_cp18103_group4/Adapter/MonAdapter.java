@@ -13,6 +13,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
+import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -36,7 +37,6 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.sp23_pro1121_cp18103_group4.DAO.MonDao;
-import com.example.sp23_pro1121_cp18103_group4.Model.LoaiMon;
 import com.example.sp23_pro1121_cp18103_group4.Model.Mon;
 import com.example.sp23_pro1121_cp18103_group4.R;
 
@@ -86,30 +86,50 @@ public class MonAdapter extends RecyclerView.Adapter<MonAdapter.MyViewHolder> im
             holder.mon_tvTrangThai.setTextColor(Color.RED);
             holder.mon_tvTrangThai.setPaintFlags(holder.mon_tvGiaTien.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
         }
-        Bitmap imageContent = BitmapFactory.decodeByteArray(mon.getImgMon(),0,mon.getImgMon().length);
+        Bitmap imageContent = BitmapFactory.decodeByteArray(mon.getImgMon(), 0, mon.getImgMon().length);
         holder.mon_imgMon.setImageBitmap(imageContent);
-        holder.img_popupMon.setOnClickListener(new View.OnClickListener() {
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                PopupMenu popupMenu = new PopupMenu(v.getContext(), holder.img_popupMon);
-                popupMenu.getMenuInflater().inflate(R.menu.popup_menu, popupMenu.getMenu());
-                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                    @Override
-                    public boolean onMenuItemClick(MenuItem item) {
-                        switch (item.getItemId()) {
-                            case R.id.popup_update:
-                                updateMon(Gravity.CENTER, mon);
-                                break;
-                            case R.id.popup_delete:
-                                openDialogDeleteMon(holder.getAdapterPosition(), mon);
-                                break;
-                        }
-                        return false;
-                    }
-
-                });
-                popupMenu.show();
-
+//                Bundle bundle = new Bundle();
+//                bundle.putString("tenMon",mon.getTenMon());
+//                bundle.putInt("giaTien",mon.getGiaTien());
+//                bundle.putString("trangThai",mon.getTrangThai());
+//                bundle.putByteArray("imgMon",mon.getImgMon());
+//                Intent mIntent = new Intent(mContext, MonActivity.class);
+//                mIntent.putExtra("monData",bundle);
+//                mContext.startActivity(mIntent);
+                openDialogUpdate(Gravity.CENTER);
+            }
+        });
+    }
+    public void openDialogUpdate(int gravity) {
+        Dialog dialog = new Dialog(mContext);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.dialog_mon);
+        dialog.create();
+        dialog.show();
+        //custom dialog
+        Window window = dialog.getWindow();
+        if (window == null) {
+            return;
+        }
+        window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
+        window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        WindowManager.LayoutParams windowAttributes = window.getAttributes();
+        windowAttributes.gravity = gravity;
+        window.setAttributes(windowAttributes);
+        //tạo mới model
+        Mon mon = new Mon();
+        TextView mon_tvTitle;
+        Button btnSave;
+        imgMon = dialog.findViewById(R.id.mon_addImg);
+        imgMon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+                intent.setType("image/*");
+                ((Activity) mContext).startActivityForResult(intent, PICK_IMAGE_REQUEST);
             }
         });
     }

@@ -13,7 +13,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -21,12 +20,10 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -40,9 +37,6 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 
@@ -60,8 +54,7 @@ public class LoaiMonFragment extends Fragment {
     //dialog
     EditText edTenLoaiMon;
     ImageView imgLoaiMon;
-    private SearchView searchView;
-    ImageView loaimon_filter;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,94 +68,15 @@ public class LoaiMonFragment extends Fragment {
         init(view);
         getListLoaiMon();
         insertLoaiMon();
-        openSearchView(view);
-        openFilter();
         return view;
     }
-    //*********//
+
     //ánh xạ
     public void init(View view) {
         rc_loaiMon = view.findViewById(R.id.loaimon_rcView);
         flbtnAdd = view.findViewById(R.id.loaimon_btnAdd);
-        loaimon_filter = view.findViewById(R.id.loaimon_filter);
-    }
-    //*********//
-    //thiết lập search view tìm kiếm tên loại món
-    public void openSearchView(View view){
-        searchView = view.findViewById(R.id.loaimon_searchView);
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                adapter.getFilter().filter(query);
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                adapter.getFilter().filter(newText);
-                return false;
-            }
-        });
-    }
-    //*********//
-    //thiết lập filter sắp xếp
-    public void openFilter(){
-        loaimon_filter.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                PopupMenu popupMenu = new PopupMenu(getActivity(), loaimon_filter);
-                popupMenu.getMenuInflater().inflate(R.menu.popup_menu_loaimon, popupMenu.getMenu());
-                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                    @Override
-                    public boolean onMenuItemClick(MenuItem item) {
-                        switch (item.getItemId()) {
-                            case R.id.sortUpLoaiMon:
-                                sortTangDan();
-                                break;
-                            case R.id.sortDownLoaiMon:
-                                sortGiamDan();
-                                break;
-                        }
-                        return false;
-                    }
-                });
-                popupMenu.show();
-
-            }
-        });
-    }
-    //*********//
-    //phương thức sắp xếp tên món tăng dần
-    public void sortTangDan(){
-        Comparator<LoaiMon> com = new Comparator<LoaiMon>() {
-            @Override
-            public int compare(LoaiMon o1, LoaiMon o2) {
-                return o1.getTenLoaiMon().compareToIgnoreCase(o2.getTenLoaiMon());
-            }
-        };
-        Collections.sort(list,com);
-        adapter = new LoaiMonAdapter(getContext(),list);
-        rc_loaiMon.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
     }
 
-    //*********//
-    //phương thức sắp xếp tên món giảm dần
-    public void sortGiamDan(){
-        Comparator<LoaiMon> com = new Comparator<LoaiMon>() {
-            @Override
-            public int compare(LoaiMon o1, LoaiMon o2) {
-                return o2.getTenLoaiMon().compareToIgnoreCase(o1.getTenLoaiMon());
-            }
-        };
-        Collections.sort(list,com);
-        adapter = new LoaiMonAdapter(getContext(),list);
-        rc_loaiMon.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
-    }
-
-
-    //*********//
     //đổ dữ liệu
     public void getListLoaiMon() {
         dao = new LoaiMonDao(getContext());
@@ -173,8 +87,6 @@ public class LoaiMonFragment extends Fragment {
         rc_loaiMon.setAdapter(adapter);
     }
 
-
-    //*********//
     //thêm loại món
     public void insertLoaiMon() {
         flbtnAdd.setOnClickListener(new View.OnClickListener() {
