@@ -6,14 +6,15 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
 
+import com.example.sp23_pro1121_cp18103_group4.data.Data;
 
 
 public class DBHelper extends SQLiteOpenHelper {
-//    public Data data = new Data();
+    public Data data = new Data();
     public static final String DBName = "FAST_FOOD";
 
 
-    public static final int DBVersion = 12;
+    public static final int DBVersion = 13;
 
 
 
@@ -32,7 +33,7 @@ public class DBHelper extends SQLiteOpenHelper {
             "id integer not null primary key autoincrement," +
             "maBan integer references Ban(maBan)," +
             "maMon integer references Mon(maMon)," +
-            "tenMon text not null," +
+            "tenMon text," +
             "giaMon integer not null," +
             "soLuong integer);";
     private static final String TABLE_LOAI_MON = "create table LoaiMon (maLoaiMon integer primary key autoincrement," +
@@ -50,9 +51,9 @@ public class DBHelper extends SQLiteOpenHelper {
             "user text," +
             "passWord text," +
             "numberPhone text," +
-            "gioTinh text," +
-            "ngaySinh text," +
-            "uyQuyen" +
+            "gioiTinh text," +
+            "ngaySinh date," +
+            "uyQuyen text," +
             "status text);";
     private static final String TABLE_HOADON = "create table HoaDon(" +
             "maHoaDon integer not null primary key autoincrement," +
@@ -69,8 +70,6 @@ public class DBHelper extends SQLiteOpenHelper {
             "maKhachHang integer not null primary key autoincrement," +
             "name text," +
             "numberPhone text," +
-
-            "maKhachHang integer not null primary key," +
             "hoTen text," +
             "namSinh integer," +
             "gioiTinh text," +
