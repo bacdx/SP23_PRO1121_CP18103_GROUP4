@@ -11,12 +11,11 @@
         android:background="@drawable/custom_textview"
         android:gravity="center"
         android:padding="12dp"
-        android:text="Thêm Bàn Ăn   "
+        android:text="Thêm Số Lượng  món"
         android:textColor="#fff"
-
+        android:id="@+id/loaimon_tvTitle"
         android:textSize="20dp"
         android:textStyle="bold" />
-
 
 
     <com.google.android.material.textfield.TextInputLayout
@@ -26,17 +25,23 @@
         android:layout_margin="10dp">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/tenbanan"
+            android:id="@+id/soluong"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:textColor="@color/black"
-            android:hint="Nhập Tên Bàn Ăn   " />
+            android:hint="Nhập Số Lượng   " />
     </com.google.android.material.textfield.TextInputLayout>
+
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/spn"
+        />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
+
+        android:layout_marginTop="100dp"
         android:orientation="horizontal">
 
         <Button

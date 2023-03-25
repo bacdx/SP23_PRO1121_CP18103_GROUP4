@@ -6,6 +6,18 @@ public class MonTrongBan {
     private String maMon;
     private int soLuong;
 
+
+
+    int giaMon;
+
+    public int getGiaMon() {
+        return giaMon;
+    }
+
+    public void setGiaMon(int giaMon) {
+        this.giaMon = giaMon;
+    }
+
     String tenMon;
 
     public String getTenMon() {

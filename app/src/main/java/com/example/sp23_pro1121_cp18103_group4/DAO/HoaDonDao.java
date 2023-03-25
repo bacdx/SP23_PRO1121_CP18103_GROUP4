@@ -32,6 +32,8 @@ public class HoaDonDao {
         return db.insert("HoaDon", null, values);
     }
 
+
+
     public int deleteHoaDon(ModelHoaDon hoaDon) {
         return db.delete("HoaDon", "maHoaDon", new String[]{String.valueOf(hoaDon.getMaHoaDon())});
     }
@@ -90,6 +92,22 @@ public class HoaDonDao {
         return list.get(0);
     }
 
+
+    @SuppressLint("Range")
+    public ArrayList<Top5> getTop5(){
+
+        String sql = "select tongTien  from HoaDon order by tongTien desc limit 5";
+        ArrayList<Top5> list = new ArrayList<>();
+
+        Cursor c = db.rawQuery(sql,null);
+        while (c.moveToNext()){
+            Top5 top5 = new Top5();
+            top5.setMahoadon(c.getString(c.getColumnIndex("maHoaDon")));
+            top5.setTongtien(c.getString(c.getColumnIndex("tongTien")));
+            list.add(top5);
+        }
+        return list;
+    }
 
 
 }

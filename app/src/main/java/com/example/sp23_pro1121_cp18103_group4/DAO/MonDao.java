@@ -35,10 +35,7 @@ public class MonDao {
 
     public long updateMon(Mon mon){
         ContentValues values = new ContentValues();
-        values.put("tenMon",mon.getTenMon());
-        values.put("giaTien",mon.getGiaTien());
         values.put("trangThai",mon.getTrangThai());
-        values.put("imgMon",mon.getImgMon());
         return db.update("Mon",values,"maMon=?",new String[]{String.valueOf(mon.getMaMon())});
     }
 
@@ -65,5 +62,6 @@ public class MonDao {
         }
         return list;
     }
+
 
 }

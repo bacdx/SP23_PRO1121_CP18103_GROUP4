@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/sortUpGiaTien"
+        android:title="Giá tiền ↑" />
+
+    <item
+        android:id="@+id/sortDownGiaTien"
+        android:title="Giá tiền ↓" />
+    <item
+        android:title="Lọc"
+        >
+        <menu
+            >
+            <group
+                >
+                <item
+                    android:id="@+id/sortUpTenMon"
+                    android:title="Tên món a-z" />
+                <item
+                    android:id="@+id/sortDownTenMon"
+                    android:title="Tên món z-a" />
+                <item
+                    android:title="Giá dưới 20.000đ"
+                    android:id="@+id/sortGiaTienMin"/>
+                <item
+                    android:title="Từ 20.000 → 50.000đ"
+                    android:id="@+id/sortGiaTienBetween"/>
+                <item
+                    android:title="Giá trên 50.000đ"
+                    android:id="@+id/sortGiaTienMax"/>
+
+            </group>
+        </menu>
+    </item>
+</menu>
