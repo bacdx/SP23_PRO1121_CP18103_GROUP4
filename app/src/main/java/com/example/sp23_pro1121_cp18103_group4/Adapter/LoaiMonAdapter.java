@@ -65,6 +65,42 @@ public class LoaiMonAdapter extends RecyclerView.Adapter<LoaiMonAdapter.MyViewHo
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         LoaiMon loaiMon = list.get(position);
         holder.tvTenLoaiMon.setText(loaiMon.getTenLoaiMon());
+
+        if(loaiMon.getImgLoaiMon()==null){
+
+        }else{
+            Bitmap imageContent = BitmapFactory.decodeByteArray(loaiMon.getImgLoaiMon(),0,loaiMon.getImgLoaiMon().length);
+            holder.imgLoaiMon.setImageBitmap(imageContent);
+        }
+        holder.imgLoaiMon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+                builder.setTitle("Bạn có chắc chắn muốn xóa?");
+                builder.setNegativeButton("Ok", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dao = new LoaiMonDao(mContext);
+                        if (dao.deleteLoaiMon(list.get(holder.getAdapterPosition()))>0){
+                            Toast.makeText(mContext, "Xóa thành công", Toast.LENGTH_SHORT).show();
+                            list.remove(holder.getAdapterPosition());
+                            list.clear();
+                            list = dao.getAll();
+                            notifyDataSetChanged();
+                        }else{
+                            Toast.makeText(mContext, "Xóa không thành công", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+                builder.setPositiveButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+                builder.show();
+            }
+        });
         Bitmap imageContent = BitmapFactory.decodeByteArray(loaiMon.getImgLoaiMon(),0,loaiMon.getImgLoaiMon().length);
         holder.imgLoaiMon.setImageBitmap(imageContent);
         holder.itemView.setOnClickListener(new View.OnClickListener() {

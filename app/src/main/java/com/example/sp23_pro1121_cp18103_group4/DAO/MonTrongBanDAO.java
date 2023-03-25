@@ -69,7 +69,7 @@ return db.delete("MonTrongBan","id=?",new String[]{id});
     }
     public ArrayList<MonTrongBan>  getAllData(){
         String getAllData="select*from MonTrongBan";
-        return getData(getAllData,null);
+        return getData(getAllData);
     }
     public ArrayList<MonTrongBan> getDataByID(String id){
         String getDataByID="select*from MonTrongBan where id=?";
