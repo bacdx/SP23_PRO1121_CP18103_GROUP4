@@ -69,6 +69,7 @@ public class MonFragment extends Fragment {
     //filter - search view
     private SearchView searchView;
     ImageView mon_filter;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -94,9 +95,10 @@ public class MonFragment extends Fragment {
         flbtnAdd = view.findViewById(R.id.mon_btnAdd);
         mon_filter = view.findViewById(R.id.mon_filter);
     }
+
     //*******//
     //thiết lập search view tìm tên món
-    public void openSearchView(View view){
+    public void openSearchView(View view) {
         searchView = view.findViewById(R.id.mon_searchView);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -115,7 +117,7 @@ public class MonFragment extends Fragment {
 
     //*********//
     //thiết lập filter sắp xếp
-    public void openFilter(){
+    public void openFilter() {
         mon_filter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -125,6 +127,9 @@ public class MonFragment extends Fragment {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
                         switch (item.getItemId()) {
+                            case R.id.filterAllMon:
+                                restoreAllMon();
+                                break;
                             case R.id.sortUpTenMon:
                                 sortUpTen();
                                 break;
@@ -146,6 +151,9 @@ public class MonFragment extends Fragment {
                             case R.id.sortGiaTienMax:
                                 sortGiaMax();
                                 break;
+                            case R.id.filterCheckMon:
+                                filterCheckMon();
+                                break;
                         }
                         return false;
                     }
@@ -155,76 +163,85 @@ public class MonFragment extends Fragment {
             }
         });
     }
+
+    //*********//
+    //khôi phục all món
+    public void restoreAllMon() {
+        adapter = new MonAdapter(getContext(), list);
+        mon_rcView.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
+    }
+
     //*********//
     //phương thức sắp xếp tên món tăng dần
-    public void sortUpTen(){
+    public void sortUpTen() {
         Comparator<Mon> com = new Comparator<Mon>() {
             @Override
             public int compare(Mon o1, Mon o2) {
                 return o1.getTenMon().compareToIgnoreCase(o2.getTenMon());
             }
         };
-        Collections.sort(list,com);
-        adapter = new MonAdapter(getContext(),list);
+        Collections.sort(list, com);
+        adapter = new MonAdapter(getContext(), list);
         mon_rcView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
     }
 
     //*********//
     //phương thức sắp xếp tên món giảm dần
-    public void sortDownTen(){
+    public void sortDownTen() {
         Comparator<Mon> com = new Comparator<Mon>() {
             @Override
             public int compare(Mon o1, Mon o2) {
                 return o2.getTenMon().compareToIgnoreCase(o1.getTenMon());
             }
         };
-        Collections.sort(list,com);
-        adapter = new MonAdapter(getContext(),list);
+        Collections.sort(list, com);
+        adapter = new MonAdapter(getContext(), list);
         mon_rcView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
     }
 
     //*********//
     //phương thức sắp xếp giá tiền  tăng dần
-    public void sortUpGiaTien(){
+    public void sortUpGiaTien() {
         Comparator<Mon> com = new Comparator<Mon>() {
             @Override
             public int compare(Mon o1, Mon o2) {
                 return Integer.valueOf(o1.getGiaTien()).compareTo(o2.getGiaTien());
             }
         };
-        Collections.sort(list,com);
-        adapter = new MonAdapter(getContext(),list);
+        Collections.sort(list, com);
+        adapter = new MonAdapter(getContext(), list);
         mon_rcView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
     }
 
     //*********//
     //phương thức sắp xếp giá tiền  giảm dần
-    public void sortDownGiaTien(){
+    public void sortDownGiaTien() {
         Comparator<Mon> com = new Comparator<Mon>() {
             @Override
             public int compare(Mon o1, Mon o2) {
                 return Integer.valueOf(o2.getGiaTien()).compareTo(o1.getGiaTien());
             }
         };
-        Collections.sort(list,com);
-        adapter = new MonAdapter(getContext(),list);
+        Collections.sort(list, com);
+        adapter = new MonAdapter(getContext(), list);
         mon_rcView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
     }
 
     //*********//
     //phương thức sắp xếp giá tiền dưới 50.000đ
-    public void sortGiaTienMin(){
+    public void sortGiaTienMin() {
         List<Mon> temp_arraylist = new ArrayList<Mon>();
 
         for (int i = 0; i < list.size(); i++) {
 
-            int price = (Integer.parseInt("" +list.get(i).getGiaTien()));
+            int price = (Integer.parseInt("" + list.get(i).getGiaTien()));
 
-            if(price < 20000){
+            if (price < 20000) {
                 temp_arraylist.add(list.get(i));
             }
 
@@ -237,14 +254,34 @@ public class MonFragment extends Fragment {
 
     //*********//
     //phương thức sắp xếp giá tiền từ 20.000 - 50.000đ
-    public void sortGiaBetween(){
+    public void sortGiaBetween() {
         List<Mon> temp_arraylist = new ArrayList<Mon>();
 
         for (int i = 0; i < list.size(); i++) {
 
-            int price = (Integer.parseInt("" +list.get(i).getGiaTien()));
+            int price = (Integer.parseInt("" + list.get(i).getGiaTien()));
 
-            if(price >= 20000 && price <= 50000){
+            if (price >= 20000 && price <= 50000) {
+                temp_arraylist.add(list.get(i));
+            }
+
+        }
+
+        adapter = new MonAdapter(getContext(), temp_arraylist);
+        mon_rcView.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
+    }
+
+    //*********//
+    //phương thức sắp xếp giá tiền trên 50.000đ
+    public void sortGiaMax() {
+        List<Mon> temp_arraylist = new ArrayList<Mon>();
+
+        for (int i = 0; i < list.size(); i++) {
+
+            int price = (Integer.parseInt("" + list.get(i).getGiaTien()));
+
+            if (price > 50000) {
                 temp_arraylist.add(list.get(i));
             }
 
@@ -255,15 +292,14 @@ public class MonFragment extends Fragment {
         adapter.notifyDataSetChanged();
     }
     //*********//
-    //phương thức sắp xếp giá tiền trên 50.000đ
-    public void sortGiaMax(){
+    //phương thức sắp xếp món còn hàng
+    public void filterCheckMon() {
         List<Mon> temp_arraylist = new ArrayList<Mon>();
 
         for (int i = 0; i < list.size(); i++) {
 
-            int price = (Integer.parseInt("" +list.get(i).getGiaTien()));
-
-            if(price > 50000){
+            String trangThai = list.get(i).getTrangThai();
+            if (trangThai.equalsIgnoreCase("Còn hàng")) {
                 temp_arraylist.add(list.get(i));
             }
 
@@ -317,7 +353,7 @@ public class MonFragment extends Fragment {
         //tạo mới model
         Mon mon = new Mon();
         TextView mon_tvTitle;
-        Button btnSave , btnCancel;
+        Button btnSave, btnCancel;
         Bundle bundle = this.getArguments();
         maLoaiMon = bundle.getInt("maLoaiMon");
         list = dao.getAllWithId(maLoaiMon);
@@ -377,6 +413,7 @@ public class MonFragment extends Fragment {
             }
         });
     }
+
     //validate check
     public int validate() {
         int check = 1;
@@ -389,6 +426,7 @@ public class MonFragment extends Fragment {
         }
         return check;
     }
+
     //thiết lập lấy hình ảnh
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent intent) {
