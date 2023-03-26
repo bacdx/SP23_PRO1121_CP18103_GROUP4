@@ -99,7 +99,11 @@
             android:textSize="20dp"
             android:textColor="#F2cb06"
             />
-
     </LinearLayout>
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/rcv"
+        ></androidx.recyclerview.widget.RecyclerView>
 
 </LinearLayout>

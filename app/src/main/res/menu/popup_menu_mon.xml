@@ -15,6 +15,9 @@
             <group
                 >
                 <item
+                    android:id="@+id/filterAllMon"
+                    android:title="All"/>
+                <item
                     android:id="@+id/sortUpTenMon"
                     android:title="Tên món a-z" />
                 <item
@@ -29,7 +32,9 @@
                 <item
                     android:title="Giá trên 50.000đ"
                     android:id="@+id/sortGiaTienMax"/>
-
+                <item
+                    android:title="Sản phẩm còn hàng"
+                    android:id="@+id/filterCheckMon"/>
             </group>
         </menu>
     </item>

@@ -88,51 +88,30 @@ public class MonAdapter extends RecyclerView.Adapter<MonAdapter.MyViewHolder> im
         }
         Bitmap imageContent = BitmapFactory.decodeByteArray(mon.getImgMon(), 0, mon.getImgMon().length);
         holder.mon_imgMon.setImageBitmap(imageContent);
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
+        holder.img_popupMon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Bundle bundle = new Bundle();
-//                bundle.putString("tenMon",mon.getTenMon());
-//                bundle.putInt("giaTien",mon.getGiaTien());
-//                bundle.putString("trangThai",mon.getTrangThai());
-//                bundle.putByteArray("imgMon",mon.getImgMon());
-//                Intent mIntent = new Intent(mContext, MonActivity.class);
-//                mIntent.putExtra("monData",bundle);
-//                mContext.startActivity(mIntent);
-                openDialogUpdate(Gravity.CENTER);
+                PopupMenu popupMenu = new PopupMenu(mContext, holder.img_popupMon);
+                popupMenu.getMenuInflater().inflate(R.menu.popup_menu, popupMenu.getMenu());
+                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        switch (item.getItemId()) {
+                            case R.id.popup_update:
+                                openDiaLogUpdateMon(Gravity.CENTER, mon);
+                                break;
+                            case R.id.popup_delete:
+                                openDialogDeleteMon(holder.getAdapterPosition(),mon);
+                                break;
+                        }
+                        return false;
+                    }
+                });
+                popupMenu.show();
             }
         });
     }
-    public void openDialogUpdate(int gravity) {
-        Dialog dialog = new Dialog(mContext);
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(R.layout.dialog_mon);
-        dialog.create();
-        dialog.show();
-        //custom dialog
-        Window window = dialog.getWindow();
-        if (window == null) {
-            return;
-        }
-        window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
-        window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        WindowManager.LayoutParams windowAttributes = window.getAttributes();
-        windowAttributes.gravity = gravity;
-        window.setAttributes(windowAttributes);
-        //tạo mới model
-        Mon mon = new Mon();
-        TextView mon_tvTitle;
-        Button btnSave;
-        imgMon = dialog.findViewById(R.id.mon_addImg);
-        imgMon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-                intent.setType("image/*");
-                ((Activity) mContext).startActivityForResult(intent, PICK_IMAGE_REQUEST);
-            }
-        });
-    }
+
 
     @Override
     public int getItemCount() {
@@ -206,7 +185,7 @@ public class MonAdapter extends RecyclerView.Adapter<MonAdapter.MyViewHolder> im
 
     //*********//
     //Thiết lập dialog update món
-    public void updateMon(int gravity, Mon mon) {
+    public void openDiaLogUpdateMon(int gravity, Mon mon) {
         AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
         View view = LayoutInflater.from(mContext).inflate(R.layout.dialog_update_mon, null);
         builder.setView(view);
@@ -232,6 +211,7 @@ public class MonAdapter extends RecyclerView.Adapter<MonAdapter.MyViewHolder> im
         mon_edGiaTien.setText(String.valueOf(mon.getGiaTien()));
         mon_imgMon = dialog.findViewById(R.id.mon_addImg);
         btnSave = dialog.findViewById(R.id.mon_btnSave);
+        btnCancel = dialog.findViewById(R.id.mon_btnCancel);
         if (mon.getTrangThai().equals("Còn hàng")) {
             mon_chkTrangThai.setChecked(true);
         } else {
@@ -258,6 +238,12 @@ public class MonAdapter extends RecyclerView.Adapter<MonAdapter.MyViewHolder> im
                 } else {
                     Toast.makeText(mContext, "that bai", Toast.LENGTH_SHORT).show();
                 }
+            }
+        });
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
             }
         });
     }

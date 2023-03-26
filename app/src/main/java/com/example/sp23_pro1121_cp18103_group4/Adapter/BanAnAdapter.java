@@ -34,7 +34,7 @@ import com.example.sp23_pro1121_cp18103_group4.DAO.MonTrongBanDAO;
 import com.example.sp23_pro1121_cp18103_group4.Fragment.LoaiMonFragment;
 import com.example.sp23_pro1121_cp18103_group4.Fragment.ThemBanFragment;
 import com.example.sp23_pro1121_cp18103_group4.Model.BanAn;
-import com.example.sp23_pro1121_cp18103_group4.Model.ModelHoaDon;
+import com.example.sp23_pro1121_cp18103_group4.Model.HoaDon;
 import com.example.sp23_pro1121_cp18103_group4.Model.MonTrongBan;
 import com.example.sp23_pro1121_cp18103_group4.MonActivity;
 import com.example.sp23_pro1121_cp18103_group4.R;
@@ -192,8 +192,8 @@ public class BanAnAdapter extends RecyclerView.Adapter<BanAnAdapter.ViewBanan> {
                     public void onClick(View v) {
 
 
-                        ModelHoaDon hoaDon;
-                        hoaDon = new ModelHoaDon();
+                        HoaDon hoaDon;
+                        hoaDon = new HoaDon();
                         hoaDonDao = new HoaDonDao(context);
 
                         hoaDon.setMaBan(String.valueOf(list.get(index).getId()));
@@ -258,7 +258,7 @@ public class BanAnAdapter extends RecyclerView.Adapter<BanAnAdapter.ViewBanan> {
                 RecyclerView rcv = dialog.findViewById(R.id.rcv);
                 TextView tenban = dialog.findViewById(R.id.tenban);
                 TextView ngay = dialog.findViewById(R.id.ngay);
-                CheckBox checkBox = dialog.findViewById(R.id.check);
+//                CheckBox checkBox = dialog.findViewById(R.id.check);
                 TextView tong = dialog.findViewById(R.id.tong);
                 Button thanhtoan = dialog.findViewById(R.id.thanhtoan);
 
@@ -276,24 +276,24 @@ public class BanAnAdapter extends RecyclerView.Adapter<BanAnAdapter.ViewBanan> {
                 monTrongBanAdapter = new MonTrongBanAdapter(listmtb,context);
                 rcv.setAdapter(monTrongBanAdapter);
 //                tong.setText(trongBanDAO.getTong()+" VND");
-                if (checkBox.isChecked()){
-                    tong.setText(trongBanDAO.getGIamGia()+" VND");
-                }else{
-                    tong.setText(trongBanDAO.getTong()+" VND");
-                }
+//                if (checkBox.isChecked()){
+//                    tong.setText(trongBanDAO.getGIamGia()+" VND");
+//                }else{
+//                    tong.setText(trongBanDAO.getTong()+" VND");
+//                }
 
                 thanhtoan.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        ModelHoaDon hoaDon;
-                        hoaDon = new ModelHoaDon();
+                        HoaDon hoaDon;
+                        hoaDon = new HoaDon();
                         hoaDonDao = new HoaDonDao(context);
 
                         hoaDon.setMaBan(String.valueOf(list.get(index).getId()));
                         hoaDon.setMaKH("KH01");
                         hoaDon.setMaNV("NV01");
                         hoaDon.setNgayLap("21/3/2023");
-                        hoaDon.setTongTien(trongBanDAO.getTong());
+//                        hoaDon.setTongTien(trongBanDAO.getTong());
 
                         hoaDonDao.insertHoaDon(hoaDon);
                         Toast.makeText(context, "Thành Công", Toast.LENGTH_SHORT).show();
