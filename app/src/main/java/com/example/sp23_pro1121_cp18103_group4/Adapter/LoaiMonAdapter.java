@@ -27,10 +27,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.sp23_pro1121_cp18103_group4.DAO.LoaiMonDao;
 import com.example.sp23_pro1121_cp18103_group4.DAO.MonDao;
+import com.example.sp23_pro1121_cp18103_group4.Fragment.MonFragment;
 import com.example.sp23_pro1121_cp18103_group4.Model.LoaiMon;
 import com.example.sp23_pro1121_cp18103_group4.MonActivity;
 import com.example.sp23_pro1121_cp18103_group4.R;
@@ -72,47 +76,19 @@ public class LoaiMonAdapter extends RecyclerView.Adapter<LoaiMonAdapter.MyViewHo
             Bitmap imageContent = BitmapFactory.decodeByteArray(loaiMon.getImgLoaiMon(),0,loaiMon.getImgLoaiMon().length);
             holder.imgLoaiMon.setImageBitmap(imageContent);
         }
-        holder.imgLoaiMon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
-                builder.setTitle("Bạn có chắc chắn muốn xóa?");
-                builder.setNegativeButton("Ok", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dao = new LoaiMonDao(mContext);
-                        if (dao.deleteLoaiMon(list.get(holder.getAdapterPosition()))>0){
-                            Toast.makeText(mContext, "Xóa thành công", Toast.LENGTH_SHORT).show();
-                            list.remove(holder.getAdapterPosition());
-                            list.clear();
-                            list = dao.getAll();
-                            notifyDataSetChanged();
-                        }else{
-                            Toast.makeText(mContext, "Xóa không thành công", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
-                builder.setPositiveButton("Cancel", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                });
-                builder.show();
-            }
-        });
         Bitmap imageContent = BitmapFactory.decodeByteArray(loaiMon.getImgLoaiMon(),0,loaiMon.getImgLoaiMon().length);
         holder.imgLoaiMon.setImageBitmap(imageContent);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(mContext, ""+loaiMon.getTenLoaiMon(), Toast.LENGTH_SHORT).show();
-                //bundel activity
-                Intent mIntent = new Intent(mContext, MonActivity.class);
+                //thay đổi bundle món activity sang bunlde món fragment
                 Bundle bundle = new Bundle();
-                bundle.putInt("maLoaiMon", loaiMon.getMaLoaiMon());
-                mIntent.putExtra("getId",bundle);
-                mContext.startActivity(mIntent);
+                bundle.putInt("maLoaiMon",loaiMon.getMaLoaiMon());
+                Fragment fragment = new MonFragment();
+                fragment.setArguments(bundle);
+                FragmentTransaction transaction = ((FragmentActivity)mContext).getSupportFragmentManager().beginTransaction();
+                transaction.replace(R.id.mainFrame_collection_fragment,fragment).commit();
+                Toast.makeText(mContext, "" + loaiMon.getTenLoaiMon(), Toast.LENGTH_SHORT).show();
             }
         });
         //set popup menu edit, delete;
@@ -136,7 +112,6 @@ public class LoaiMonAdapter extends RecyclerView.Adapter<LoaiMonAdapter.MyViewHo
                     }
                 });
                 popupMenu.show();
-
             }
         });
     }
