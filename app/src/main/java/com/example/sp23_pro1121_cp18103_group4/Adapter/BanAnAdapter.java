@@ -76,15 +76,6 @@ public class BanAnAdapter extends RecyclerView.Adapter<BanAnAdapter.ViewBanan> {
         MonTrongBanDAO trongBanDAO1;
         trongBanDAO1 = new MonTrongBanDAO(context);
 
-
-//        if(trongBanDAO1.getwid(String.valueOf(list.get(index).getId()))>0){
-//            holder.anh.setImageResource(R.drawable.avata);
-//        }else{
-//
-//        }
-
-
-
         holder.delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -161,6 +152,8 @@ public class BanAnAdapter extends RecyclerView.Adapter<BanAnAdapter.ViewBanan> {
                 TextView tong = dialog.findViewById(R.id.tong);
                 Button thanhtoan = dialog.findViewById(R.id.thanhtoan);
 
+//                a
+
                 DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 
                 MonTrongBanAdapter monTrongBanAdapter;
@@ -169,7 +162,7 @@ public class BanAnAdapter extends RecyclerView.Adapter<BanAnAdapter.ViewBanan> {
                 monTrongBanAdapter = new MonTrongBanAdapter(listmtb,context);
                 rcv.setAdapter(monTrongBanAdapter);
 
-                tong.setText(trongBanDAO.getTong(String.valueOf(list.get(index).getId()))+" VND");
+                tong.setText(trongBanDAO.getTong(String.valueOf(list.get(index).getId()))+"");
 
                 checkBox1.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -177,9 +170,19 @@ public class BanAnAdapter extends RecyclerView.Adapter<BanAnAdapter.ViewBanan> {
                         boolean check = ((CheckBox)v).isChecked();
 
                         if(check){
-                            tong.setText(trongBanDAO.getGIamGia(String.valueOf(list.get(index).getId()))+ " VND");
+                            try {
+                                trongBanDAO1.getwid(String.valueOf(list.get(index).getId()));
+                                if( trongBanDAO1.getwid(String.valueOf(list.get(index).getId()))>0){
+                                    holder.anh.setImageResource(R.drawable.nguoian2);
+                                }else{
+                                    holder.anh.setImageResource(R.drawable.banan);
+                                }
+                            }catch (Exception e){
+                            }
+
+                            tong.setText(trongBanDAO.getGIamGia(String.valueOf(list.get(index).getId()))+ "");
                         }else{
-                            tong.setText(trongBanDAO.getTong(String.valueOf(list.get(index).getId()))+" VND");
+                            tong.setText(trongBanDAO.getTong(String.valueOf(list.get(index).getId()))+"");
                         }
                     }
                 });
@@ -189,17 +192,17 @@ public class BanAnAdapter extends RecyclerView.Adapter<BanAnAdapter.ViewBanan> {
                     public void onClick(View v) {
 
 
-//                        ModelHoaDon hoaDon;
-//                        hoaDon = new ModelHoaDon();
-//                        hoaDonDao = new HoaDonDao(context);
-//
-//                        hoaDon.setMaBan(String.valueOf(list.get(index).getId()));
-//                        hoaDon.setMaKH("KH01");
-//                        hoaDon.setMaNV("NV01");
-//                        hoaDon.setNgayLap("21/3/2023");
-//                        hoaDon.setTongTien(Integer.parseInt("30000"));
-//
-//                        hoaDonDao.insertHoaDon(hoaDon);
+                        ModelHoaDon hoaDon;
+                        hoaDon = new ModelHoaDon();
+                        hoaDonDao = new HoaDonDao(context);
+
+                        hoaDon.setMaBan(String.valueOf(list.get(index).getId()));
+                        hoaDon.setMaKH("KH01");
+                        hoaDon.setMaNV("NV01");
+                        hoaDon.setNgayLap(ngay.getText().toString());
+                        hoaDon.setTongTien(Integer.parseInt(tong.getText().toString()));
+
+                        hoaDonDao.insertHoaDon(hoaDon);
 
 
                         try {
@@ -207,6 +210,7 @@ public class BanAnAdapter extends RecyclerView.Adapter<BanAnAdapter.ViewBanan> {
                         }catch (Exception e){
                             Toast.makeText(context, "Thanh Toán Thành CÔng", Toast.LENGTH_SHORT).show();
                         }
+
                         Fragment fragment1 = new ThemBanFragment();
                         FragmentTransaction transaction = ((AppCompatActivity) context).getSupportFragmentManager().beginTransaction();
                         transaction.replace(R.id.mainFrame_collection_fragment,fragment1).commit();
