@@ -1,17 +1,24 @@
 package com.example.sp23_pro1121_cp18103_group4.Adapter;
 
+import static android.app.Activity.RESULT_OK;
+
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.sp23_pro1121_cp18103_group4.DAO.BanAnDao;
@@ -22,6 +29,9 @@ import com.example.sp23_pro1121_cp18103_group4.Model.Mon;
 import com.example.sp23_pro1121_cp18103_group4.Model.MonTrongBan;
 import com.example.sp23_pro1121_cp18103_group4.R;
 
+import java.io.ByteArrayOutputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,6 +42,11 @@ public class MonTrongBanAdapter extends RecyclerView.Adapter<MonTrongBanAdapter.
     Context context;
 
     MonTrongBanDAO trongBanDAO;
+    List<Mon> listMon;
+
+    ImageView imgMon;
+    private static final int PICK_IMAGE_REQUEST = 100;
+    static byte[] imageContent;
 
 
 
@@ -53,11 +68,15 @@ public class MonTrongBanAdapter extends RecyclerView.Adapter<MonTrongBanAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull View_montrongban holder, int position) {
-
+        int index = position;
         MonTrongBan monTrongBan = list.get(position);
         trongBanDAO = new MonTrongBanDAO(context);
+//        listMon = new ArrayList<>();
+//        Mon mon = listMon.get(list.size());
+//        Bitmap imageContent = BitmapFactory.decodeByteArray(mon.getImgMon(), 0, mon.getImgMon().length);
+//        holder.img.setImageBitmap(imageContent);
 
-        int index = position;
+
 
             holder.tenmon.setText(list.get(position).getTenMon());
             holder.soluong.setText(list.get(index).getSoLuong()+"");
@@ -100,6 +119,7 @@ public class MonTrongBanAdapter extends RecyclerView.Adapter<MonTrongBanAdapter.
     class View_montrongban extends RecyclerView.ViewHolder{
 
         TextView tenmon,soluong,tongtien;
+//        ImageView img;
 
         public View_montrongban(@NonNull View itemView) {
             super(itemView);
@@ -107,7 +127,28 @@ public class MonTrongBanAdapter extends RecyclerView.Adapter<MonTrongBanAdapter.
             tenmon = itemView.findViewById(R.id.tenmon);
             soluong = itemView.findViewById(R.id.soluong);
             tongtien = itemView.findViewById(R.id.tongtien);
+//            img = itemView.findViewById(R.id.img);
 
         }
     }
+
+//    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent intent) {
+//        if (requestCode == 100 && resultCode == RESULT_OK) {
+//            Uri imageUri = intent.getData();
+//            try {
+//                InputStream inputStream = context.getContentResolver().openInputStream(imageUri);
+//                Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
+//                imgMon.setImageBitmap(bitmap);
+//                imageContent = getBytes(bitmap);
+//            } catch (FileNotFoundException e) {
+//                e.printStackTrace();
+//            }
+//        }
+//    }
+//    private byte[] getBytes(Bitmap bitmap) {
+//        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+//        bitmap.compress(Bitmap.CompressFormat.PNG, 0, stream);
+//        return stream.toByteArray();
+//    }
+
 }
