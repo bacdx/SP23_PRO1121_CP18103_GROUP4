@@ -38,8 +38,7 @@ public class HoaDonFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        TextInputEditText maban = view.findViewById(R.id.maban);
-        Button tim = view.findViewById(R.id.tim);
+
 
         rcv = view.findViewById(R.id.rcv);
 
