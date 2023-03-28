@@ -36,6 +36,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.sp23_pro1121_cp18103_group4.Activity.Dialog_MonTrongBan;
 import com.example.sp23_pro1121_cp18103_group4.DAO.MonDao;
 import com.example.sp23_pro1121_cp18103_group4.Model.Mon;
 import com.example.sp23_pro1121_cp18103_group4.R;
@@ -77,6 +78,22 @@ public class MonAdapter extends RecyclerView.Adapter<MonAdapter.MyViewHolder> im
         Mon mon = list.get(position);
         holder.mon_tvTenMon.setText(mon.getTenMon());
         holder.mon_tvGiaTien.setText("Giá tiền: " + mon.getGiaTien());
+
+        holder.mon_tvTenMon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(mContext, Dialog_MonTrongBan.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("tenmon",mon.getTenMon());
+                bundle.putInt("giamon",mon.getGiaTien());
+                intent.putExtra("thongtin",bundle);
+                mContext.startActivity(intent);
+
+            }
+        });
+
+
+
         if (mon.getTrangThai().equals("Còn hàng")) {
             holder.mon_tvTrangThai.setText(mon.getTrangThai());
             holder.mon_tvTrangThai.setTextColor(Color.BLUE);
@@ -111,7 +128,6 @@ public class MonAdapter extends RecyclerView.Adapter<MonAdapter.MyViewHolder> im
             }
         });
     }
-
 
     @Override
     public int getItemCount() {
