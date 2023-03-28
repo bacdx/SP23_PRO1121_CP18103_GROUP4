@@ -26,8 +26,17 @@ public class LoaiMonDao {
         return db.insert("LoaiMon",null,values);
     }
 
-    public int deleteLoaiMon(LoaiMon loaiMon){
-        return db.delete("LoaiMon","maLoaiMon=?",new String[]{String.valueOf(loaiMon.getMaLoaiMon())});
+    public int deleteLoaiMon(int maLoaiMon){
+
+        Cursor cursor = db.rawQuery("SELECT * FROM Mon WHERE maLoaiMon = ?", new String[]{String.valueOf(maLoaiMon)});
+        if (cursor.getCount() !=0){
+            return -1;
+        }
+        long check = db.delete("LoaiMon", "maLoaiMon = ?", new String[]{String.valueOf(maLoaiMon)});
+        if (check == -1){
+            return 0;
+        }
+        return 1;
     }
 
     public long updateLoaiMon(LoaiMon loaiMon){

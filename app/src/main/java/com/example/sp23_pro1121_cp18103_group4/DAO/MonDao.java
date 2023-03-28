@@ -64,4 +64,10 @@ public class MonDao {
     }
 
 
+    //**********//
+    //Thêm lấy tất cả món
+    public List<Mon> getAll(){
+        String sql = "Select * from Mon";
+        return getData(sql);
+    }
 }

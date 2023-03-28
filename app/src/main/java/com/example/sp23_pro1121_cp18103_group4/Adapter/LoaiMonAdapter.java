@@ -225,14 +225,17 @@ public class LoaiMonAdapter extends RecyclerView.Adapter<LoaiMonAdapter.MyViewHo
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dao = new LoaiMonDao(mContext);
-                if (dao.deleteLoaiMon(list.get(position)) > 0) {
+                int check = dao.deleteLoaiMon(list.get(position).getMaLoaiMon());
+                if (check == 1){
                     Toast.makeText(mContext, "Xóa thành công", Toast.LENGTH_SHORT).show();
                     list.remove(position);
                     list.clear();
                     list = dao.getAll();
                     notifyDataSetChanged();
-                } else {
-                    Toast.makeText(mContext, "Xóa không thành công", Toast.LENGTH_SHORT).show();
+                }else if (check == 0){
+                    Toast.makeText(mContext, "Xóa thất bại", Toast.LENGTH_SHORT).show();
+                }else if (check == -1){
+                    Toast.makeText(mContext, "Loại món tồn tại trong món, không được phép xóa", Toast.LENGTH_SHORT).show();
                 }
             }
         });
