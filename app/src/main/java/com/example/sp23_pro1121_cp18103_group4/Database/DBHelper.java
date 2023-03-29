@@ -62,15 +62,16 @@ public class DBHelper extends SQLiteOpenHelper {
 
     private static final String TABLE_kHACH_HANG = "create table KhachHang(" +
 
+            "maKhachHang integer not null primary key," +
 
-            "maKhachHang integer not null primary key autoincrement," +
-            "name text," +
-            "numberPhone text," +
             "hoTen text," +
             "namSinh integer," +
             "gioiTinh text," +
             "soDT text," +
-            "diaChi text);";
+
+            "diaChi text)";
+
+
 
     @Override
     public void onCreate(SQLiteDatabase db) {
