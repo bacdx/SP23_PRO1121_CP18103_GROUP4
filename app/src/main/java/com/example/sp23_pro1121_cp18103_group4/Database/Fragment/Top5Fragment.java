@@ -1,4 +1,4 @@
-package com.example.sp23_pro1121_cp18103_group4.Fragment;
+package com.example.sp23_pro1121_cp18103_group4.Database.Fragment;
 
 import android.os.Bundle;
 
@@ -22,39 +22,19 @@ import java.util.ArrayList;
 
 public class Top5Fragment extends Fragment {
     RecyclerView rcv;
-    Top5Adapter top5Adapter;
-    HoaDonDao hoaDonDao;
-    ArrayList<Top5> list;
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
-        View view= inflater.inflate(R.layout.fragment_top5, container, false);
-
-        rcv = view.findViewById(R.id.rcvtop5);
-        list = new ArrayList<>();
-        hoaDonDao = new HoaDonDao(getContext());
-        list = hoaDonDao.getTop5();
-        top5Adapter = new Top5Adapter(list,getContext());
-        rcv.setAdapter(top5Adapter);
-
-
-        return view;
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_top5, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-
-
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-
+        rcv = view.findViewById(R.id.rcv);
 
     }
+
 }

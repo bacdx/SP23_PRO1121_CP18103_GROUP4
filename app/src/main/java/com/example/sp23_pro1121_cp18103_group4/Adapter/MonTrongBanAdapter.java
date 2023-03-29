@@ -1,5 +1,6 @@
 package com.example.sp23_pro1121_cp18103_group4.Adapter;
 
+
 import static android.app.Activity.RESULT_OK;
 
 import android.app.AlertDialog;
@@ -13,6 +14,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,6 +31,7 @@ import com.example.sp23_pro1121_cp18103_group4.Model.Mon;
 import com.example.sp23_pro1121_cp18103_group4.Model.MonTrongBan;
 import com.example.sp23_pro1121_cp18103_group4.R;
 
+
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
@@ -40,6 +43,9 @@ public class MonTrongBanAdapter extends RecyclerView.Adapter<MonTrongBanAdapter.
 
     ArrayList<MonTrongBan> list;
     Context context;
+
+    MonDao monDao ;
+    Mon mon;
 
     MonTrongBanDAO trongBanDAO;
     List<Mon> listMon;
@@ -63,6 +69,7 @@ public class MonTrongBanAdapter extends RecyclerView.Adapter<MonTrongBanAdapter.
     }
     @Override
     public void onBindViewHolder(@NonNull View_montrongban holder, int position) {
+
         int index = position;
         MonTrongBan monTrongBan = list.get(position);
         trongBanDAO = new MonTrongBanDAO(context);
@@ -98,6 +105,7 @@ public class MonTrongBanAdapter extends RecyclerView.Adapter<MonTrongBanAdapter.
                     builder.show();
                 }
             });
+
     }
     @Override
     public int getItemCount() {
@@ -106,16 +114,21 @@ public class MonTrongBanAdapter extends RecyclerView.Adapter<MonTrongBanAdapter.
 
     class View_montrongban extends RecyclerView.ViewHolder{
         TextView tenmon,soluong,tongtien;
+
         ImageView img;
+
         public View_montrongban(@NonNull View itemView) {
             super(itemView);
 
             tenmon = itemView.findViewById(R.id.tenmon);
             soluong = itemView.findViewById(R.id.soluong);
             tongtien = itemView.findViewById(R.id.tongtien);
+
             img = itemView.findViewById(R.id.img);
+
 
         }
     }
+
 
 }

@@ -63,8 +63,17 @@ public class MonDao {
     }
     public Mon getALLTien(int tien){
 
+
         String sql = "select * from Mon where giaTien ="+tien;
         List<Mon> list = getData(sql);
         return list.get(0);
+
+
+    //**********//
+    //Thêm lấy tất cả món
+    public List<Mon> getAll(){
+        String sql = "Select * from Mon";
+        return getData(sql);
+
     }
 }

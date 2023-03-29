@@ -26,6 +26,7 @@
 
         >
 
+
    <androidx.cardview.widget.CardView
        android:layout_width="wrap_content"
        android:layout_height="wrap_content"
@@ -70,6 +71,7 @@
                 />
         </androidx.cardview.widget.CardView>
 
+
     </LinearLayout>
     <ScrollView
         android:layout_width="match_parent"
@@ -109,7 +111,9 @@
              android:textStyle="bold"
              android:layout_marginLeft="10dp"
              android:layout_marginTop="10dp"
+
              android:textColor="#B52B2B"
+
              />
 
          <LinearLayout
@@ -119,6 +123,7 @@
              >
 
              <CheckBox
+
                  android:id="@+id/checkb"
                  android:layout_width="wrap_content"
                  android:layout_height="wrap_content"
@@ -142,11 +147,13 @@
                 android:id="@+id/tong"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+
                 android:text="0  "
                 android:textSize="15dp"
                 android:textStyle="bold"
                 android:layout_marginLeft="30dp"
                 android:layout_marginTop="20dp"
+
                 android:textColor="#B52B2B"
                 />
             <TextView
@@ -158,6 +165,7 @@
                 android:layout_marginLeft="100dp"
                 android:layout_marginTop="-20dp"
                 android:textColor="#B52B2B"
+
                 />
 
             <Button
