@@ -14,7 +14,7 @@ import android.widget.Button;
 
 import com.example.sp23_pro1121_cp18103_group4.Adapter.HoaDonAdapter;
 import com.example.sp23_pro1121_cp18103_group4.DAO.HoaDonDao;
-import com.example.sp23_pro1121_cp18103_group4.Model.ModelHoaDon;
+import com.example.sp23_pro1121_cp18103_group4.Model.HoaDon;
 import com.example.sp23_pro1121_cp18103_group4.R;
 import com.google.android.material.textfield.TextInputEditText;
 
@@ -25,7 +25,7 @@ public class HoaDonFragment extends Fragment {
 
     RecyclerView rcv;
     HoaDonDao hoaDonDao;
-    ArrayList<ModelHoaDon> list;
+    ArrayList<HoaDon> list;
     HoaDonAdapter hoaDonAdapter;
 
     @Override
@@ -37,10 +37,6 @@ public class HoaDonFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        TextInputEditText maban = view.findViewById(R.id.maban);
-        Button tim = view.findViewById(R.id.tim);
-
         rcv = view.findViewById(R.id.rcv);
 
 
