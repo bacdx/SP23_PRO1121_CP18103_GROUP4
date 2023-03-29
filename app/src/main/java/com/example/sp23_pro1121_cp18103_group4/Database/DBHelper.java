@@ -12,13 +12,7 @@ import com.example.sp23_pro1121_cp18103_group4.data.Data;
 public class DBHelper extends SQLiteOpenHelper {
     public Data data = new Data();
     public static final String DBName = "FAST_FOOD";
-
-
-    public static final int DBVersion = 13;
-
-
-
-
+    public static final int DBVersion = 1;
 
     public DBHelper(@Nullable Context context) {
 
@@ -30,11 +24,12 @@ public class DBHelper extends SQLiteOpenHelper {
             "tenBan text not null ," +
             "status text );";
     private static final String TABLE_MON_TRONG_BAN = "create table MonTrongBan (" +
-            "id integer not null primary key autoincrement," +
+            "id integer not null primary key ," +
             "maBan integer references Ban(maBan)," +
             "maMon integer references Mon(maMon)," +
             "tenMon text," +
             "giaMon integer not null," +
+
             "soLuong integer);";
     private static final String TABLE_LOAI_MON = "create table LoaiMon (maLoaiMon integer primary key autoincrement," +
             "tenLoaiMon text not null," +
@@ -46,7 +41,7 @@ public class DBHelper extends SQLiteOpenHelper {
             "maLoaiMon integer references LoaiMon(maLoaiMon)," +
             "imgMon text)";
     private static final String TABLE_NHANVIEN = "create table NhanVien(" +
-            "maNV integer not null primary key autoincrement," +
+            "maNV integer not null primary key," +
             "name text," +
             "user text," +
             "passWord text," +
@@ -56,7 +51,7 @@ public class DBHelper extends SQLiteOpenHelper {
             "uyQuyen text," +
             "status text);";
     private static final String TABLE_HOADON = "create table HoaDon(" +
-            "maHoaDon integer not null primary key autoincrement," +
+            "maHoaDon integer not null primary key," +
             "maBan integer references Ban(maBan)," +
             "maNV integer references NhanVien(maNV)," +
             "ngayLap date not null," +
@@ -66,12 +61,16 @@ public class DBHelper extends SQLiteOpenHelper {
 
 
     private static final String TABLE_kHACH_HANG = "create table KhachHang(" +
+
             "maKhachHang integer not null primary key," +
+
             "hoTen text," +
             "namSinh integer," +
             "gioiTinh text," +
             "soDT text," +
+
             "diaChi text)";
+
 
 
     @Override
