@@ -12,14 +12,7 @@ import com.example.sp23_pro1121_cp18103_group4.data.Data;
 public class DBHelper extends SQLiteOpenHelper {
     public Data data = new Data();
     public static final String DBName = "FAST_FOOD";
-
-
-    public static final int DBVersion = 13;
-
-
-
-
-
+    public static final int DBVersion = 1;
     public DBHelper(@Nullable Context context) {
 
         super(context, DBName, null, DBVersion);
