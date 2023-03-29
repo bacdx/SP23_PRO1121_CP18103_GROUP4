@@ -48,9 +48,6 @@ public class MonTrongBanAdapter extends RecyclerView.Adapter<MonTrongBanAdapter.
     private static final int PICK_IMAGE_REQUEST = 100;
     static byte[] imageContent;
 
-
-
-
     public MonTrongBanAdapter(ArrayList<MonTrongBan> list, Context context) {
         this.list = list;
         this.context = context;
@@ -63,26 +60,20 @@ public class MonTrongBanAdapter extends RecyclerView.Adapter<MonTrongBanAdapter.
         View viewba = layoutInflater.inflate(R.layout.rcv_montrongban,parent,false);
         View_montrongban view_montrongban = new View_montrongban(viewba);
         return view_montrongban;
-
     }
-
     @Override
     public void onBindViewHolder(@NonNull View_montrongban holder, int position) {
         int index = position;
         MonTrongBan monTrongBan = list.get(position);
         trongBanDAO = new MonTrongBanDAO(context);
-//        listMon = new ArrayList<>();
-//        Mon mon = listMon.get(list.size());
-//        Bitmap imageContent = BitmapFactory.decodeByteArray(mon.getImgMon(), 0, mon.getImgMon().length);
-//        holder.img.setImageBitmap(imageContent);
-
-
 
             holder.tenmon.setText(list.get(position).getTenMon());
             holder.soluong.setText(list.get(index).getSoLuong()+"");
             holder.tongtien.setText(list.get(index).getSoLuong() * list.get(index).getGiaMon()+" VND");
+            Bitmap imageContent = BitmapFactory.decodeByteArray(monTrongBan.getImgMon(), 0, monTrongBan.getImgMon().length);
+            holder.img.setImageBitmap(imageContent);
 
-            holder.tenmon.setOnClickListener(new View.OnClickListener() {
+        holder.tenmon.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
@@ -105,50 +96,26 @@ public class MonTrongBanAdapter extends RecyclerView.Adapter<MonTrongBanAdapter.
                         }
                     });
                     builder.show();
-
                 }
             });
-
     }
-
     @Override
     public int getItemCount() {
         return list.size();
     }
 
     class View_montrongban extends RecyclerView.ViewHolder{
-
         TextView tenmon,soluong,tongtien;
-//        ImageView img;
-
+        ImageView img;
         public View_montrongban(@NonNull View itemView) {
             super(itemView);
 
             tenmon = itemView.findViewById(R.id.tenmon);
             soluong = itemView.findViewById(R.id.soluong);
             tongtien = itemView.findViewById(R.id.tongtien);
-//            img = itemView.findViewById(R.id.img);
+            img = itemView.findViewById(R.id.img);
 
         }
     }
-
-//    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent intent) {
-//        if (requestCode == 100 && resultCode == RESULT_OK) {
-//            Uri imageUri = intent.getData();
-//            try {
-//                InputStream inputStream = context.getContentResolver().openInputStream(imageUri);
-//                Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
-//                imgMon.setImageBitmap(bitmap);
-//                imageContent = getBytes(bitmap);
-//            } catch (FileNotFoundException e) {
-//                e.printStackTrace();
-//            }
-//        }
-//    }
-//    private byte[] getBytes(Bitmap bitmap) {
-//        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-//        bitmap.compress(Bitmap.CompressFormat.PNG, 0, stream);
-//        return stream.toByteArray();
-//    }
 
 }

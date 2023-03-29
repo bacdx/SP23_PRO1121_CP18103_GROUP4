@@ -68,18 +68,13 @@ public class BanAnAdapter extends RecyclerView.Adapter<BanAnAdapter.ViewBanan> {
         View viewba = layoutInflater.inflate(R.layout.rcvitembanan,parent,false);
         ViewBanan viewBanan = new ViewBanan(viewba);
         return viewBanan;
-
     }
-
     @Override
     public void onBindViewHolder(@NonNull ViewBanan holder, int position) {
-
-
 
         holder.tenban.setText(list.get(position).getTenBanAN());
         int index = position;
         daoBanAN = new BanAnDao(context);
-
         MonTrongBanDAO trongBanDAO1;
         trongBanDAO1 = new MonTrongBanDAO(context);
 
@@ -103,28 +98,23 @@ public class BanAnAdapter extends RecyclerView.Adapter<BanAnAdapter.ViewBanan> {
                         }
                     }
                 });
-
                 builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
 
                     }
                 });
-
-
                 builder.show();
             }
         });
         holder.themmon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 Fragment fragment = new LoaiMonFragment();
                 FragmentTransaction transaction = ((AppCompatActivity) context).getSupportFragmentManager().beginTransaction();
                 transaction.replace(R.id.mainFrame_collection_fragment,fragment).commit();
             }
         });
-
         try {
             trongBanDAO1.getwid(String.valueOf(list.get(index).getId()));
             if( trongBanDAO1.getwid(String.valueOf(list.get(index).getId()))>0){
@@ -134,8 +124,6 @@ public class BanAnAdapter extends RecyclerView.Adapter<BanAnAdapter.ViewBanan> {
             }
         }catch (Exception e){
         }
-
-
         holder.hoadon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -173,7 +161,6 @@ public class BanAnAdapter extends RecyclerView.Adapter<BanAnAdapter.ViewBanan> {
                     @Override
                     public void onClick(View v) {
                         boolean check = ((CheckBox)v).isChecked();
-
                         if(check){
                             tong.setText(trongBanDAO.getGIamGia(String.valueOf(list.get(index).getId()))+"");
                         }else{
@@ -181,7 +168,6 @@ public class BanAnAdapter extends RecyclerView.Adapter<BanAnAdapter.ViewBanan> {
                         }
                     }
                 });
-
                 thanhtoan.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -198,8 +184,6 @@ public class BanAnAdapter extends RecyclerView.Adapter<BanAnAdapter.ViewBanan> {
                         hoaDon.setTongTien(Integer.parseInt(tong.getText().toString()));
 
                         hoaDonDao.insertHoaDon(hoaDon);
-
-
                         try {
                             trongBanDAO.DeleteAll(String.valueOf(list.get(index).getId()));
                         }catch (Exception e){
@@ -215,34 +199,23 @@ public class BanAnAdapter extends RecyclerView.Adapter<BanAnAdapter.ViewBanan> {
                 dialog.show();
             }
         });
-
-
-
     }
     @Override
     public int getItemCount() {
         return list.size();
     }
     class ViewBanan extends RecyclerView.ViewHolder{
-
-      
-
         TextView tenban,status ;
         ImageView delete,themmon,hoadon;
         ImageButton anh ;
 
         public ViewBanan(@NonNull View itemView) {
             super(itemView);
-
             tenban = itemView.findViewById(R.id.tenban);
             delete = itemView.findViewById(R.id.delete);
             themmon = itemView.findViewById(R.id.themmon);
             anh  = itemView.findViewById(R.id.anh);
             hoadon = itemView.findViewById(R.id.hoadon);
-
         }
     }
-
-
-
 }

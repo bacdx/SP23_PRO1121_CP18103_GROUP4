@@ -17,7 +17,6 @@ public class DBHelper extends SQLiteOpenHelper {
 
         super(context, DBName, null, DBVersion);
     }
-
     private static final String TABLE_BAN = "create table Ban (" +
             "maBan integer not null primary key autoincrement," +
             "tenBan text not null ," +
@@ -28,6 +27,7 @@ public class DBHelper extends SQLiteOpenHelper {
             "maMon integer references Mon(maMon)," +
             "tenMon text," +
             "giaMon integer not null," +
+            "imgMon text," +
             "soLuong integer);";
     private static final String TABLE_LOAI_MON = "create table LoaiMon (maLoaiMon integer primary key autoincrement," +
             "tenLoaiMon text not null," +

@@ -43,7 +43,6 @@ public class MonDao {
         String sql = "Select * from Mon where maLoaiMon="+maLoaiMon;
         return getData(sql);
     }
-
     private List<Mon> getData(String sql , String ... Arg) {
         List<Mon> list = new ArrayList<>();
         Cursor c = db.rawQuery(sql,Arg);
@@ -62,6 +61,10 @@ public class MonDao {
         }
         return list;
     }
+    public Mon getALLTien(int tien){
 
-
+        String sql = "select * from Mon where giaTien ="+tien;
+        List<Mon> list = getData(sql);
+        return list.get(0);
+    }
 }

@@ -12,13 +12,16 @@ import android.widget.Toast;
 
 import com.example.sp23_pro1121_cp18103_group4.Adapter.Adapter_MaBan;
 import com.example.sp23_pro1121_cp18103_group4.DAO.BanAnDao;
+import com.example.sp23_pro1121_cp18103_group4.DAO.MonDao;
 import com.example.sp23_pro1121_cp18103_group4.DAO.MonTrongBanDAO;
 import com.example.sp23_pro1121_cp18103_group4.Model.BanAn;
+import com.example.sp23_pro1121_cp18103_group4.Model.Mon;
 import com.example.sp23_pro1121_cp18103_group4.Model.MonTrongBan;
 import com.example.sp23_pro1121_cp18103_group4.R;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Dialog_MonTrongBan extends AppCompatActivity {
 
@@ -28,8 +31,9 @@ public class Dialog_MonTrongBan extends AppCompatActivity {
     Adapter_MaBan adapter_maBan;
     ArrayList<BanAn> listBanAN;
     BanAnDao banAnDao;
-
     String id12;
+    MonDao monDao;
+    Mon mon;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,21 +59,19 @@ public class Dialog_MonTrongBan extends AppCompatActivity {
         adapter_maBan.setDaTa(listBanAN);
         spinner.setAdapter(adapter_maBan);
 
-
-
+        mon = new Mon();
+        monDao = new MonDao(this);
+        mon = monDao.getALLTien(giamon);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 id12 = String.valueOf(listBanAN.get(position).getId());
             }
-
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
 
             }
         });
-
-
         trongBanDAO = new MonTrongBanDAO(this);
 
         luu.setOnClickListener(new View.OnClickListener() {
@@ -81,24 +83,21 @@ public class Dialog_MonTrongBan extends AppCompatActivity {
                     Toast.makeText(Dialog_MonTrongBan.this, "Khong Được Để Trống ", Toast.LENGTH_SHORT).show();
                     return;
                 }
-
                  if (!soluong.getText().toString().matches("\\d+")) {
                     Toast.makeText(Dialog_MonTrongBan.this, "Yêu cầu  Số Lượng  là số", Toast.LENGTH_SHORT).show();
                     return;
                  }
-
+                monTrongBan.setImgMon(mon.getImgMon());
                 monTrongBan.setSoLuong(Integer.parseInt(soluong.getText().toString()));
                 monTrongBan.setTenMon(tenmon);
                 monTrongBan.setGiaMon(giamon);
                 monTrongBan.setMaBan(String.valueOf(id12));
                 if(trongBanDAO.insert(monTrongBan)>0){
                     Toast.makeText(Dialog_MonTrongBan.this, "Thành CÔng" , Toast.LENGTH_SHORT).show();
-
                 }else{
                     Toast.makeText(Dialog_MonTrongBan.this, "THất Bại", Toast.LENGTH_SHORT).show();
                 }
             }
         });
-
     }
 }
