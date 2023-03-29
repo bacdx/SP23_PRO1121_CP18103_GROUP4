@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".Fragment.LoaiMonFragment">
+    tools:context=".Fragment.MonFragment">
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -14,7 +15,7 @@
             android:layout_height="wrap_content"
             app:cardElevation="10dp"
             app:cardCornerRadius="10dp"
-            android:id="@+id/loaimon_cardView"
+            android:id="@+id/mon_cardView"
             android:layout_margin="10dp"
             >
             <LinearLayout
@@ -27,7 +28,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1.5"
-                    android:id="@+id/loaimon_searchView"
+                    android:id="@+id/mon_searchView"
                     />
                 <ImageView
                     android:layout_width="0dp"
@@ -35,23 +36,24 @@
                     android:layout_weight="0.1"
                     android:layout_margin="5dp"
                     android:layout_gravity="center"
+                    android:layout_toRightOf="@id/loaimon_searchView"
                     android:src="@drawable/ic_baseline_filter_alt_24_filter"
-                    android:id="@+id/loaimon_filter"/>
+                    android:id="@+id/mon_filter"/>
             </LinearLayout>
         </androidx.cardview.widget.CardView>
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/loaimon_rcView"
-            android:layout_below="@id/loaimon_cardView"
-            />
+            android:id="@+id/mon_rcView"
+            android:layout_below="@id/mon_cardView"/>
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentBottom="true"
-            android:layout_margin="10dp"
             android:src="@drawable/ic_baseline_add_24_add"
-            android:id="@+id/loaimon_btnAdd"/>
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_margin="10dp"
+            android:id="@+id/mon_btnAdd"
+            />
     </RelativeLayout>
 </FrameLayout>

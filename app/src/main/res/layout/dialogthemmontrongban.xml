@@ -2,6 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:orientation="vertical"
+
+    android:background="#ffffff"
+
     android:layout_height="wrap_content">
 
     <TextView
@@ -30,10 +33,19 @@
             android:hint="Nhập Số Lượng   " />
     </com.google.android.material.textfield.TextInputLayout>
 
+
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/spn"
+        />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
+
+        android:layout_marginTop="100dp"
+
         android:orientation="horizontal">
 
         <Button

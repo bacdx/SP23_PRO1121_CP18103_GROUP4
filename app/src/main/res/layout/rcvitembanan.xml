@@ -4,12 +4,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_marginTop="20dp"
+
     android:layout_marginLeft="50dp"
+
     app:cardCornerRadius="10dp"
     android:layout_height="wrap_content">
 
     <LinearLayout
-        android:layout_width="120dp"
+        android:layout_width="130dp"
         android:layout_height="wrap_content"
         android:orientation="vertical"
 
@@ -21,7 +23,7 @@
             android:id="@+id/anh"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="15dp"
             android:src="@drawable/banan" />
         <TextView
             android:id="@+id/tenban"
@@ -29,17 +31,28 @@
             android:layout_height="wrap_content"
             android:text="Bàn Số 1 "
             android:layout_marginTop="10dp"
-            android:layout_marginLeft="20dp"
+            android:layout_marginLeft="35dp"
             android:textStyle="bold"
             android:textColor="#030"
             />
+
+<!--        <TextView-->
+<!--            android:id="@+id/status"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="Chưa Gọi Món "-->
+<!--            android:layout_marginTop="10dp"-->
+<!--            android:layout_marginLeft="15dp"-->
+<!--            android:textStyle="bold"-->
+<!--            android:textColor="#030"-->
+<!--            />-->
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_marginTop="10dp"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="20dp"
             >
 
             <ImageView
