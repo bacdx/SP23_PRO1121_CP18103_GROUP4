@@ -29,15 +29,25 @@ public class Top5Fragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_top5, container, false);
+
+        View view= inflater.inflate(R.layout.fragment_top5, container, false);
+
+        rcv = view.findViewById(R.id.rcvtop5);
+        list = new ArrayList<>();
+        hoaDonDao = new HoaDonDao(getContext());
+        list = hoaDonDao.getTop5();
+        top5Adapter = new Top5Adapter(list,getContext());
+        rcv.setAdapter(top5Adapter);
+
+
+        return view;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        rcv = view.findViewById(R.id.rcv);
+
 
     }
 
@@ -45,11 +55,6 @@ public class Top5Fragment extends Fragment {
     public void onResume() {
         super.onResume();
 
-        list = new ArrayList<>();
-        hoaDonDao = new HoaDonDao(getContext());
-        list = hoaDonDao.getTop5();
-        top5Adapter = new Top5Adapter(list,getContext());
-        rcv.setAdapter(top5Adapter);
 
     }
 }

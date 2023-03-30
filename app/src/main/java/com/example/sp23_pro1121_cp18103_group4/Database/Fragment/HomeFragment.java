@@ -1,4 +1,4 @@
-package com.example.sp23_pro1121_cp18103_group4.Fragment;
+package com.example.sp23_pro1121_cp18103_group4.Database.Fragment;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -7,13 +7,10 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toolbar;
 import android.widget.ViewFlipper;
 
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
-import androidx.fragment.app.FragmentTransaction;
 
 import com.bumptech.glide.Glide;
 import com.example.sp23_pro1121_cp18103_group4.R;
@@ -36,15 +33,6 @@ public class HomeFragment extends Fragment {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_home, container, false);
         viewQuangCao = view.findViewById(R.id.home_viewFlipper);
-        TextView tvMenu = view.findViewById(R.id.tvMenu);
-        tvMenu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Fragment fragment = new LoaiMonFragment();
-                FragmentTransaction transaction = ((FragmentActivity)getContext()).getSupportFragmentManager().beginTransaction();
-                transaction.replace(R.id.mainFrame_collection_fragment,fragment).commit();
-            }
-        });
         AnimationViewFlipper();
         return view;
     }

@@ -35,7 +35,9 @@ public class MonTrongBanDAO {
         values.put("maMon",monTrongBan.getMaMon());
         values.put("soLuong",monTrongBan.getSoLuong());
         values.put("tenMon",monTrongBan.getTenMon());
+        values.put("imgMon",monTrongBan.getImgMon());
         values.put("giaMon",monTrongBan.getGiaMon());
+
         return values;
     }
     public int update(MonTrongBan monTrongBan){
@@ -56,9 +58,11 @@ return db.delete("MonTrongBan","id=?",new String[]{id});
             monTrongBan.setId(cursor.getInt(0));
             monTrongBan.setMaBan(cursor.getString(1));
             monTrongBan.setMaMon(cursor.getString(2));
-            monTrongBan.setSoLuong(Integer.parseInt(cursor.getString(5)));
+            monTrongBan.setSoLuong(Integer.parseInt(cursor.getString(6)));
             monTrongBan.setTenMon(cursor.getString(3));
             monTrongBan.setGiaMon(Integer.parseInt(cursor.getString(4)));
+            monTrongBan.setImgMon(cursor.getBlob(5));
+
             list.add(monTrongBan);
         }while (cursor.moveToNext());
         cursor.close();
@@ -66,7 +70,7 @@ return db.delete("MonTrongBan","id=?",new String[]{id});
     }
     public ArrayList<MonTrongBan>  getAllData(){
         String getAllData="select*from MonTrongBan";
-        return getData(getAllData,null);
+        return getData(getAllData);
     }
     public ArrayList<MonTrongBan> getDataByID(String id){
         String getDataByID="select*from MonTrongBan where id=?";
@@ -74,11 +78,13 @@ return db.delete("MonTrongBan","id=?",new String[]{id});
     }
 
     @SuppressLint("Range")
+
     public int getTong(String id){
 
         String sql = "select sum(soLuong * giaMon) as tong from MonTrongBan where maBan = ?";
         ArrayList<Integer> list = new ArrayList<>();
         Cursor c = db.rawQuery(sql,new String[]{id});
+
 
         while(c.moveToNext()){
             try {
@@ -91,13 +97,13 @@ return db.delete("MonTrongBan","id=?",new String[]{id});
     }
 
     @SuppressLint("Range")
+
     public int getGIamGia(String id){
         String sql = "select ((sum(soLuong * giaMon))-((sum(soLuong * giaMon))*10/100)) as tong from MonTrongBan where maBan = ?";
         ArrayList<Integer> list = new ArrayList<>();
         Cursor c = db.rawQuery(sql,new String[]{id});
 
         while(c.moveToNext()){
-
             try {
                 list.add(Integer.parseInt(c.getString(c.getColumnIndex("tong"))));
             }catch (Exception e){
@@ -106,12 +112,10 @@ return db.delete("MonTrongBan","id=?",new String[]{id});
         }
         return list.get(0);
     }
-
     public ArrayList<MonTrongBan> getAllWithId(String id){
         String sql = "Select * from MonTrongBan where maBan= ?";
         return getData(sql,id);
     }
-
     public int getwid(String id){
         String sql = "Select * from MonTrongBan where maBan= ?";
         ArrayList<MonTrongBan> list = getData(sql,id);
@@ -122,11 +126,8 @@ return db.delete("MonTrongBan","id=?",new String[]{id});
             return -1;
         }
     }
-
     public ArrayList<MonTrongBan> DeleteAll(String id){
         String sql = "delete from MonTrongBan where maBan = ?";
         return getData(sql,id);
     }
-
-
 }

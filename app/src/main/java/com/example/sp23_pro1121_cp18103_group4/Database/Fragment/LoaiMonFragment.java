@@ -1,4 +1,4 @@
-package com.example.sp23_pro1121_cp18103_group4.Fragment;
+package com.example.sp23_pro1121_cp18103_group4.Database.Fragment;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -13,7 +13,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -21,8 +20,6 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.PopupMenu;
-import androidx.appcompat.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,18 +29,14 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.sp23_pro1121_cp18103_group4.Adapter.LoaiMonAdapter;
-import com.example.sp23_pro1121_cp18103_group4.Adapter.MonAdapter;
 import com.example.sp23_pro1121_cp18103_group4.DAO.LoaiMonDao;
 import com.example.sp23_pro1121_cp18103_group4.Model.LoaiMon;
-import com.example.sp23_pro1121_cp18103_group4.Model.Mon;
 import com.example.sp23_pro1121_cp18103_group4.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 
@@ -61,8 +54,7 @@ public class LoaiMonFragment extends Fragment {
     //dialog
     EditText edTenLoaiMon;
     ImageView imgLoaiMon;
-    private SearchView loaimon_searchView;
-    ImageView loaimon_filter;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,8 +68,6 @@ public class LoaiMonFragment extends Fragment {
         init(view);
         getListLoaiMon();
         insertLoaiMon();
-        openSearchViewLoaiMon(view);
-        openFilterLoaiMon(view);
         return view;
     }
 
@@ -95,80 +85,6 @@ public class LoaiMonFragment extends Fragment {
         rc_loaiMon.setLayoutManager(manager);
         adapter = new LoaiMonAdapter(getContext(), list);
         rc_loaiMon.setAdapter(adapter);
-    }
-    //thiết lập search view tìm loại món
-
-    public void openSearchViewLoaiMon(View view){
-        loaimon_searchView = view.findViewById(R.id.loaimon_searchView);
-        loaimon_searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                adapter.getFilter().filter(query);
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                adapter.getFilter().filter(newText);
-                return false;
-            }
-        });
-    }
-
-    //thiết lập filter sắp xếp tên loại món
-    public void openFilterLoaiMon(View view){
-        loaimon_filter = view.findViewById(R.id.loaimon_filter);
-        loaimon_filter.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                PopupMenu popupMenu = new PopupMenu(getActivity(), loaimon_filter);
-                popupMenu.getMenuInflater().inflate(R.menu.popup_menu_loaimon, popupMenu.getMenu());
-                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                    @Override
-                    public boolean onMenuItemClick(MenuItem item) {
-                        switch (item.getItemId()){
-                            case R.id.sortUpLoaiMon:
-                                sortUpTenLoai();
-                                break;
-                            case R.id.sortDownLoaiMon:
-                                sortDownTenLoai();
-                                break;
-
-                        }
-                        return false;
-                    }
-                });
-                popupMenu.show();
-            }
-        });
-    }
-    //*********//
-    //phương thức sắp xếp tên loại món tăng dần
-    public void sortUpTenLoai(){
-        Comparator<LoaiMon> com = new Comparator<LoaiMon>() {
-            @Override
-            public int compare(LoaiMon o1, LoaiMon o2) {
-                return o1.getTenLoaiMon().compareToIgnoreCase(o2.getTenLoaiMon());
-            }
-        };
-        Collections.sort(list,com);
-        adapter = new LoaiMonAdapter(getContext(),list);
-        rc_loaiMon.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
-    }
-    //*********//
-    //phương thức sắp xếp tên loại món tăng dần
-    public void sortDownTenLoai(){
-        Comparator<LoaiMon> com = new Comparator<LoaiMon>() {
-            @Override
-            public int compare(LoaiMon o1, LoaiMon o2) {
-                return o2.getTenLoaiMon().compareToIgnoreCase(o1.getTenLoaiMon());
-            }
-        };
-        Collections.sort(list,com);
-        adapter = new LoaiMonAdapter(getContext(),list);
-        rc_loaiMon.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
     }
 
     //thêm loại món

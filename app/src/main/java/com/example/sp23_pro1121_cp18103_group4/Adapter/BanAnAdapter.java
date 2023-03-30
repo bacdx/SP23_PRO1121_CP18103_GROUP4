@@ -4,6 +4,8 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+
+
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -28,10 +30,12 @@ import com.example.sp23_pro1121_cp18103_group4.Activity.Dialog_MonTrongBan;
 import com.example.sp23_pro1121_cp18103_group4.DAO.BanAnDao;
 import com.example.sp23_pro1121_cp18103_group4.DAO.HoaDonDao;
 import com.example.sp23_pro1121_cp18103_group4.DAO.MonTrongBanDAO;
+
 import com.example.sp23_pro1121_cp18103_group4.Fragment.LoaiMonFragment;
 import com.example.sp23_pro1121_cp18103_group4.Fragment.ThemBanFragment;
 import com.example.sp23_pro1121_cp18103_group4.Model.BanAn;
-import com.example.sp23_pro1121_cp18103_group4.Model.ModelHoaDon;
+import com.example.sp23_pro1121_cp18103_group4.Model.HoaDon;
+import com.example.sp23_pro1121_cp18103_group4.Model.Mon;
 import com.example.sp23_pro1121_cp18103_group4.Model.MonTrongBan;
 import com.example.sp23_pro1121_cp18103_group4.MonActivity;
 import com.example.sp23_pro1121_cp18103_group4.R;
@@ -50,6 +54,7 @@ public class BanAnAdapter extends RecyclerView.Adapter<BanAnAdapter.ViewBanan> {
     HoaDonDao hoaDonDao;
 
 
+
     public BanAnAdapter(Context context, ArrayList<BanAn> list) {
         this.context = context;
         this.list = list;
@@ -63,27 +68,15 @@ public class BanAnAdapter extends RecyclerView.Adapter<BanAnAdapter.ViewBanan> {
         View viewba = layoutInflater.inflate(R.layout.rcvitembanan,parent,false);
         ViewBanan viewBanan = new ViewBanan(viewba);
         return viewBanan;
-
     }
-
     @Override
     public void onBindViewHolder(@NonNull ViewBanan holder, int position) {
 
         holder.tenban.setText(list.get(position).getTenBanAN());
         int index = position;
         daoBanAN = new BanAnDao(context);
-
         MonTrongBanDAO trongBanDAO1;
         trongBanDAO1 = new MonTrongBanDAO(context);
-
-
-//        if(trongBanDAO1.getwid(String.valueOf(list.get(index).getId()))>0){
-//            holder.anh.setImageResource(R.drawable.avata);
-//        }else{
-//
-//        }
-
-
 
         holder.delete.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -105,28 +98,23 @@ public class BanAnAdapter extends RecyclerView.Adapter<BanAnAdapter.ViewBanan> {
                         }
                     }
                 });
-
                 builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
 
                     }
                 });
-
-
                 builder.show();
             }
         });
         holder.themmon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 Fragment fragment = new LoaiMonFragment();
                 FragmentTransaction transaction = ((AppCompatActivity) context).getSupportFragmentManager().beginTransaction();
                 transaction.replace(R.id.mainFrame_collection_fragment,fragment).commit();
             }
         });
-
         try {
             trongBanDAO1.getwid(String.valueOf(list.get(index).getId()));
             if( trongBanDAO1.getwid(String.valueOf(list.get(index).getId()))>0){
@@ -136,8 +124,6 @@ public class BanAnAdapter extends RecyclerView.Adapter<BanAnAdapter.ViewBanan> {
             }
         }catch (Exception e){
         }
-
-
         holder.hoadon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -161,7 +147,7 @@ public class BanAnAdapter extends RecyclerView.Adapter<BanAnAdapter.ViewBanan> {
                 TextView tong = dialog.findViewById(R.id.tong);
                 Button thanhtoan = dialog.findViewById(R.id.thanhtoan);
 
-                DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+                DateFormat df = new SimpleDateFormat("dd/M/yyyy");
 
                 MonTrongBanAdapter monTrongBanAdapter;
                 tenban.setText(list.get(index).getTenBanAN());
@@ -169,39 +155,35 @@ public class BanAnAdapter extends RecyclerView.Adapter<BanAnAdapter.ViewBanan> {
                 monTrongBanAdapter = new MonTrongBanAdapter(listmtb,context);
                 rcv.setAdapter(monTrongBanAdapter);
 
-                tong.setText(trongBanDAO.getTong(String.valueOf(list.get(index).getId()))+" VND");
+                tong.setText(trongBanDAO.getTong(String.valueOf(list.get(index).getId()))+"");
 
                 checkBox1.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         boolean check = ((CheckBox)v).isChecked();
-
                         if(check){
-                            tong.setText(trongBanDAO.getGIamGia(String.valueOf(list.get(index).getId()))+ " VND");
+                            tong.setText(trongBanDAO.getGIamGia(String.valueOf(list.get(index).getId()))+"");
                         }else{
-                            tong.setText(trongBanDAO.getTong(String.valueOf(list.get(index).getId()))+" VND");
+                            tong.setText(trongBanDAO.getTong(String.valueOf(list.get(index).getId()))+"");
                         }
                     }
                 });
-
                 thanhtoan.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
 
 
-//                        ModelHoaDon hoaDon;
-//                        hoaDon = new ModelHoaDon();
-//                        hoaDonDao = new HoaDonDao(context);
-//
-//                        hoaDon.setMaBan(String.valueOf(list.get(index).getId()));
-//                        hoaDon.setMaKH("KH01");
-//                        hoaDon.setMaNV("NV01");
-//                        hoaDon.setNgayLap("21/3/2023");
-//                        hoaDon.setTongTien(Integer.parseInt("30000"));
-//
-//                        hoaDonDao.insertHoaDon(hoaDon);
+                        HoaDon hoaDon;
+                        hoaDon = new HoaDon();
+                        hoaDonDao = new HoaDonDao(context);
 
+                        hoaDon.setMaBan(String.valueOf(list.get(index).getId()));
+                        hoaDon.setMaKH("KH01");
+                        hoaDon.setMaNV("NV01");
+                        hoaDon.setNgayLap(ngay.getText().toString());
+                        hoaDon.setTongTien(Integer.parseInt(tong.getText().toString()));
 
+                        hoaDonDao.insertHoaDon(hoaDon);
                         try {
                             trongBanDAO.DeleteAll(String.valueOf(list.get(index).getId()));
                         }catch (Exception e){
@@ -217,32 +199,23 @@ public class BanAnAdapter extends RecyclerView.Adapter<BanAnAdapter.ViewBanan> {
                 dialog.show();
             }
         });
-
-
     }
     @Override
     public int getItemCount() {
         return list.size();
     }
     class ViewBanan extends RecyclerView.ViewHolder{
-
         TextView tenban,status ;
         ImageView delete,themmon,hoadon;
         ImageButton anh ;
 
         public ViewBanan(@NonNull View itemView) {
             super(itemView);
-
             tenban = itemView.findViewById(R.id.tenban);
             delete = itemView.findViewById(R.id.delete);
             themmon = itemView.findViewById(R.id.themmon);
             anh  = itemView.findViewById(R.id.anh);
             hoadon = itemView.findViewById(R.id.hoadon);
-
-
         }
     }
-
-
-
 }
