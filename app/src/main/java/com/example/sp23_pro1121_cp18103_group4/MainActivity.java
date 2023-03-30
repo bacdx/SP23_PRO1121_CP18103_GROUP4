@@ -12,13 +12,20 @@ import androidx.fragment.app.FragmentTransaction;
 import android.os.Bundle;
 import android.view.MenuItem;
 
-import com.example.sp23_pro1121_cp18103_group4.Database.Fragment.DoanhThuFragment;
-import com.example.sp23_pro1121_cp18103_group4.Database.Fragment.HoaDonFragment;
-import com.example.sp23_pro1121_cp18103_group4.Database.Fragment.HomeFragment;
-import com.example.sp23_pro1121_cp18103_group4.Database.Fragment.LoaiMonFragment;
-import com.example.sp23_pro1121_cp18103_group4.Database.Fragment.ThemBanFragment;
-import com.example.sp23_pro1121_cp18103_group4.Database.Fragment.Top5Fragment;
+
+import com.example.sp23_pro1121_cp18103_group4.Fragment.DoanhThuFragment;
+import com.example.sp23_pro1121_cp18103_group4.Fragment.HoaDonFragment;
+import com.example.sp23_pro1121_cp18103_group4.Fragment.HomeFragment;
+import com.example.sp23_pro1121_cp18103_group4.Fragment.KhachHangFragment;
+import com.example.sp23_pro1121_cp18103_group4.Fragment.LoaiMonFragment;
+import com.example.sp23_pro1121_cp18103_group4.Fragment.ThemBanFragment;
+import com.example.sp23_pro1121_cp18103_group4.Fragment.Top5Fragment;
+import com.example.sp23_pro1121_cp18103_group4.Fragment.HoaDonFragment;
+import com.example.sp23_pro1121_cp18103_group4.Fragment.HomeFragment;
+import com.example.sp23_pro1121_cp18103_group4.Fragment.LoaiMonFragment;
+import com.example.sp23_pro1121_cp18103_group4.Fragment.ThemBanFragment;
 import com.google.android.material.navigation.NavigationView;
+
 
 
 public class MainActivity extends AppCompatActivity {
@@ -29,11 +36,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         init();
         setDraw();
     }
-
     //ánh xạ
     public void init(){
         drawerLayout = findViewById(R.id.draw_layout);
@@ -52,7 +57,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()){
-
                     case R.id.nav_Home:
                         replaceFragment(new HomeFragment());
                         break;
@@ -70,6 +74,9 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case R.id.nav_Top5:
                         replaceFragment(new Top5Fragment());
+                        break;
+                    case R.id.nav_KhachHang:
+                        replaceFragment(new KhachHangFragment());
                         break;
                 }
                 drawerLayout.closeDrawer(GravityCompat.START);

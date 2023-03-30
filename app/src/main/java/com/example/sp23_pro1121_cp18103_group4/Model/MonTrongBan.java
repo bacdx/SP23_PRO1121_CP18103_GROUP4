@@ -6,6 +6,36 @@ public class MonTrongBan {
     private String maMon;
     private int soLuong;
 
+    private byte[] imgMon;
+
+    public byte[] getImgMon() {
+        return imgMon;
+    }
+
+    public void setImgMon(byte[] imgMon) {
+        this.imgMon = imgMon;
+    }
+
+    int giaMon;
+
+    public int getGiaMon() {
+        return giaMon;
+    }
+
+    public void setGiaMon(int giaMon) {
+        this.giaMon = giaMon;
+    }
+
+    String tenMon;
+
+    public String getTenMon() {
+        return tenMon;
+    }
+
+    public void setTenMon(String tenMon) {
+        this.tenMon = tenMon;
+    }
+
     public MonTrongBan() {
     }
 

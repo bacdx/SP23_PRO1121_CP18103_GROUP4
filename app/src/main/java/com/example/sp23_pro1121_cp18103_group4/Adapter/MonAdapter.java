@@ -5,6 +5,7 @@ import static android.app.Activity.RESULT_OK;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -15,6 +16,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -22,45 +24,45 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.sp23_pro1121_cp18103_group4.Activity.Dialog_MonTrongBan;
 import com.example.sp23_pro1121_cp18103_group4.DAO.MonDao;
-import com.example.sp23_pro1121_cp18103_group4.DAO.MonTrongBanDAO;
 import com.example.sp23_pro1121_cp18103_group4.Model.Mon;
-import com.example.sp23_pro1121_cp18103_group4.Model.MonTrongBan;
 import com.example.sp23_pro1121_cp18103_group4.R;
-import com.google.android.material.textfield.TextInputEditText;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 
-public class MonAdapter extends RecyclerView.Adapter<MonAdapter.MyViewHolder> {
+public class MonAdapter extends RecyclerView.Adapter<MonAdapter.MyViewHolder> implements Filterable {
     Context mContext;
     List<Mon> list;
+    List<Mon> listSearchView;
     MonDao dao;
     EditText edTenMon, edGiaTien;
     CheckBox chkTrangThai;
     int maLoaiMon;
     ImageView imgMon;
-
-    MonTrongBan monTrongBan;
-
-    MonTrongBanDAO trongBanDAO;
-
     private static final int PICK_IMAGE_REQUEST = 100;
     static byte[] imageContent;
     public MonAdapter(Context mContext, List<Mon> list) {
         this.mContext = mContext;
         this.list = list;
+        this.listSearchView = list;
         dao = new MonDao(mContext);
     }
 
@@ -75,173 +77,105 @@ public class MonAdapter extends RecyclerView.Adapter<MonAdapter.MyViewHolder> {
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         Mon mon = list.get(position);
         holder.mon_tvTenMon.setText(mon.getTenMon());
+        holder.mon_tvGiaTien.setText("Giá tiền: " + mon.getGiaTien());
 
-            int index = position;
         holder.mon_tvTenMon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent intent = new Intent(mContext, Dialog_MonTrongBan.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("tenmon",mon.getTenMon());
+                bundle.putInt("giamon",mon.getGiaTien());
+                intent.putExtra("thongtin",bundle);
+                mContext.startActivity(intent);
 
-                Dialog dialog = new Dialog(mContext, androidx.appcompat.R.style.Theme_AppCompat);
-                dialog.setContentView(R.layout.dialogthemmontrongban);
-                trongBanDAO = new MonTrongBanDAO(mContext);
-
-                TextInputEditText soluong = dialog.findViewById(R.id.soluong);
-                Button luu = dialog.findViewById(R.id.luu);
-                Button huy = dialog.findViewById(R.id.huy);
-//
-//                Bundle bundle = new Bundle();
-//                bundle.getBundle("banan");
-//                 int maban =  bundle.getInt("maban");
-
-                 monTrongBan = new MonTrongBan();
-
-                 luu.setOnClickListener(new View.OnClickListener() {
-                     @Override
-                     public void onClick(View view) {
-                         monTrongBan.setSoLuong(Integer.parseInt(soluong.getText().toString()));
-//                         monTrongBan.setMaBan(String.valueOf(maban));
-                         monTrongBan.setMaMon(String.valueOf(list.get(index).getMaMon()));
-                         if(trongBanDAO.insert(monTrongBan)>0){
-                             Toast.makeText(mContext, "Thành Công", Toast.LENGTH_SHORT).show();
-
-                         }else{
-                             Toast.makeText(mContext, "Thất Bại", Toast.LENGTH_SHORT).show();
-                         }
-                     }
-                 });
-
-                dialog.show();
             }
         });
 
 
-        holder.mon_tvGiaTien.setText("Giá tiền: " + mon.getGiaTien());
+
         if (mon.getTrangThai().equals("Còn hàng")) {
             holder.mon_tvTrangThai.setText(mon.getTrangThai());
             holder.mon_tvTrangThai.setTextColor(Color.BLUE);
+            holder.mon_tvTrangThai.setPaintFlags(holder.mon_tvGiaTien.getPaintFlags() | Paint.FAKE_BOLD_TEXT_FLAG);
         } else {
             holder.mon_tvTrangThai.setText(mon.getTrangThai());
             holder.mon_tvTrangThai.setTextColor(Color.RED);
             holder.mon_tvTrangThai.setPaintFlags(holder.mon_tvGiaTien.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
         }
-        Bitmap imageContent = BitmapFactory.decodeByteArray(mon.getImgMon(),0,mon.getImgMon().length);
+        Bitmap imageContent = BitmapFactory.decodeByteArray(mon.getImgMon(), 0, mon.getImgMon().length);
         holder.mon_imgMon.setImageBitmap(imageContent);
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
+        holder.img_popupMon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Bundle bundle = new Bundle();
-//                bundle.putString("tenMon",mon.getTenMon());
-//                bundle.putInt("giaTien",mon.getGiaTien());
-//                bundle.putString("trangThai",mon.getTrangThai());
-//                bundle.putByteArray("imgMon",mon.getImgMon());
-//                Intent mIntent = new Intent(mContext, MonActivity.class);
-//                mIntent.putExtra("monData",bundle);
-//                mContext.startActivity(mIntent);
-                openDialogUpdate(Gravity.CENTER);
-            }
-        });
-    }
-    public void openDialogUpdate(int gravity) {
-        Dialog dialog = new Dialog(mContext);
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(R.layout.dialog_mon);
-        dialog.create();
-        dialog.show();
-        //custom dialog
-        Window window = dialog.getWindow();
-        if (window == null) {
-            return;
-        }
-        window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
-        window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        WindowManager.LayoutParams windowAttributes = window.getAttributes();
-        windowAttributes.gravity = gravity;
-        window.setAttributes(windowAttributes);
-        //tạo mới model
-        Mon mon = new Mon();
-        TextView mon_tvTitle;
-        Button btnSave;
-        imgMon = dialog.findViewById(R.id.mon_addImg);
-        imgMon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-                intent.setType("image/*");
-                ((Activity) mContext).startActivityForResult(intent, PICK_IMAGE_REQUEST);
-            }
-        });
-        edTenMon = dialog.findViewById(R.id.mon_edTenMon);
-        edGiaTien = dialog.findViewById(R.id.mon_edGiaTien);
-        chkTrangThai = dialog.findViewById(R.id.mon_chkTrangThai);
-        edTenMon.setText(mon.getTenMon());
-        edGiaTien.setText(String.valueOf(""+mon.getGiaTien()));
-
-//        if (mon.getTrangThai().equals("Còn hàng")){
-//            chkTrangThai.setChecked(true);
-//        }else{
-//            chkTrangThai.setChecked(false);
-//        }
-        btnSave = dialog.findViewById(R.id.mon_btnSave);
-        mon_tvTitle = dialog.findViewById(R.id.mon_tvTitle);
-        mon_tvTitle.setText("Thêm Món Ăn");
-        btnSave.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (chkTrangThai.isChecked()) {
-                    mon.setTrangThai("Còn hàng");
-                } else {
-                    mon.setTrangThai("Hết hàng");
-                }
-                mon.setTenMon(edTenMon.getText().toString());
-                mon.setGiaTien(Integer.parseInt("" + edGiaTien.getText().toString()));
-                mon.setMaLoaiMon(maLoaiMon);
-                mon.setImgMon(imageContent);
-                dao = new MonDao(mContext);
-                if (validate() > 0) {
-                    if (dao.insertMon(mon) > 0) {
-                        Toast.makeText(mContext, "thanh cong", Toast.LENGTH_SHORT).show();
-                        edTenMon.setText("");
-                        edGiaTien.setText("");
-                        chkTrangThai.setChecked(false);
-                        list.clear();
-                        dialog.dismiss();
-                        list = dao.getAllWithId(mon.getMaLoaiMon());
-                        notifyDataSetChanged();
-                    } else {
-                        Toast.makeText(mContext, "that bai", Toast.LENGTH_SHORT).show();
-                        dialog.dismiss();
+                PopupMenu popupMenu = new PopupMenu(mContext, holder.img_popupMon);
+                popupMenu.getMenuInflater().inflate(R.menu.popup_menu, popupMenu.getMenu());
+                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        switch (item.getItemId()) {
+                            case R.id.popup_update:
+                                openDiaLogUpdateMon(Gravity.CENTER, mon);
+                                break;
+                            case R.id.popup_delete:
+                                openDialogDeleteMon(holder.getAdapterPosition(),mon);
+                                break;
+                        }
+                        return false;
                     }
-                }
+                });
+                popupMenu.show();
             }
         });
-    }
-    //validate check
-    public int validate() {
-        int check = 1;
-        if (edTenMon.getText().toString().isEmpty() || edGiaTien.getText().toString().isEmpty()) {
-            Toast.makeText(mContext, "Yêu cầu nhập đầy đủ thông tin", Toast.LENGTH_SHORT).show();
-            check = -1;
-        } else if (!edGiaTien.getText().toString().matches("\\d+")) {
-            Toast.makeText(mContext, "Yêu cầu giá tiền phải là số", Toast.LENGTH_SHORT).show();
-            check = -1;
-        }
-        return check;
     }
 
     @Override
     public int getItemCount() {
         return list.size();
     }
+    //thiết lập getFilter cho search view
+    @Override
+    public Filter getFilter() {
+        return new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence constraint) {
+                String strSearch = constraint.toString();
+                if (strSearch.isEmpty()){
+                    list = listSearchView;
+                }
+                else{
+                    List<Mon> mList = new ArrayList<>();
+                    for (Mon mon : listSearchView){
+                        if (mon.getTenMon().toLowerCase().contains(strSearch.toLowerCase())){
+                            mList.add(mon);
+                        }
+                    }
+                    list = mList;
+                }
+                FilterResults results = new FilterResults();
+                results.values = list;
+                return results;
+            }
+
+            @Override
+            protected void publishResults(CharSequence constraint, FilterResults results) {
+                list = (List<Mon>) results.values;
+                notifyDataSetChanged();
+            }
+        };
+    }
 
     public final class MyViewHolder extends RecyclerView.ViewHolder {
         TextView mon_tvTenMon, mon_tvGiaTien, mon_tvTrangThai;
         ImageView mon_imgMon;
+        ImageView img_popupMon;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             mon_tvTenMon = itemView.findViewById(R.id.mon_tvTenMon);
             mon_tvGiaTien = itemView.findViewById(R.id.mon_tvGiaTien);
             mon_tvTrangThai = itemView.findViewById(R.id.mon_tvTrangThai);
             mon_imgMon = itemView.findViewById(R.id.mon_imgMon);
+            img_popupMon = itemView.findViewById(R.id.img_popupMenuMon);
         }
     }
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent intent) {
@@ -263,5 +197,99 @@ public class MonAdapter extends RecyclerView.Adapter<MonAdapter.MyViewHolder> {
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.PNG, 0, stream);
         return stream.toByteArray();
+    }
+
+    //*********//
+    //Thiết lập dialog update món
+    public void openDiaLogUpdateMon(int gravity, Mon mon) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+        View view = LayoutInflater.from(mContext).inflate(R.layout.dialog_update_mon, null);
+        builder.setView(view);
+        Dialog dialog = builder.create();
+        dialog.show();
+        Window window = dialog.getWindow();
+        if (window == null) {
+            return;
+        }
+        window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
+        window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        WindowManager.LayoutParams windowAttributes = window.getAttributes();
+        windowAttributes.gravity = gravity;
+        window.setAttributes(windowAttributes);
+        EditText mon_edTenMon, mon_edGiaTien;
+        CheckBox mon_chkTrangThai;
+        Button btnSave, btnCancel;
+        ImageView mon_imgMon;
+        mon_edTenMon = dialog.findViewById(R.id.mon_edTenMon);
+        mon_edGiaTien = dialog.findViewById(R.id.mon_edGiaTien);
+        mon_chkTrangThai = dialog.findViewById(R.id.mon_chkTrangThai);
+        mon_edTenMon.setText(mon.getTenMon());
+        mon_edGiaTien.setText(String.valueOf(mon.getGiaTien()));
+        mon_imgMon = dialog.findViewById(R.id.mon_addImg);
+        btnSave = dialog.findViewById(R.id.mon_btnSave);
+        btnCancel = dialog.findViewById(R.id.mon_btnCancel);
+        if (mon.getTrangThai().equals("Còn hàng")) {
+            mon_chkTrangThai.setChecked(true);
+        } else {
+            mon_chkTrangThai.setChecked(false);
+        }
+        byte[] img = mon.getImgMon();
+        Bitmap bitmap = BitmapFactory.decodeByteArray(img, 0, img.length);
+        mon_imgMon.setImageBitmap(bitmap);
+        btnSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mon_chkTrangThai.isChecked()) {
+                    mon.setTrangThai("Còn hàng");
+                } else {
+                    mon.setTrangThai("Hết hàng");
+                }
+                dao = new MonDao(mContext);
+                if (dao.updateMon(mon) > 0) {
+                    Toast.makeText(mContext, "thanh cong", Toast.LENGTH_SHORT).show();
+                    list.clear();
+                    dialog.dismiss();
+                    list = dao.getAllWithId(mon.getMaLoaiMon());
+                    notifyDataSetChanged();
+                } else {
+                    Toast.makeText(mContext, "that bai", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+    }
+
+    //***********//
+    //Thiết lập dialog delete món
+    private void openDialogDeleteMon(int adapterPosition, Mon mon) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+        builder.setTitle("Bạn có chắc chắn muốn xóa?");
+        builder.setNegativeButton("Ok", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dao = new MonDao(mContext);
+                if (dao.deleteMon(list.get(adapterPosition)) > 0) {
+                    Toast.makeText(mContext, "Xóa thành công", Toast.LENGTH_SHORT).show();
+                    list.remove(adapterPosition);
+                    list.clear();
+                    list = dao.getAllWithId(mon.getMaLoaiMon());
+                    notifyDataSetChanged();
+                } else {
+                    Toast.makeText(mContext, "Xóa không thành công", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        builder.setPositiveButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        builder.show();
     }
 }

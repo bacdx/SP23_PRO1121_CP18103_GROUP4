@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.sp23_pro1121_cp18103_group4.Adapter.Top5Adapter;
 import com.example.sp23_pro1121_cp18103_group4.DAO.HoaDonDao;
@@ -20,12 +21,7 @@ import java.util.ArrayList;
 
 
 public class Top5Fragment extends Fragment {
-
-
     RecyclerView rcv;
-    Top5Adapter top5Adapter;
-    ArrayList<Top5> list;
-    HoaDonDao hoaDonDao;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -41,15 +37,4 @@ public class Top5Fragment extends Fragment {
 
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-
-        list = new ArrayList<>();
-        hoaDonDao = new HoaDonDao(getContext());
-        list = hoaDonDao.getTOp5();
-        top5Adapter = new Top5Adapter(list,getContext());
-        rcv.setAdapter(top5Adapter);
-
-    }
 }

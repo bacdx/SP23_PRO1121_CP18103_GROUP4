@@ -35,10 +35,7 @@ public class MonDao {
 
     public long updateMon(Mon mon){
         ContentValues values = new ContentValues();
-        values.put("tenMon",mon.getTenMon());
-        values.put("giaTien",mon.getGiaTien());
         values.put("trangThai",mon.getTrangThai());
-        values.put("imgMon",mon.getImgMon());
         return db.update("Mon",values,"maMon=?",new String[]{String.valueOf(mon.getMaMon())});
     }
 
@@ -46,7 +43,6 @@ public class MonDao {
         String sql = "Select * from Mon where maLoaiMon="+maLoaiMon;
         return getData(sql);
     }
-
     private List<Mon> getData(String sql , String ... Arg) {
         List<Mon> list = new ArrayList<>();
         Cursor c = db.rawQuery(sql,Arg);
@@ -65,20 +61,19 @@ public class MonDao {
         }
         return list;
     }
+    public Mon getALLTien(int tien) {
 
-    public Mon getID(String id){
 
-        String sql = "select * from Mon where maMon = ?";
-        List<Mon> list = getData(sql,id);
+        String sql = "select * from Mon where giaTien =" + tien;
+        List<Mon> list = getData(sql);
         return list.get(0);
-
     }
 
-    public List<Mon> getID2(String id){
-
-        String sql = "select * from Mon where maMon = ?";
-        return getData(sql,id);
+    //**********//
+    //Thêm lấy tất cả món
+    public List<Mon> getAll(){
+        String sql = "Select * from Mon";
+        return getData(sql);
 
     }
-
 }

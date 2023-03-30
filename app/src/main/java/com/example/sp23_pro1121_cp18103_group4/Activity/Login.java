@@ -2,35 +2,32 @@ package com.example.sp23_pro1121_cp18103_group4.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Handler;
-import android.view.View;
-import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.Toast;
+
 
 import com.example.sp23_pro1121_cp18103_group4.DAO.NhanVienDao;
 import com.example.sp23_pro1121_cp18103_group4.MainActivity;
 import com.example.sp23_pro1121_cp18103_group4.Model.NhanVien;
+
 import com.example.sp23_pro1121_cp18103_group4.R;
-import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Login extends AppCompatActivity {
+
        TextInputEditText edUserName, edPassword;
        Button  lg;
        CheckBox chk;
      private NhanVienDao dao ;
      private List<NhanVien> nhanVienList;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
         edUserName   =  findViewById(R.id.edUserName);
         edPassword = findViewById(R.id.edPassword);
           lg  =  findViewById(R.id.dangnhap);
@@ -101,5 +98,6 @@ public class Login extends AppCompatActivity {
         String p = edPassword.getText().toString();
         boolean status = chk.isChecked();
         rememberUp(u,p,status);
+
     }
 }

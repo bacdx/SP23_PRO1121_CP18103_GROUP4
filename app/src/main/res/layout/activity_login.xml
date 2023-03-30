@@ -21,14 +21,13 @@
         android:layout_margin="20dp"
         android:textColorHint="#6200EE"
         android:hint="Tên đăng nhập"
-
         app:expandedHintEnabled="false"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         >
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/edUserName"
+
             />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -39,7 +38,6 @@
         android:layout_margin="20dp"
         android:textColorHint="#6200EE"
         android:hint="Mật Khẩu"
-
         app:passwordToggleEnabled="true"
         app:expandedHintEnabled="false"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -47,25 +45,20 @@
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/edPassword"
             />
     </com.google.android.material.textfield.TextInputLayout>
        <CheckBox
            android:layout_width="match_parent"
            android:layout_height="wrap_content"
            android:text="Nhớ Mật Khẩu"
-           android:onClick="saveUP"
            android:textColor="#0F6392"
            android:textStyle="bold"
-           android:id="@+id/chkRememberPass"
            android:layout_marginHorizontal="20dp"
            />
        <Button
            android:layout_width="wrap_content"
            android:layout_height="wrap_content"
            android:text="Đăng Nhập"
-           android:onClick="checkLogin"
-           android:id="@+id/dangnhap"
            android:layout_gravity="center"
            android:backgroundTint="#D98B2B"
            android:textStyle="bold"

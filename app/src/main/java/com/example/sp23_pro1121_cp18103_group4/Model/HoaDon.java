@@ -1,6 +1,6 @@
 package com.example.sp23_pro1121_cp18103_group4.Model;
 
-public class ModelHoaDon {
+public class HoaDon {
     private String maHoaDon;
     private String maBan;
     private String maNV;
@@ -8,10 +8,10 @@ public class ModelHoaDon {
     private String ngayLap;
     private int tongTien;
 
-    public ModelHoaDon() {
+    public HoaDon() {
     }
 
-    public ModelHoaDon(String maHoaDon, String maBan, String maNV, String maKH, String ngayLap, int tongTien) {
+    public HoaDon(String maHoaDon, String maBan, String maNV, String maKH, String ngayLap, int tongTien) {
         this.maHoaDon = maHoaDon;
         this.maBan = maBan;
         this.maNV = maNV;
