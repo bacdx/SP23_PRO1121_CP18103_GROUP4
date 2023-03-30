@@ -12,7 +12,13 @@ import com.example.sp23_pro1121_cp18103_group4.data.Data;
 public class DBHelper extends SQLiteOpenHelper {
     public Data data = new Data();
     public static final String DBName = "FAST_FOOD";
-    public static final int DBVersion = 1;
+
+
+    public static final int DBVersion = 13;
+
+
+
+
 
     public DBHelper(@Nullable Context context) {
 
@@ -45,8 +51,10 @@ public class DBHelper extends SQLiteOpenHelper {
             "user text," +
             "passWord text," +
             "numberPhone text," +
+
             "gioiTinh text," +
             "ngaySinh date," +
+
             "uyQuyen text," +
             "status text);";
     private static final String TABLE_HOADON = "create table HoaDon(" +
@@ -81,7 +89,7 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL(TABLE_MON_TRONG_BAN);
         db.execSQL(TABLE_kHACH_HANG);
         db.execSQL(TABLE_HOADON);
-//        db.execSQL(data.insertNhanVien);
+//        db.execSQL(Data.insertNhanVien);
 //        db.execSQL(data.insertLoaiMon);
 //        db.execSQL(data.insertMon);
 //        db.execSQL(data.insertBan);

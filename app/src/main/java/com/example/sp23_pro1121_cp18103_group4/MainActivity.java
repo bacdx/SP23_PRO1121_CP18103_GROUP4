@@ -18,6 +18,7 @@ import com.example.sp23_pro1121_cp18103_group4.Fragment.HoaDonFragment;
 import com.example.sp23_pro1121_cp18103_group4.Fragment.HomeFragment;
 import com.example.sp23_pro1121_cp18103_group4.Fragment.KhachHangFragment;
 import com.example.sp23_pro1121_cp18103_group4.Fragment.LoaiMonFragment;
+import com.example.sp23_pro1121_cp18103_group4.Fragment.NhanVienFragment;
 import com.example.sp23_pro1121_cp18103_group4.Fragment.ThemBanFragment;
 import com.example.sp23_pro1121_cp18103_group4.Fragment.Top5Fragment;
 import com.example.sp23_pro1121_cp18103_group4.Fragment.HoaDonFragment;
@@ -68,6 +69,12 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case R.id.nav_HoaDon:
                         replaceFragment(new HoaDonFragment());
+                        break;
+                    case R.id.nav_ThanhVien:
+                        replaceFragment(new NhanVienFragment());
+                        break;
+                    case R.id.nav_KhachHang:
+                        replaceFragment(new KhachHangFragment());
                         break;
                     case R.id.nav_DoanhThu:
                         replaceFragment(new DoanhThuFragment());
