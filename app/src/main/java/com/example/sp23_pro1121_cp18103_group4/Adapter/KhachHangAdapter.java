@@ -1,6 +1,10 @@
 package com.example.sp23_pro1121_cp18103_group4.Adapter;
 
+
+import android.annotation.SuppressLint;
+
 import android.app.AlertDialog;
+
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -8,30 +12,46 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+
+import android.view.MenuItem;
+
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
+
+import android.widget.PopupMenu;
+
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+
+
+
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.sp23_pro1121_cp18103_group4.DAO.KhachHangDao;
 import com.example.sp23_pro1121_cp18103_group4.Model.KhachHang;
 import com.example.sp23_pro1121_cp18103_group4.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class KhachHangAdapter extends RecyclerView.Adapter<KhachHangAdapter.MyViewHolder> {
+
+public class KhachHangAdapter extends RecyclerView.Adapter<KhachHangAdapter.MyViewHolder> implements Filterable {
+
     Context mContext;
     List<KhachHang> list;
+    List<KhachHang> listSearch;
     KhachHangDao dao;
+    //ánh xạ
     TextView khachhang_tvTitle;
     EditText khachhang_edHoTen, khachhang_edNamSinh, khachhang_edSoDT, khachhang_edDiaChi;
     RadioButton khachhang_rdNam, khachhang_rdNu, khachhang_rdKhac;
@@ -39,6 +59,7 @@ public class KhachHangAdapter extends RecyclerView.Adapter<KhachHangAdapter.MyVi
     public KhachHangAdapter(Context mContext, List<KhachHang> list) {
         this.mContext = mContext;
         this.list = list;
+        this.listSearch = list;
         dao = new KhachHangDao(mContext);
     }
 
@@ -66,39 +87,28 @@ public class KhachHangAdapter extends RecyclerView.Adapter<KhachHangAdapter.MyVi
         holder.tvSoDT.setText("Số điện thoại: " + khachHang.getSoDT());
         holder.tvDiaChi.setText("Địa chỉ: " + khachHang.getDiaChi());
         //set dialog xóa khách hàng
-        holder.imgDelete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
-                builder.setTitle("Bạn có chắc chắn muốn xóa không?");
-                builder.setNegativeButton("Ok", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dao = new KhachHangDao(mContext);
-                        if (dao.deleteKhachHang(list.get(holder.getAdapterPosition())) > 0) {
-                            Toast.makeText(mContext, "Xóa thành công", Toast.LENGTH_SHORT).show();
-                            list.remove(holder.getAdapterPosition());
-                            list.clear();
-                            list = dao.getAll();
-                            notifyDataSetChanged();
-                        }
-                    }
-                });
-                builder.setPositiveButton("Cancel", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                });
-                builder.show();
-            }
-        });
 
-        //thiết lập dialog sửa khách hàng
-        holder.imgEdit.setOnClickListener(new View.OnClickListener() {
+        holder.img_popupKhachHang.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openDialogUpdate(Gravity.CENTER,khachHang);
+                android.widget.PopupMenu popupMenu = new android.widget.PopupMenu(mContext, holder.img_popupKhachHang);
+                popupMenu.getMenuInflater().inflate(R.menu.popup_menu, popupMenu.getMenu());
+                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        switch (item.getItemId()) {
+                            case R.id.popup_update:
+                                openDialogUpdate(Gravity.CENTER, khachHang);
+                                break;
+                            case R.id.popup_delete:
+                                openDialogDelete(holder.getAdapterPosition());
+                                break;
+                        }
+                        return false;
+                    }
+                });
+                popupMenu.show();
+
             }
         });
     }
@@ -108,22 +118,61 @@ public class KhachHangAdapter extends RecyclerView.Adapter<KhachHangAdapter.MyVi
         return list.size();
     }
 
+    @Override
+    public Filter getFilter() {
+        return new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence constraint) {
+                String strSearch = constraint.toString();
+                if (strSearch.isEmpty()){
+
+                    list = listSearch;
+
+                }else{
+                    List<KhachHang> mList = new ArrayList<>();
+                    for (KhachHang khachHang : listSearch){
+                        if (khachHang.getHoTen().toLowerCase().contains(strSearch.toLowerCase())){
+                            mList.add(khachHang);
+                        }
+                    }
+                    list = mList;
+                }
+                FilterResults results = new FilterResults();
+                results.values = list;
+                return results;
+            }
+
+            @Override
+            protected void publishResults(CharSequence constraint, FilterResults results) {
+                list = (List<KhachHang>) results.values;
+                notifyDataSetChanged();
+            }
+        };
+    }
+
     public final class MyViewHolder extends RecyclerView.ViewHolder {
-        ImageView imgGioiTinh, imgEdit, imgDelete;
+
+        ImageView imgGioiTinh , img_popupKhachHang;
+
         TextView tvHoTen, tvNamSinh, tvGioiTinh, tvSoDT, tvDiaChi;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             imgGioiTinh = itemView.findViewById(R.id.khachhang_imgGioiTinh);
-            imgEdit = itemView.findViewById(R.id.khachhang_imgEdit);
-            imgDelete = itemView.findViewById(R.id.khachhang_imgDelete);
+
+            img_popupKhachHang = itemView.findViewById(R.id.khachhang_Popupmenu);
+
             tvHoTen = itemView.findViewById(R.id.khachhang_tvHoTen);
             tvNamSinh = itemView.findViewById(R.id.khachhang_tvNamSinh);
             tvGioiTinh = itemView.findViewById(R.id.khachhang_tvGioiTinh);
             tvSoDT = itemView.findViewById(R.id.khachhang_tvSoDT);
             tvDiaChi = itemView.findViewById(R.id.khachhang_tvDiaChi);
         }
+
+
     }
+
+    @SuppressLint("MissingInflatedId")
 
     public void openDialogUpdate(int gravity , KhachHang khachHang) {
         AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
@@ -174,7 +223,7 @@ public class KhachHangAdapter extends RecyclerView.Adapter<KhachHangAdapter.MyVi
         btnCancel = view.findViewById(R.id.khachhang_btnCancel);
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+                public void onClick(View v) {
                 if (validate() > 0) {
                     dao = new KhachHangDao(mContext);
                     khachHang.setHoTen(khachhang_edHoTen.getText().toString());
@@ -226,6 +275,37 @@ public class KhachHangAdapter extends RecyclerView.Adapter<KhachHangAdapter.MyVi
             Toast.makeText(mContext, "Yêu cầu nhập số nguyên năm sinh", Toast.LENGTH_SHORT).show();
             check = -1;
         }
+
+        else if(khachhang_rdNam.isChecked() == false && khachhang_rdNu.isChecked() == false && khachhang_rdKhac.isChecked() == false){
+            Toast.makeText(mContext, "Giới tính không để trống", Toast.LENGTH_SHORT).show();
+            check = -1;
+        }
         return check;
     }
+
+    public void openDialogDelete(int position){
+        AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+        builder.setTitle("Bạn có chắc chắn muốn xóa không?");
+        builder.setNegativeButton("Ok", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dao = new KhachHangDao(mContext);
+                if (dao.deleteKhachHang(list.get(position)) > 0) {
+                    Toast.makeText(mContext, "Xóa thành công", Toast.LENGTH_SHORT).show();
+                    list.remove(position);
+                    list.clear();
+                    list = dao.getAll();
+                    notifyDataSetChanged();
+                }
+            }
+        });
+        builder.setPositiveButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        builder.show();
+    }
+
 }

@@ -62,23 +62,13 @@
                 android:textSize="15dp"
                 android:id="@+id/khachhang_tvDiaChi"/>
         </LinearLayout>
-        <LinearLayout
+        <ImageView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
             android:layout_weight="0.1"
-            >
-            <ImageView
-                android:layout_width="25dp"
-                android:layout_height="60dp"
-                android:src="@drawable/ic_baseline_edit_24_edit"
-                android:id="@+id/khachhang_imgEdit"/>
-            <ImageView
-                android:layout_width="25dp"
-                android:layout_height="60dp"
-                android:src="@drawable/ic_baseline_delete_24_delete"
-                android:id="@+id/khachhang_imgDelete"/>
-        </LinearLayout>
+            android:src="@drawable/ic_baseline_more_horiz_24_dots"
+            android:id="@+id/khachhang_Popupmenu"/>
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>
+

@@ -26,7 +26,7 @@
                     android:title="Hóa Đơn"/>
                 <item
                     android:id="@+id/nav_ThanhVien"
-                    android:icon="@drawable/ic_baseline_people_24_thanhvien"
+                    android:icon="@drawable/ic_baseline_person_add_alt_24_add_user"
                     android:title="Thành Viên"/>
                 <item
                     android:id="@+id/nav_KhachHang"
