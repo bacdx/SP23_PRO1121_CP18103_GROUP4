@@ -11,14 +11,21 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.Toast;
 
+import com.example.sp23_pro1121_cp18103_group4.DAO.NhanVienDao;
 import com.example.sp23_pro1121_cp18103_group4.MainActivity;
+import com.example.sp23_pro1121_cp18103_group4.Model.NhanVien;
 import com.example.sp23_pro1121_cp18103_group4.R;
 import com.google.android.material.textfield.TextInputEditText;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Login extends AppCompatActivity {
        TextInputEditText edUserName, edPassword;
        Button  lg;
        CheckBox chk;
+     private NhanVienDao dao ;
+     private List<NhanVien> nhanVienList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +35,8 @@ public class Login extends AppCompatActivity {
         edPassword = findViewById(R.id.edPassword);
           lg  =  findViewById(R.id.dangnhap);
           chk = findViewById(R.id.chkRememberPass);
+          dao = new NhanVienDao(getApplicationContext());
+          nhanVienList = dao.getAll();
     }
     public void rememberUp(String u, String p, boolean status)
     {
@@ -48,11 +57,17 @@ public class Login extends AppCompatActivity {
     }
     public int isLogin(String u , String p)
     {
-        if(u.equals("admin") && p.equals("admin")){
-            return 1;
-        }else {
-            return 0;
+        for (int i=0 ; i<nhanVienList.size(); i++){
+            NhanVien nhanVien = nhanVienList.get(i);
+
+            if(u.equals(nhanVien.getUserName()) && p.equals(nhanVien.getPassWord())){
+                return 1;
+            }else {
+                return 0;
+            }
         }
+
+        return 0;
     }
      String strU , strP;
     public void checkLogin(View view) {
