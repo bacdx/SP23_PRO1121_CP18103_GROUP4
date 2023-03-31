@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.example.sp23_pro1121_cp18103_group4.Database.DBHelper;
+import com.example.sp23_pro1121_cp18103_group4.Model.Mon;
 import com.example.sp23_pro1121_cp18103_group4.Model.NhanVien;
 
 import java.util.ArrayList;
@@ -26,10 +27,19 @@ public class NhanVienDao {
         values.put("ngaySinh",nhanVien.getNamSinh());
         values.put("uyQuyen",nhanVien.getUyQuyen());
         values.put("status",nhanVien.getStartus());
-        values.put("gioTinh",nhanVien.getGioiTinh());
+        values.put("gioiTinh",nhanVien.getGioiTinh());
         return db.insert("NhanVien",null,values);
 
     }
+
+
+//    public NhanVien insert(){
+//        NhanVien nhanVien=new NhanVien(0,2003,"fd","admin","admin","admin","765765765756","","");
+//        insertNhanVien(nhanVien);
+//        return nhanVien;
+//
+//    }
+
     public int deleteNhanVien(NhanVien nhanVien){
         return db.delete("NhanVien","maNV=?",new String[]{String.valueOf(nhanVien.getMaNV())});
     }
@@ -79,4 +89,11 @@ public class NhanVienDao {
         }
         return list;
     }
+
+    public NhanVien getNV() {
+        String sql = "select * from NhanVien";
+        List<NhanVien> list = getData(sql);
+        return list.get(0);
+    }
+
 }

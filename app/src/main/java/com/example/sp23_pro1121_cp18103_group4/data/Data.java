@@ -4,11 +4,11 @@ package com.example.sp23_pro1121_cp18103_group4.data;
 public  class Data {
 
  public static final String insertNhanVien=" insert into NhanVien(name,user,passWord,numberPhone,gioiTinh,ngaySinh,uyQuyen,status)" +
-         "values  ('admin','admin','admin','000000000','nu','1/1/2003','NhanVien','Dang Lam Viec')," +
-         "('Bac','bac','bac','0359789536','nam','1/1/2003','NhanVien','Dang Lam Viec')," +
-         "('hoang','hoang','hoang','0111111111','nam','1/1/2003','NhanVien','Dang Lam Viec')," +
-         "('Long','long','long','03333333','nam','1/1/2003','NhanVien','Tam nghi')," +
-         "('Son','son','son','022221111','nam','1/1/2003','NhanVien','Dang Lam Viec');";
+         "values('admin','admin','admin','000000000','nu','1/1/2003','NhanVien','Dang Lam Viec')," +
+         "('Bac','bac','bac','0359789536','nam','1/1/2003','quanli','Dang Lam Viec');";
+//         "('hoang','hoang','hoang','0111111111','nam','1/1/2003','NhanVien','Dang Lam Viec')," +
+//         "('Long','long','long','03333333','nam','1/1/2003','NhanVien','Tam nghi')," +
+//         "('Son','son','son','022221111','nam','1/1/2003','NhanVien','Dang Lam Viec');";
 
  public static final  String insertLoaiMon="insert into LoaiMon(tenLoaiMon,imgLoaiMon)" +
          "values ( 'Tra sua','null')," +
