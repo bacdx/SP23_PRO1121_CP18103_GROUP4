@@ -10,6 +10,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
+//import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 
@@ -54,6 +55,7 @@ public class KhachHangFragment extends Fragment {
 
     RadioButton khachhang_rdGroup, khachhang_rdNam, khachhang_rdNu, khachhang_rdKhac;
 
+//    RadioButton khachhang_rdNam, khachhang_rdNu, khachhang_rdKhac;
 
     Button btnSave, btnCancel;
     //database

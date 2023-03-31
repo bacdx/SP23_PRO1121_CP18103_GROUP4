@@ -14,6 +14,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+
 import com.example.sp23_pro1121_cp18103_group4.DAO.HoaDonDao;
 import com.example.sp23_pro1121_cp18103_group4.Model.HoaDon;
 import com.example.sp23_pro1121_cp18103_group4.R;
@@ -35,6 +36,7 @@ public class HoaDonAdapter extends RecyclerView.Adapter<HoaDonAdapter.ViewHoaDon
         this.list=list;
         notifyDataSetChanged();
     }
+
 
     @NonNull
     @Override

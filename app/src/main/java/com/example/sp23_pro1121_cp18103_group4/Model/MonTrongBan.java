@@ -6,7 +6,15 @@ public class MonTrongBan {
     private String maMon;
     private int soLuong;
 
+    private byte[] imgMon;
 
+    public byte[] getImgMon() {
+        return imgMon;
+    }
+
+    public void setImgMon(byte[] imgMon) {
+        this.imgMon = imgMon;
+    }
 
     int giaMon;
 

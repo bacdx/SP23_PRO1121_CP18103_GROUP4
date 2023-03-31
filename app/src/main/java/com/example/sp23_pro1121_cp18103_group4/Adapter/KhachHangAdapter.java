@@ -223,7 +223,7 @@ public class KhachHangAdapter extends RecyclerView.Adapter<KhachHangAdapter.MyVi
         btnCancel = view.findViewById(R.id.khachhang_btnCancel);
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+                public void onClick(View v) {
                 if (validate() > 0) {
                     dao = new KhachHangDao(mContext);
                     khachHang.setHoTen(khachhang_edHoTen.getText().toString());
