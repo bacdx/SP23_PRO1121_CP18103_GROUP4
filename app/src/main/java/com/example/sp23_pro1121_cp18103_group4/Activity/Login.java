@@ -28,6 +28,7 @@ public class Login extends AppCompatActivity {
        Button lg;
        CheckBox chk;
      private NhanVienDao dao ;
+     private  NhanVien nhanVien;
      private List<NhanVien> nhanVienList;
 
 
@@ -42,6 +43,7 @@ public class Login extends AppCompatActivity {
           chk = findViewById(R.id.chkRememberPass);
           dao = new NhanVienDao(getApplicationContext());
           nhanVienList = dao.getAll();
+
     }
     public void rememberUp(String u, String p, boolean status)
     {
@@ -62,20 +64,28 @@ public class Login extends AppCompatActivity {
     }
     public int isLogin(String u , String p)
     {
+        int check = 1;
         for (int i=0 ; i<nhanVienList.size(); i++){
-            NhanVien nhanVien = nhanVienList.get(i);
+             nhanVien = nhanVienList.get(i);
 
             if(u.equals(nhanVien.getUserName()) && p.equals(nhanVien.getPassWord())){
-                return 1;
+                 check= 1;
+                 break;
             }else {
-                return 0;
+                 check = -1;
             }
+
         }
 
-        return 0;
+        return check;
     }
      String strU , strP;
     public void checkLogin(View view) {
+
+//        List<NhanVien> list = dao.getAll();
+//        if(list.isEmpty()){
+//            dao.insert();
+//        }
          strU = edUserName.getText().toString();
          strP = edPassword.getText().toString();
          if(strU.isEmpty() || strP.isEmpty())
@@ -89,7 +99,14 @@ public class Login extends AppCompatActivity {
                  new Handler().postDelayed(new Runnable() {
                      @Override
                      public void run() {
-                        startActivity(new Intent(Login.this,MainActivity.class));
+//                        startActivity(new Intent(Login.this,MainActivity.class));
+                         Intent intent = new Intent(Login.this,MainActivity.class);
+                         Bundle bundle = new Bundle();
+                         bundle.putString("user",strU);
+                         bundle.putString("uyquyen",nhanVien.getUyQuyen());
+                         intent.putExtra("thongtin",bundle);
+                         startActivity(intent);
+
 
                      }
                  },2000);

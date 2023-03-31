@@ -14,7 +14,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String DBName = "FAST_FOOD";
 
 
-    public static final int DBVersion = 13;
+    public static final int DBVersion = 15;
 
 
 
@@ -89,7 +89,7 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL(TABLE_MON_TRONG_BAN);
         db.execSQL(TABLE_kHACH_HANG);
         db.execSQL(TABLE_HOADON);
-//        db.execSQL(Data.insertNhanVien);
+        db.execSQL(Data.insertNhanVien);
 //        db.execSQL(data.insertLoaiMon);
 //        db.execSQL(data.insertMon);
 //        db.execSQL(data.insertBan);

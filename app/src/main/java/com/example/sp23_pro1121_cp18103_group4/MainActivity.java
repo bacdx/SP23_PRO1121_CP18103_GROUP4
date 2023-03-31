@@ -9,6 +9,8 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 
@@ -48,12 +50,37 @@ public class MainActivity extends AppCompatActivity {
     }
     //thiết lập drawable , toolbar , navigation
     public void setDraw(){
-        toolbar.setTitle("Quản Lý Quán Ăn Nhanh");
+        toolbar.setTitle("Quản Lý Quán Ăn");
         setSupportActionBar(toolbar);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this,drawerLayout,toolbar,R.string.open_draw,R.string.close_draw);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
         replaceFragment(new HomeFragment());
+
+
+        Intent intent = getIntent();
+        Bundle bundle = intent.getBundleExtra("thongtin");
+        String user = bundle.getString("user");
+        String uyquyen = bundle.getString("uyquyen");
+
+        if(!user.equals("admin")){
+            nav_View.getMenu().findItem(R.id.nav_AddThanhVien).setVisible(false);
+            nav_View.getMenu().findItem(R.id.nav_DoanhThu).setVisible(false);
+            nav_View.getMenu().findItem(R.id.nav_Top5).setVisible(false);
+            nav_View.getMenu().findItem(R.id.nav_ThanhVien).setVisible(false);
+        }
+          else if(uyquyen.equals("quanli") && !user.equals("admin")){
+            nav_View.getMenu().findItem(R.id.nav_ThanhVien).setVisible(false);
+            nav_View.getMenu().findItem(R.id.nav_AddThanhVien).setVisible(false);
+            nav_View.getMenu().findItem(R.id.nav_DoanhThu).setVisible(true);
+            nav_View.getMenu().findItem(R.id.nav_Top5).setVisible(true);
+        }
+
+
+
+
+
+
         nav_View.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
