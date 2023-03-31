@@ -27,6 +27,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:id="@+id/edUserName"
 
             />
     </com.google.android.material.textfield.TextInputLayout>
@@ -45,6 +46,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:id="@+id/edPassword"
             />
     </com.google.android.material.textfield.TextInputLayout>
        <CheckBox
@@ -54,6 +56,7 @@
            android:textColor="#0F6392"
            android:textStyle="bold"
            android:layout_marginHorizontal="20dp"
+           android:id="@+id/chkRememberPass"
            />
        <Button
            android:layout_width="wrap_content"
@@ -63,6 +66,8 @@
            android:backgroundTint="#D98B2B"
            android:textStyle="bold"
            android:textColor="@color/black"
+           android:id="@+id/dangnhap"
+           android:onClick="checkLogin"
            />
 
 </LinearLayout>

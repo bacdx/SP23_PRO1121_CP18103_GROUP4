@@ -82,9 +82,7 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.nav_Top5:
                         replaceFragment(new Top5Fragment());
                         break;
-                    case R.id.nav_KhachHang:
-                        replaceFragment(new KhachHangFragment());
-                        break;
+
                 }
                 drawerLayout.closeDrawer(GravityCompat.START);
                 return true;
