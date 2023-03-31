@@ -128,7 +128,7 @@ public class MonTrongBanAdapter extends RecyclerView.Adapter<MonTrongBanAdapter.
     class View_montrongban extends RecyclerView.ViewHolder{
 
         TextView tenmon,soluong,tongtien;
-<
+
 //        ImageView img;
 
 
