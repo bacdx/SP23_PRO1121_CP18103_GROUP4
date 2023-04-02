@@ -35,9 +35,15 @@ public class Top5Fragment extends Fragment {
         rcv = view.findViewById(R.id.rcvtop5);
         list = new ArrayList<>();
         hoaDonDao = new HoaDonDao(getContext());
-        list = hoaDonDao.getTop5();
-        top5Adapter = new Top5Adapter(list,getContext());
-        rcv.setAdapter(top5Adapter);
+
+        try {
+            list = hoaDonDao.getTop5();
+            top5Adapter = new Top5Adapter(list,getContext());
+            rcv.setAdapter(top5Adapter);
+            Toast.makeText(getContext(), "Chưa Có Hóa ĐƠn ", Toast.LENGTH_SHORT).show();
+        }catch (Exception e){
+
+        }
 
 
         return view;
