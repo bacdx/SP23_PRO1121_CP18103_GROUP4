@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
@@ -34,8 +35,12 @@ public class NhanVienAdapter extends RecyclerView.Adapter<NhanVienAdapter.MyView
     NhanVienDao dao;
     TextView nhanvien_tvTitle;
     EditText nhanvien_edMaNV, nhanvien_edHoTen, nhanvien_eduser, nhanvien_edpass, nhanvien_edNamSinh, nhanvien_edSoDT, nhanvien_edUyQuyen, nhanvien_edStartus;
-    RadioButton nhanvien_rdNam, nhanvien_rdNu, nhanvien_rdKhac;
+    RadioButton nhanvien_rdNam, nhanvien_rdNu, nhanvien_rdKhac,rdo_quanli,rdo_nhanvien;
     Button btnSave, btnCancel;
+
+    CheckBox checklamviec;
+
+    NhanVien nhanVien;
 
     public NhanVienAdapter(Context mContext, List<NhanVien> list){
         this.mContext = mContext;
@@ -51,7 +56,8 @@ public class NhanVienAdapter extends RecyclerView.Adapter<NhanVienAdapter.MyView
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-       NhanVien nhanVien = list.get(position);
+        nhanVien = new NhanVien();
+        nhanVien = list.get(position);
         holder.tvMaNV.setText("Mã Nhân Viên: " + nhanVien.getHoten());
         holder.tvHoTen.setText("Họ tên: "+ nhanVien.getHoten());
         holder.tvUser.setText("User: "+ nhanVien.getUserName());
@@ -69,8 +75,7 @@ public class NhanVienAdapter extends RecyclerView.Adapter<NhanVienAdapter.MyView
         }
         holder.tvSoDT.setText("SoDT: "+ nhanVien.getSoDienThoai());
         holder.tvUyQuyen.setText("Uỷ Quyền: "+ nhanVien.getUyQuyen());
-        holder.tvStartus.setText("Startus: "+ nhanVien.getStartus());
-        //set dialog xóa nhân viên
+        holder.tvStartus.setText("Status :" + nhanVien.getStartus());
         holder.imgDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -113,6 +118,7 @@ public class NhanVienAdapter extends RecyclerView.Adapter<NhanVienAdapter.MyView
     public final class MyViewHolder extends RecyclerView.ViewHolder {
         ImageView imgGioiTinh, imgEdit, imgDelete;
         TextView tvMaNV, tvHoTen, tvUser, tvPassword, tvNamSinh, tvGioiTinh, tvSoDT, tvUyQuyen, tvStartus;
+
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             imgGioiTinh = itemView.findViewById(R.id.nhanvien_imgGioiTinh);
@@ -130,7 +136,7 @@ public class NhanVienAdapter extends RecyclerView.Adapter<NhanVienAdapter.MyView
 
         }
     }
-    public void openDialogUpdate(int gravity, NhanVien nhanVien){
+    public void openDialogUpdate(int gravity, NhanVien nhanVien1){
         android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(mContext);
         View view = LayoutInflater.from(mContext).inflate(R.layout.dialog_nhan_vien, null);
         builder.setView(view);
@@ -158,22 +164,38 @@ public class NhanVienAdapter extends RecyclerView.Adapter<NhanVienAdapter.MyView
         nhanvien_rdNu = view.findViewById(R.id.nhanvien_rdNu);
         nhanvien_rdKhac = view.findViewById(R.id.nhanvien_rdKhac);
         nhanvien_edSoDT = view.findViewById(R.id.nhanvien_edSoDT);
-        nhanvien_edUyQuyen = view.findViewById(R.id.nhanvien_edUyQuyen);
-        nhanvien_edStartus= view.findViewById(R.id.nhanvien_edStartus);
+//        nhanvien_edUyQuyen = view.findViewById(R.id.nhanvien_edUyQuyen);
+//        nhanvien_edStartus= view.findViewById(R.id.nhanvien_edStartus);
+        rdo_quanli = view.findViewById(R.id.quanli);
+        rdo_nhanvien = view.findViewById(R.id.nhanvien);
+//        checklamviec = view.findViewById(R.id.check1);
+
         //lấy vị trí nhân Viên
 //        nhanvien_edMaNV.setText(nhanVien.getMaNV()+ "");
-        nhanvien_edHoTen.setText(nhanVien.getHoten());
-        nhanvien_eduser.setText(nhanVien.getUserName());
-        nhanvien_edpass.setText(nhanVien.getPassWord());
-        nhanvien_edNamSinh.setText(nhanVien.getNamSinh() + "");
-        nhanvien_edSoDT.setText(nhanVien.getSoDienThoai());
-        nhanvien_edUyQuyen.setText(nhanVien.getUyQuyen());
-        nhanvien_edStartus.setText(nhanVien.getStartus());
-        if (nhanVien.getGioiTinh().equals("Nam")) {
+        nhanvien_edHoTen.setText(nhanVien1.getHoten());
+        nhanvien_eduser.setText(nhanVien1.getUserName());
+        nhanvien_edpass.setText(nhanVien1.getPassWord());
+        nhanvien_edNamSinh.setText(nhanVien1.getNamSinh() + "");
+        nhanvien_edSoDT.setText(nhanVien1.getSoDienThoai());
+
+
+        if(nhanVien1.getStartus().equals("Làm")){
+            checklamviec.setChecked(true);
+        }else{
+            checklamviec.setChecked(false);
+        }
+
+        if(nhanVien1.getUyQuyen().equals("quanli")){
+                rdo_quanli.setChecked(true);
+        }else{
+            rdo_nhanvien.setChecked(true);
+        }
+
+        if (nhanVien1.getGioiTinh().equals("Nam")) {
             nhanvien_rdNam.setChecked(true);
             nhanvien_rdNu.setChecked(false);
             nhanvien_rdKhac.setChecked(false);
-        } else if (nhanVien.getGioiTinh().equals("Nữ")) {
+        } else if (nhanVien1.getGioiTinh().equals("Nữ")) {
             nhanvien_rdNu.setChecked(true);
             nhanvien_rdNam.setChecked(false);
             nhanvien_rdKhac.setChecked(false);
@@ -189,22 +211,22 @@ public class NhanVienAdapter extends RecyclerView.Adapter<NhanVienAdapter.MyView
             public void onClick(View v) {
                 if (validate() > 0) {
                     dao = new NhanVienDao(mContext);
-                    nhanVien.setHoten(nhanvien_edHoTen.getText().toString());
-                    nhanVien.setUserName(nhanvien_eduser.getText().toString());
-                    nhanVien.setPassWord(nhanvien_edpass.getText().toString());
-                    nhanVien.setNamSinh(Integer.parseInt("" + nhanvien_edNamSinh.getText().toString()));
-                    nhanVien.setSoDienThoai(nhanvien_edSoDT.getText().toString());
-                    nhanVien.setUyQuyen(nhanvien_edUyQuyen.getText().toString());
-                    nhanVien.setStartus(nhanvien_edStartus.getText().toString());
+                    nhanVien1.setHoten(nhanvien_edHoTen.getText().toString());
+                    nhanVien1.setUserName(nhanvien_eduser.getText().toString());
+                    nhanVien1.setPassWord(nhanvien_edpass.getText().toString());
+                    nhanVien1.setNamSinh(Integer.parseInt("" + nhanvien_edNamSinh.getText().toString()));
+                    nhanVien1.setSoDienThoai(nhanvien_edSoDT.getText().toString());
+                    nhanVien1.setUyQuyen(nhanvien_edUyQuyen.getText().toString());
+                    nhanVien1.setStartus(nhanvien_edStartus.getText().toString());
                     if (nhanvien_rdNam.isChecked()) {
-                        nhanVien.setGioiTinh("Nam");
+                        nhanVien1.setGioiTinh("Nam");
                     } else if (nhanvien_rdNu.isChecked()) {
-                        nhanVien.setGioiTinh("Nữ");
+                        nhanVien1.setGioiTinh("Nữ");
                     } else {
-                        nhanVien.setGioiTinh("Khác");
+                        nhanVien1.setGioiTinh("Khác");
                     }
-                    if (dao.updateNhanVien(nhanVien) > 0) {
-                        Toast.makeText(mContext, "Thêm thành công", Toast.LENGTH_SHORT).show();
+                    if (dao.updateNhanVien(nhanVien1) > 0) {
+                        Toast.makeText(mContext, "Sửa thành công", Toast.LENGTH_SHORT).show();
                         nhanvien_edHoTen.setText("");
                         nhanvien_eduser.setText("");
                         nhanvien_edpass.setText("");

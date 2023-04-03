@@ -46,7 +46,11 @@ public class ThemBanFragment extends Fragment {
 
         daott = new BanAnDao(getContext());
 
-
+        daott = new BanAnDao(getContext());
+        list = new ArrayList<>();
+        list = daott.getALL();
+        adapterBanAn = new BanAnAdapter(getContext(),list);
+        rcv.setAdapter(adapterBanAn);
 
 
 
@@ -64,6 +68,14 @@ public class ThemBanFragment extends Fragment {
                 Button luu = dialog.findViewById(R.id.luu);
                 Button huy = dialog.findViewById(R.id.huy);
 
+                huy.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        dialog.dismiss();
+
+                    }
+                });
 
                 luu.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -81,13 +93,20 @@ public class ThemBanFragment extends Fragment {
                         if(daott.InSertBanAN(banAn)>0){
 
                             Toast.makeText(getContext(), "Thên Thành CÔng ", Toast.LENGTH_SHORT).show();
+                            daott = new BanAnDao(getContext());
+                            list = new ArrayList<>();
+                            list = daott.getALL();
+                            adapterBanAn = new BanAnAdapter(getContext(),list);
+                            rcv.setAdapter(adapterBanAn);
+                            dialog.dismiss();
                         }else{
                             Toast.makeText(getContext(), "Thêm THất Bại", Toast.LENGTH_SHORT).show();
+                            dialog.dismiss();
                         }
 
-                        list = daott.getALL();
-                        adapterBanAn = new BanAnAdapter(getContext(),list);
-                        rcv.setAdapter(adapterBanAn);
+//                        list = daott.getALL();
+//                        adapterBanAn = new BanAnAdapter(getContext(),list);
+//                        rcv.setAdapter(adapterBanAn);
 
                     }
                 });
@@ -99,13 +118,13 @@ public class ThemBanFragment extends Fragment {
 
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        daott = new BanAnDao(getContext());
-        list = new ArrayList<>();
-        list = daott.getALL();
-        adapterBanAn = new BanAnAdapter(getContext(),list);
-        rcv.setAdapter(adapterBanAn);
-    }
+//    @Override
+//    public void onResume() {
+//        super.onResume();
+//        daott = new BanAnDao(getContext());
+//        list = new ArrayList<>();
+//        list = daott.getALL();
+//        adapterBanAn = new BanAnAdapter(getContext(),list);
+//        rcv.setAdapter(adapterBanAn);
+//    }
 }
