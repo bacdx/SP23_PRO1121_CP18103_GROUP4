@@ -16,7 +16,7 @@
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:src="@drawable/avata"
-            android:id="@+id/khachhang_imgGioiTinh"
+            android:id="@+id/nhanvien_imgGioiTinh"
             android:layout_gravity="center_vertical"
             />
         <LinearLayout
@@ -29,46 +29,84 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="Mã NV"
+                android:textStyle="bold"
+                android:textSize="15dp"
+                android:id="@+id/nhanvien_tvMaNV"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:text="Họ tên"
                 android:textStyle="bold"
                 android:textSize="15dp"
-                android:id="@+id/khachhang_tvHoTen"/>
+                android:id="@+id/nhanvien_tvHoTen"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="User"
+                android:textStyle="bold"
+                android:textSize="15dp"
+                android:id="@+id/nhanvien_tvUser"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Password"
+                android:textStyle="bold"
+                android:textSize="15dp"
+                android:id="@+id/nhanvien_tvPassword"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Năm sinh"
                 android:textStyle="bold"
                 android:textSize="15dp"
-                android:id="@+id/khachhang_tvNamSinh"/>
+                android:id="@+id/nhanvien_tvNamSinh"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Giới tính"
                 android:textStyle="bold"
                 android:textSize="15dp"
-                android:id="@+id/khachhang_tvGioiTinh"/>
+                android:id="@+id/nhanvien_tvGioiTinh"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Số điện thoại"
                 android:textStyle="bold"
                 android:textSize="15dp"
-                android:id="@+id/khachhang_tvSoDT"/>
+                android:id="@+id/nhanvien_tvSoDT"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Địa chỉ"
+                android:text="Uỷ Quyền"
                 android:textStyle="bold"
                 android:textSize="15dp"
-                android:id="@+id/khachhang_tvDiaChi"/>
+                android:id="@+id/nhanvien_tvUyQuyen"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Startus"
+                android:textStyle="bold"
+                android:textSize="15dp"
+                android:id="@+id/nhanvien_tvStartus"/>
         </LinearLayout>
-        <ImageView
+        <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:orientation="vertical"
             android:layout_weight="0.1"
-            android:src="@drawable/ic_baseline_more_horiz_24_dots"
-            android:id="@+id/khachhang_Popupmenu"/>
+            >
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="60dp"
+                android:src="@drawable/ic_baseline_edit_24_edit"
+                android:id="@+id/nhanvien_imgEdit"/>
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="60dp"
+                android:src="@drawable/ic_baseline_delete_24_delete"
+                android:id="@+id/nhanvien_imgDelete"/>
+        </LinearLayout>
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>
-

@@ -6,6 +6,13 @@ import android.os.Handler;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.sp23_pro1121_cp18103_group4.Activity.Login;
+import com.example.sp23_pro1121_cp18103_group4.DAO.NhanVienDao;
+import com.example.sp23_pro1121_cp18103_group4.Model.NhanVien;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class SplashScreenView extends AppCompatActivity {
 
     @Override
@@ -15,7 +22,7 @@ public class SplashScreenView extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                startActivity(new Intent(SplashScreenView.this,MainActivity.class));
+                startActivity(new Intent(SplashScreenView.this, Login.class));
             }
         },3000);
     }

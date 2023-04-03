@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+
     android:layout_width="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
@@ -8,6 +9,7 @@
     android:backgroundTint="#3CAFE3"
     android:layout_height="wrap_content"
     >
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -21,10 +23,12 @@
             android:orientation="horizontal"
             >
             <TextView
+
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:text="Mã Hóa Đơn :"
                 android:id="@+id/id"
+
                 android:textSize="20dp"
                 android:textStyle="bold"
                 android:layout_marginTop="20dp"
@@ -32,6 +36,7 @@
                 />
 
             <TextView
+
 
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -54,6 +59,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Mã Nhân Viên :"
+
                 android:id="@+id/manv"
                 android:textSize="20dp"
                 android:textStyle="bold"
@@ -73,12 +79,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Mã Khách Hàng : "
+
                 android:id="@+id/makh"
+
                 android:textSize="20dp"
                 android:textStyle="bold"
                 android:layout_marginTop="20dp"
                 android:layout_marginLeft="20dp"
                 />
+
 
         </LinearLayout>
 
@@ -93,6 +102,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+
             android:layout_marginBottom="10dp"
             android:orientation="horizontal"
             >
@@ -106,6 +116,7 @@
                 android:layout_marginTop="20dp"
                 android:layout_marginLeft="20dp"
                 />
+
 
         </LinearLayout>
 

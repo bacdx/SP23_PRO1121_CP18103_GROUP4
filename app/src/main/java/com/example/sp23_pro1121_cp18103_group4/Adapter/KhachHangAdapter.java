@@ -1,5 +1,7 @@
 package com.example.sp23_pro1121_cp18103_group4.Adapter;
 
+
+import android.app.AlertDialog;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
@@ -35,6 +37,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class KhachHangAdapter extends RecyclerView.Adapter<KhachHangAdapter.MyViewHolder> implements Filterable {
+
     Context mContext;
     List<KhachHang> list;
     List<KhachHang> listSearch;
@@ -111,6 +114,7 @@ public class KhachHangAdapter extends RecyclerView.Adapter<KhachHangAdapter.MyVi
             protected FilterResults performFiltering(CharSequence constraint) {
                 String strSearch = constraint.toString();
                 if (strSearch.isEmpty()){
+
                     list = listSearch;
                 }else{
                     List<KhachHang> mList = new ArrayList<>();
@@ -136,22 +140,24 @@ public class KhachHangAdapter extends RecyclerView.Adapter<KhachHangAdapter.MyVi
 
     public final class MyViewHolder extends RecyclerView.ViewHolder {
         ImageView imgGioiTinh , img_popupKhachHang;
+
         TextView tvHoTen, tvNamSinh, tvGioiTinh, tvSoDT, tvDiaChi;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             imgGioiTinh = itemView.findViewById(R.id.khachhang_imgGioiTinh);
             img_popupKhachHang = itemView.findViewById(R.id.khachhang_Popupmenu);
+
             tvHoTen = itemView.findViewById(R.id.khachhang_tvHoTen);
             tvNamSinh = itemView.findViewById(R.id.khachhang_tvNamSinh);
             tvGioiTinh = itemView.findViewById(R.id.khachhang_tvGioiTinh);
             tvSoDT = itemView.findViewById(R.id.khachhang_tvSoDT);
             tvDiaChi = itemView.findViewById(R.id.khachhang_tvDiaChi);
         }
-
     }
 
     @SuppressLint("MissingInflatedId")
+
     public void openDialogUpdate(int gravity , KhachHang khachHang) {
         AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
         View view = LayoutInflater.from(mContext).inflate(R.layout.dialog_khach_hang, null);
@@ -201,7 +207,8 @@ public class KhachHangAdapter extends RecyclerView.Adapter<KhachHangAdapter.MyVi
         btnCancel = view.findViewById(R.id.khachhang_btnCancel);
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+                public void onClick(View v) {
+
                 if (validate() > 0) {
                     dao = new KhachHangDao(mContext);
                     khachHang.setHoTen(khachhang_edHoTen.getText().toString());

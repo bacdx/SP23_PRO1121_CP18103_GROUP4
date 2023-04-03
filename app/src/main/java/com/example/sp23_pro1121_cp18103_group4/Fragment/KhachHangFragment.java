@@ -1,14 +1,24 @@
 package com.example.sp23_pro1121_cp18103_group4.Fragment;
 
+
 import android.annotation.SuppressLint;
+
+import android.app.AlertDialog;
+
 import android.app.Dialog;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
-import androidx.appcompat.app.AlertDialog;
+
+//import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
+
+import androidx.appcompat.widget.SearchView;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -26,6 +36,11 @@ import android.widget.Toast;
 
 import com.example.sp23_pro1121_cp18103_group4.Adapter.KhachHangAdapter;
 import com.example.sp23_pro1121_cp18103_group4.DAO.KhachHangDao;
+
+import com.example.sp23_pro1121_cp18103_group4.Adapter.LoaiMonAdapter;
+import com.example.sp23_pro1121_cp18103_group4.DAO.KhachHangDao;
+import com.example.sp23_pro1121_cp18103_group4.DAO.LoaiMonDao;
+
 import com.example.sp23_pro1121_cp18103_group4.Model.KhachHang;
 import com.example.sp23_pro1121_cp18103_group4.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -40,6 +55,8 @@ public class KhachHangFragment extends Fragment {
     TextView khachhang_tvTitle;
     EditText khachhang_edHoTen, khachhang_edNamSinh, khachhang_edSoDT, khachhang_edDiaChi;
     RadioButton khachhang_rdGroup, khachhang_rdNam, khachhang_rdNu, khachhang_rdKhac;
+
+
     Button btnSave, btnCancel;
     //database
     KhachHangDao dao;
@@ -91,7 +108,9 @@ public class KhachHangFragment extends Fragment {
 
 
     //***********//
+=======
 //đổ dữ liệu dao
+
     public void setData() {
         dao = new KhachHangDao(getContext());
         list = dao.getAll();
@@ -104,6 +123,7 @@ public class KhachHangFragment extends Fragment {
 
     //***********//
 //phương thức thêm khách hàng
+
     public void insertKhachHang() {
         flAddKhachHang.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -198,7 +218,6 @@ public class KhachHangFragment extends Fragment {
     //***********//
 //tạo validate kiểm tra thông tin nhập
     public int validate() {
-
         int check = 1;
         if (khachhang_edHoTen.getText().toString().isEmpty() || khachhang_edNamSinh.getText().toString().isEmpty()
                 || khachhang_edSoDT.getText().toString().isEmpty() || khachhang_edDiaChi.getText().toString().isEmpty()) {
@@ -213,5 +232,4 @@ public class KhachHangFragment extends Fragment {
         }
         return check;
     }
-
 }
