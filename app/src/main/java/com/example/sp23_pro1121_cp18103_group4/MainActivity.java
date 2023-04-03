@@ -126,7 +126,6 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.nav_DangXuat:
                         finish();
                         startActivity(new Intent(MainActivity.this, Login.class));
-                        break;
                 }
                 drawerLayout.closeDrawer(GravityCompat.START);
                 return true;
