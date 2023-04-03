@@ -109,7 +109,7 @@ public class Login extends AppCompatActivity {
 
 
                      }
-                 },2000);
+                 },500);
              }
              else
              {

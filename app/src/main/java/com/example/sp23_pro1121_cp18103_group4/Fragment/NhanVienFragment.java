@@ -1,5 +1,6 @@
 package com.example.sp23_pro1121_cp18103_group4.Fragment;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.graphics.Color;
@@ -17,6 +18,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.TextView;
@@ -36,11 +38,14 @@ public class NhanVienFragment extends Fragment {
     FloatingActionButton flAddKNhanVien;
     TextView nhanvien_tvTitle;
     EditText nhanvien_edMaNV, nhanvien_edHoTen, nhanvien_eduser, nhanvien_edpass, nhanvien_edNamSinh, nhanvien_edSoDT,  nhanvien_edUyQuyen, nhanvien_edStartus;
-    RadioButton nhanvien_rdNam, nhanvien_rdNu, nhanvien_rdKhac;
+    RadioButton nhanvien_rdNam, nhanvien_rdNu, nhanvien_rdKhac,rdo_quanli,rdo_nhanvien;
     Button nhanvien_btnSave, nhanvien_btnCancel;
     NhanVienDao dao;
     List<NhanVien> list;
     NhanVienAdapter adapter;
+
+    CheckBox checklamviec;
+    NhanVien nhanVien;
 
 
 
@@ -85,6 +90,7 @@ public class NhanVienFragment extends Fragment {
             }
         });
     }
+    @SuppressLint("MissingInflatedId")
     public void openDialogInsert(int gravity) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         View view = LayoutInflater.from(getContext()).inflate(R.layout.dialog_nhan_vien, null);
@@ -102,7 +108,7 @@ public class NhanVienFragment extends Fragment {
         windowAttributes.gravity = gravity;
         window.setAttributes(windowAttributes);
         //tạo mới object
-         NhanVien nhanVien = new NhanVien();
+          nhanVien = new NhanVien();
 //        NhanVien nhanVien = new NhanVien(manv,hoten,userName,PassWord,numberPhone,gioiTinh,NamSinh,UyQuyen,Startus);
         nhanvien_tvTitle = view.findViewById(R.id.nhanvien_tvTitle);
         nhanvien_tvTitle.setText("Thêm Nhân Viên");
@@ -112,11 +118,15 @@ public class NhanVienFragment extends Fragment {
         nhanvien_edpass= view.findViewById(R.id.nhanvien_edpass);
         nhanvien_edNamSinh= view.findViewById(R.id.nhanvien_edNamSinh);
         nhanvien_edSoDT= view.findViewById(R.id.nhanvien_edSoDT);
-        nhanvien_edUyQuyen= view.findViewById(R.id.nhanvien_edUyQuyen);
-        nhanvien_edStartus= view.findViewById(R.id.nhanvien_edStartus);
+//        nhanvien_edUyQuyen= view.findViewById(R.id.nhanvien_edUyQuyen);
+        nhanvien_edStartus= view.findViewById(R.id.nhanvien_Status);
         nhanvien_rdNam = view.findViewById(R.id. nhanvien_rdNam);
         nhanvien_rdNu = view.findViewById(R.id. nhanvien_rdNu);
         nhanvien_rdKhac = view.findViewById(R.id. nhanvien_rdKhac);
+        rdo_quanli = view.findViewById(R.id.quanli);
+        rdo_nhanvien = view.findViewById(R.id.nhanvien);
+//        checklamviec = view.findViewById(R.id.check1);
+
         //ánh xạ button
         nhanvien_btnSave = view.findViewById(R.id.nhanvien_btnSave);
         nhanvien_btnCancel = view.findViewById(R.id.nhanvien_btnCancel);
@@ -130,8 +140,30 @@ public class NhanVienFragment extends Fragment {
                     nhanVien.setPassWord(nhanvien_edpass.getText().toString());
                     nhanVien.setNamSinh(Integer.parseInt("" + nhanvien_edNamSinh.getText().toString()));
                     nhanVien.setSoDienThoai(nhanvien_edSoDT.getText().toString());
-                    nhanVien.setUyQuyen(nhanvien_edUyQuyen.getText().toString());
+//                    nhanVien.setUyQuyen(nhanvien_edUyQuyen.getText().toString());
                     nhanVien.setStartus(nhanvien_edStartus.getText().toString());
+
+                    if(rdo_quanli.isChecked()){
+                        nhanVien.setUyQuyen("quanli");
+                    }else{
+                        nhanVien.setUyQuyen("nhanvien");
+                    }
+
+//                    checklamviec.setOnClickListener(new View.OnClickListener() {
+//                        @Override
+//                        public void onClick(View v) {
+//
+//                            boolean check = ((CheckBox)v).isChecked();
+//                            if(check){
+//                                nhanVien.setStartus("Làm");
+//                            }else{
+//                                nhanVien.setStartus("Nghỉ");
+//                            }
+//
+//                        }
+//                    });
+
+
                     if (nhanvien_rdNam.isChecked()) {
                         nhanVien.setGioiTinh("Nam");
                     } else if (nhanvien_rdNu.isChecked()) {
@@ -140,14 +172,13 @@ public class NhanVienFragment extends Fragment {
                         nhanVien.setGioiTinh("Khác");
                     }
                     if (dao.insertNhanVien(nhanVien) > 0) {
-                        Toast.makeText(getContext(), "Thêm thành công", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "Thêm thành công" , Toast.LENGTH_SHORT).show();
                         nhanvien_edHoTen.setText("");
                         nhanvien_eduser.setText("");
                         nhanvien_edpass.setText("");
                         nhanvien_edNamSinh.setText("");
                         nhanvien_edSoDT.setText("");
-                        nhanvien_edUyQuyen.setText("");
-                        nhanvien_edStartus.setText("");
+
                         list.clear();
                         list = dao.getAll();
                         adapter = new NhanVienAdapter(getContext(), list);
@@ -176,7 +207,7 @@ public class NhanVienFragment extends Fragment {
     //tạo validate kiểm tra thông tin nhập
     public int validate() {
         int check = 1;
-        if(nhanvien_edHoTen.getText().toString().isEmpty() || nhanvien_eduser.getText().toString().isEmpty() || nhanvien_edpass.getText().toString().isEmpty() || nhanvien_edUyQuyen.getText().toString().isEmpty() || nhanvien_edStartus.getText().toString().isEmpty() || nhanvien_edSoDT.getText().toString().isEmpty()){
+        if(nhanvien_edHoTen.getText().toString().isEmpty() || nhanvien_eduser.getText().toString().isEmpty() || nhanvien_edpass.getText().toString().isEmpty()  || nhanvien_edSoDT.getText().toString().isEmpty()){
             Toast.makeText(getContext(), "Yêu cầu không được để trống", Toast.LENGTH_SHORT).show();
             check = -1;
         }else if (!nhanvien_edNamSinh.getText().toString().matches("\\d+")) {
