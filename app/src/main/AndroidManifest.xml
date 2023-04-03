@@ -19,7 +19,7 @@
             android:name=".Activity.Dialog_MonTrongBan"
             android:exported="false" />
         <activity
-            android:name=".SplashScreenView"
+            android:name=".Activity.Login"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -31,16 +31,9 @@
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
-        </activity> <!-- android:name=".DoiMatKhau" -->
-        <!-- android:exported="false" /> -->
+        </activity>
         <activity
-            android:name=".Account"
-            android:exported="false" />
-        <activity
-            android:name=".ListAccount"
-            android:exported="false" />
-        <activity
-            android:name=".Activity.Login"
+            android:name=".SplashScreenView"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -49,10 +42,6 @@
             </intent-filter>
         </activity>
 
-
-        <activity
-            android:name=".Activity.Dialog_MonTrongBan"
-            android:exported="false" />
         <activity
             android:name=".MainActivity"
             android:exported="false">
