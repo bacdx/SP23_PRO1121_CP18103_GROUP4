@@ -140,7 +140,6 @@ public class NhanVienFragment extends Fragment {
                     nhanVien.setPassWord(nhanvien_edpass.getText().toString());
                     nhanVien.setNamSinh(Integer.parseInt("" + nhanvien_edNamSinh.getText().toString()));
                     nhanVien.setSoDienThoai(nhanvien_edSoDT.getText().toString());
-//                    nhanVien.setUyQuyen(nhanvien_edUyQuyen.getText().toString());
                     nhanVien.setStartus(nhanvien_edStartus.getText().toString());
 
                     if(rdo_quanli.isChecked()){
@@ -149,19 +148,6 @@ public class NhanVienFragment extends Fragment {
                         nhanVien.setUyQuyen("nhanvien");
                     }
 
-//                    checklamviec.setOnClickListener(new View.OnClickListener() {
-//                        @Override
-//                        public void onClick(View v) {
-//
-//                            boolean check = ((CheckBox)v).isChecked();
-//                            if(check){
-//                                nhanVien.setStartus("Làm");
-//                            }else{
-//                                nhanVien.setStartus("Nghỉ");
-//                            }
-//
-//                        }
-//                    });
 
 
                     if (nhanvien_rdNam.isChecked()) {
@@ -193,13 +179,6 @@ public class NhanVienFragment extends Fragment {
         nhanvien_btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                nhanvien_edHoTen.setText("");
-                nhanvien_eduser.setText("");
-                nhanvien_edpass.setText("");
-                nhanvien_edNamSinh.setText("");
-                nhanvien_edSoDT.setText("");
-                nhanvien_edUyQuyen.setText("");
-                nhanvien_edStartus.setText("");
                 dialog.dismiss();
             }
         });
