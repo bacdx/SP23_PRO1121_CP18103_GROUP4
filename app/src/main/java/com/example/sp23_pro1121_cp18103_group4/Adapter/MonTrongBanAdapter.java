@@ -44,7 +44,7 @@ public class MonTrongBanAdapter extends RecyclerView.Adapter<MonTrongBanAdapter.
     ArrayList<MonTrongBan> list;
     Context context;
 
-    MonDao monDao ;
+    MonDao monDao;
     Mon mon;
 
     MonTrongBanDAO trongBanDAO;
@@ -63,10 +63,11 @@ public class MonTrongBanAdapter extends RecyclerView.Adapter<MonTrongBanAdapter.
     @Override
     public View_montrongban onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(context);
-        View viewba = layoutInflater.inflate(R.layout.rcv_montrongban,parent,false);
+        View viewba = layoutInflater.inflate(R.layout.rcv_montrongban, parent, false);
         View_montrongban view_montrongban = new View_montrongban(viewba);
         return view_montrongban;
     }
+
     @Override
     public void onBindViewHolder(@NonNull View_montrongban holder, int position) {
 
@@ -74,46 +75,45 @@ public class MonTrongBanAdapter extends RecyclerView.Adapter<MonTrongBanAdapter.
         MonTrongBan monTrongBan = list.get(position);
         trongBanDAO = new MonTrongBanDAO(context);
 
-            holder.tenmon.setText(list.get(position).getTenMon());
-            holder.soluong.setText(list.get(index).getSoLuong()+"");
-            holder.tongtien.setText(list.get(index).getSoLuong() * list.get(index).getGiaMon()+" VND");
-            Bitmap imageContent = BitmapFactory.decodeByteArray(monTrongBan.getImgMon(), 0, monTrongBan.getImgMon().length);
-            holder.img.setImageBitmap(imageContent);
+        holder.tenmon.setText(list.get(position).getTenMon());
+        holder.soluong.setText(list.get(index).getSoLuong() + "");
+        holder.tongtien.setText(list.get(index).getSoLuong() * list.get(index).getGiaMon() + " VND");
 
         holder.tenmon.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
+            @Override
+            public void onClick(View v) {
 
-                    AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                    builder.setTitle("Cảnh Báo");
-                    builder.setMessage("Bạn Có Muốn Xóa Món Này Không ?");
-                    builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            if(trongBanDAO.delete(String.valueOf(list.get(index).getId()))>0){
-                                list.remove(index);
-                                notifyDataSetChanged();
-                                Toast.makeText(context, "Thành CÔng", Toast.LENGTH_SHORT).show();
-                            }
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder.setTitle("Cảnh Báo");
+                builder.setMessage("Bạn Có Muốn Xóa Món Này Không ?");
+                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if (trongBanDAO.delete(String.valueOf(list.get(index).getId())) > 0) {
+                            list.remove(index);
+                            notifyDataSetChanged();
+                            Toast.makeText(context, "Thành CÔng", Toast.LENGTH_SHORT).show();
                         }
-                    });
-                    builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                        }
-                    });
-                    builder.show();
-                }
-            });
+                    }
+                });
+                builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                });
+                builder.show();
+            }
+        });
 
     }
+
     @Override
     public int getItemCount() {
         return list.size();
     }
 
-    class View_montrongban extends RecyclerView.ViewHolder{
-        TextView tenmon,soluong,tongtien;
+    class View_montrongban extends RecyclerView.ViewHolder {
+        TextView tenmon, soluong, tongtien;
 
         ImageView img;
 
@@ -123,9 +123,6 @@ public class MonTrongBanAdapter extends RecyclerView.Adapter<MonTrongBanAdapter.
             tenmon = itemView.findViewById(R.id.tenmon);
             soluong = itemView.findViewById(R.id.soluong);
             tongtien = itemView.findViewById(R.id.tongtien);
-
-            img = itemView.findViewById(R.id.img);
-
 
         }
     }

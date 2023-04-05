@@ -9,6 +9,7 @@ import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.Toast;
 
 
@@ -24,105 +25,80 @@ import java.util.List;
 
 public class Login extends AppCompatActivity {
 
-       TextInputEditText edUserName, edPassword;
-       Button lg;
-       CheckBox chk;
-     private NhanVienDao dao ;
-     private  NhanVien nhanVien;
-     private List<NhanVien> nhanVienList;
-
-
+    EditText login_edUsername , login_edPassword ;
+    CheckBox chkRemember;
+    Button login_btnLogin;
+    NhanVienDao dao;
+    NhanVien nhanVien;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
-        edUserName   =  findViewById(R.id.edUserName);
-        edPassword = findViewById(R.id.edPassword);
-          lg  =  findViewById(R.id.dangnhap);
-          chk = findViewById(R.id.chkRememberPass);
-          dao = new NhanVienDao(getApplicationContext());
-          nhanVienList = dao.getAll();
-
+        init();
+        signIn();
     }
-    public void rememberUp(String u, String p, boolean status)
-    {
-        SharedPreferences sPef = getSharedPreferences("User File",MODE_PRIVATE);
-        SharedPreferences.Editor editor = sPef.edit();
-        if(status == false)
-        {
-            editor.clear();
-        }
-        else
-        {
-            editor.putString("USERNAME",u);
-            editor.putString("PASSWORD",p);
-            editor.putBoolean("REMEMBER",status);
 
+    //*******//
+    //ánh xạ
+    public void init(){
+        login_edUsername = findViewById(R.id.login_edUsername);
+        login_edPassword = findViewById(R.id.login_edPassword);
+        chkRemember = findViewById(R.id.login_chkRemember);
+        login_btnLogin = findViewById(R.id.login_btnLogin);
+    }
+
+    //********//
+    //kiểm tra đăng nhập
+    public void signIn(){
+        dao = new NhanVienDao(getApplicationContext());
+        SharedPreferences preferences = getSharedPreferences("USER_FILE",MODE_PRIVATE);
+        login_edUsername.setText(preferences.getString("Username",""));
+        login_edPassword.setText(preferences.getString("Password",""));
+        chkRemember.setChecked(preferences.getBoolean("Remember",false));
+        login_btnLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                checkLogin(v);
+            }
+        });
+    }
+
+    public void checkLogin(View v){
+        String strUser = login_edUsername.getText().toString().trim();
+        String strPass = login_edPassword.getText().toString().trim();
+        dao = new NhanVienDao(this);
+        nhanVien = new NhanVien();
+        if (strUser.isEmpty() || strPass.isEmpty()){
+            Toast.makeText(this, "Không được để trống", Toast.LENGTH_SHORT).show();
+        }else if (dao.checkLogin(strUser,strPass) > 0 || strUser.equals("admin") && strPass.equals("admin")) {
+            Toast.makeText(this, "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
+            rememberPassword(strUser, strPass, chkRemember.isChecked());
+            Intent intent = new Intent(Login.this,MainActivity.class);
+            intent.putExtra("user",strUser);
+            startActivity(intent);
+            finish();
+        }else if(strUser.equals("admin") && !strPass.equals("admin")){
+            Toast.makeText(this, "Sai mật khẩu", Toast.LENGTH_SHORT).show();
+        }else if(!strUser.equals("admin") && strPass.equals("admin")){
+            Toast.makeText(this, "Sai tên đăng nhập", Toast.LENGTH_SHORT).show();
+        }else if(dao.checkLogin(strUser,strPass) < 0){
+            Toast.makeText(this, "Đăng nhập không thành công", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    //********//
+    //hàm nhớ mật khẩu
+    public void rememberPassword(String u , String p , boolean status){
+        SharedPreferences sharedPreferences = getSharedPreferences("USER_FILE",MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        if (!status){
+            //xoa tinh trang luu mat khau
+            editor.clear();
+        }else{
+            editor.putString("Username",u);
+            editor.putString("Password",p);
+            editor.putBoolean("Remember",status);
         }
         editor.commit();
-    }
-    public int isLogin(String u , String p)
-    {
-        int check = 1;
-        for (int i=0 ; i<nhanVienList.size(); i++){
-             nhanVien = nhanVienList.get(i);
-
-            if(u.equals(nhanVien.getUserName()) && p.equals(nhanVien.getPassWord())){
-                 check= 1;
-                 break;
-            }else {
-                 check = -1;
-            }
-
-        }
-
-        return check;
-    }
-     String strU , strP;
-    public void checkLogin(View view) {
-
-//        List<NhanVien> list = dao.getAll();
-//        if(list.isEmpty()){
-//            dao.insert();
-//        }
-         strU = edUserName.getText().toString();
-         strP = edPassword.getText().toString();
-         if(strU.isEmpty() || strP.isEmpty())
-         {
-             Toast.makeText(getApplicationContext(), "U,P khong duoc de trong", Toast.LENGTH_LONG).show();
-         }else
-         {
-             if(isLogin(strU,strP)>0)
-             {
-                 Toast.makeText(getApplicationContext(), "Dang nhap thanh cong", Toast.LENGTH_LONG).show();
-                 new Handler().postDelayed(new Runnable() {
-                     @Override
-                     public void run() {
-//                        startActivity(new Intent(Login.this,MainActivity.class));
-                         Intent intent = new Intent(Login.this,MainActivity.class);
-                         Bundle bundle = new Bundle();
-                         bundle.putString("user",strU);
-                         bundle.putString("uyquyen",nhanVien.getUyQuyen());
-                         intent.putExtra("thongtin",bundle);
-                         startActivity(intent);
-
-
-                     }
-                 },500);
-             }
-             else
-             {
-                 Toast.makeText(getApplicationContext(), "Sai U ,P", Toast.LENGTH_LONG).show();
-             }
-         }
-    }
-
-    public void saveUP(View view) {
-        String u = edUserName.getText().toString();
-        String p = edPassword.getText().toString();
-        boolean status = chk.isChecked();
-        rememberUp(u,p,status);
-
     }
 }
