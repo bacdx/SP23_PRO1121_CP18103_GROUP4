@@ -27,6 +27,7 @@ public class HoaDonDao {
         values.put("maKhachHang", hoaDon.getMaKH());
         values.put("ngayLap", hoaDon.getNgayLap());
         values.put("tongTien", hoaDon.getTongTien());
+        values.put("soLuong",hoaDon.getSoLuong());
         return db.insert("HoaDon", null, values);
     }
 
@@ -35,19 +36,6 @@ public class HoaDonDao {
     public int deleteHoaDon(HoaDon hoaDon) {
         return db.delete("HoaDon", "maHoaDon", new String[]{String.valueOf(hoaDon.getMaHoaDon())});
     }
-
-    public long updateHoaDon(HoaDon hoaDon) {
-        ContentValues values = new ContentValues();
-        values.put("maBan", hoaDon.getMaBan());
-        values.put("maNV", hoaDon.getMaNV());
-        values.put("maKH", hoaDon.getMaKH());
-        values.put("ngayLap", hoaDon.getNgayLap());
-        values.put("tongTien", hoaDon.getTongTien());
-        return db.update("HoaDon", values, "maHoaDon", new String[]{String.valueOf(hoaDon.getMaHoaDon())});
-    }
-
-
-
     private ArrayList<HoaDon> getData(String sql, String... Arg) {
         ArrayList<HoaDon> list = new ArrayList<>();
         Cursor c = db.rawQuery(sql, Arg);
@@ -94,22 +82,6 @@ public class HoaDonDao {
         return getData(sql,sDay,endDay);
     }
 
-
-    @SuppressLint("Range")
-    public ArrayList<Top5> getTop5(){
-
-        String sql = "select tongTien  from HoaDon order by tongTien desc limit 5";
-        ArrayList<Top5> list = new ArrayList<>();
-
-        Cursor c = db.rawQuery(sql,null);
-        while (c.moveToNext()){
-            Top5 top5 = new Top5();
-            top5.setMahoadon(c.getString(c.getColumnIndex("maHoaDon")));
-            top5.setTongtien(c.getString(c.getColumnIndex("tongTien")));
-            list.add(top5);
-        }
-        return list;
-    }
 
 
 }

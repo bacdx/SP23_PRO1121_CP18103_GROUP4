@@ -33,6 +33,7 @@ import com.example.sp23_pro1121_cp18103_group4.DAO.MonTrongBanDAO;
 
 import com.example.sp23_pro1121_cp18103_group4.Fragment.AllMonFragment;
 import com.example.sp23_pro1121_cp18103_group4.Fragment.LoaiMonFragment;
+import com.example.sp23_pro1121_cp18103_group4.Fragment.MonFragment;
 import com.example.sp23_pro1121_cp18103_group4.Fragment.ThemBanFragment;
 import com.example.sp23_pro1121_cp18103_group4.Model.BanAn;
 import com.example.sp23_pro1121_cp18103_group4.Model.HoaDon;
@@ -148,7 +149,7 @@ public class BanAnAdapter extends RecyclerView.Adapter<BanAnAdapter.ViewBanan> {
                 TextView tong = dialog.findViewById(R.id.tong);
                 Button thanhtoan = dialog.findViewById(R.id.thanhtoan);
 
-                DateFormat df = new SimpleDateFormat("dd/M/yyyy");
+                DateFormat df = new SimpleDateFormat("d/M/yyyy");
 
                 MonTrongBanAdapter monTrongBanAdapter;
                 tenban.setText(list.get(index).getTenBanAN());
@@ -193,7 +194,7 @@ public class BanAnAdapter extends RecyclerView.Adapter<BanAnAdapter.ViewBanan> {
                         Fragment fragment1 = new ThemBanFragment();
                         FragmentTransaction transaction = ((AppCompatActivity) context).getSupportFragmentManager().beginTransaction();
                         transaction.replace(R.id.mainFrame_collection_fragment,fragment1).commit();
-
+                        dialog.dismiss();
                     }
                 });
 

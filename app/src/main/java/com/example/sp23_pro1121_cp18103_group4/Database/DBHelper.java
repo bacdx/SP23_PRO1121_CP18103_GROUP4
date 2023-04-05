@@ -17,9 +17,6 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final int DBVersion = 1;
 
 
-
-
-
     public DBHelper(@Nullable Context context) {
 
         super(context, DBName, null, DBVersion);
@@ -66,14 +63,11 @@ public class DBHelper extends SQLiteOpenHelper {
 
 
     private static final String TABLE_kHACH_HANG = "create table KhachHang(" +
-
             "maKhachHang integer not null primary key," +
-
             "hoTen text," +
             "namSinh integer," +
             "gioiTinh text," +
             "soDT text," +
-
             "diaChi text)";
 
 
