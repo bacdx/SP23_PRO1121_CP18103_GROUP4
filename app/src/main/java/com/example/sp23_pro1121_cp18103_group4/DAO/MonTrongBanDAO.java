@@ -43,6 +43,7 @@ public class MonTrongBanDAO {
     }
     public int update(MonTrongBan monTrongBan){
         ContentValues values= getValue(monTrongBan);
+        values.put("soLuong",monTrongBan.getSoLuong());
         return db.update("MonTrongBan",values,"id=?",new String[]{String.valueOf(monTrongBan.getId())});
 
     }

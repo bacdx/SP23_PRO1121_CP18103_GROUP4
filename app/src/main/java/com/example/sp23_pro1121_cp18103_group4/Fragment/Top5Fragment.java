@@ -41,9 +41,8 @@ public class Top5Fragment extends Fragment {
             list = trongBanDAO.getTOp();
             top5Adapter = new Top5Adapter(list,getContext());
             rcv.setAdapter(top5Adapter);
-            Toast.makeText(getContext(), "Chưa Có Hóa ĐƠn ", Toast.LENGTH_SHORT).show();
         }catch (Exception e){
-
+            Toast.makeText(getContext(), "Chưa Có Hóa ĐƠn ", Toast.LENGTH_SHORT).show();
         }
         return view;
     }

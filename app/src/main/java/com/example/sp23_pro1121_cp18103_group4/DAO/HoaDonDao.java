@@ -27,7 +27,6 @@ public class HoaDonDao {
         values.put("maKhachHang", hoaDon.getMaKH());
         values.put("ngayLap", hoaDon.getNgayLap());
         values.put("tongTien", hoaDon.getTongTien());
-        values.put("soLuong",hoaDon.getSoLuong());
         return db.insert("HoaDon", null, values);
     }
 

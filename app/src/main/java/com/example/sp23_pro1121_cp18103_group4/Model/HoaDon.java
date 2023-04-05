@@ -8,18 +8,11 @@ public class HoaDon {
     private String ngayLap;
     private int tongTien;
 
-    int soLuong;
+
 
     public HoaDon() {
     }
 
-    public int getSoLuong() {
-        return soLuong;
-    }
-
-    public void setSoLuong(int soLuong) {
-        this.soLuong = soLuong;
-    }
 
     public HoaDon(String maHoaDon, String maBan, String maNV, String maKH, String ngayLap, int tongTien) {
         this.maHoaDon = maHoaDon;
