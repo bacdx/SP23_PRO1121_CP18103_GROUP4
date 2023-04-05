@@ -14,7 +14,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String DBName = "FAST_FOOD";
 
 
-    public static final int DBVersion = 15;
+    public static final int DBVersion = 1;
 
 
 
@@ -51,10 +51,8 @@ public class DBHelper extends SQLiteOpenHelper {
             "user text," +
             "passWord text," +
             "numberPhone text," +
-
             "gioiTinh text," +
             "ngaySinh date," +
-
             "uyQuyen text," +
             "status text);";
     private static final String TABLE_HOADON = "create table HoaDon(" +
