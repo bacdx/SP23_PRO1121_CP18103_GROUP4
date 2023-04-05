@@ -165,7 +165,7 @@ public class NhanVienAdapter extends RecyclerView.Adapter<NhanVienAdapter.MyView
         nhanvien_rdKhac = view.findViewById(R.id.nhanvien_rdKhac);
         nhanvien_edSoDT = view.findViewById(R.id.nhanvien_edSoDT);
 //        nhanvien_edUyQuyen = view.findViewById(R.id.nhanvien_edUyQuyen);
-//        nhanvien_edStartus= view.findViewById(R.id.nhanvien_edStartus);
+        nhanvien_edStartus= view.findViewById(R.id.nhanvien_Status);
         rdo_quanli = view.findViewById(R.id.quanli);
         rdo_nhanvien = view.findViewById(R.id.nhanvien);
 //        checklamviec = view.findViewById(R.id.check1);
@@ -179,11 +179,7 @@ public class NhanVienAdapter extends RecyclerView.Adapter<NhanVienAdapter.MyView
         nhanvien_edSoDT.setText(nhanVien1.getSoDienThoai());
 
 
-        if(nhanVien1.getStartus().equals("Làm")){
-            checklamviec.setChecked(true);
-        }else{
-            checklamviec.setChecked(false);
-        }
+        nhanvien_edStartus.setText(nhanVien1.getStartus());
 
         if(nhanVien1.getUyQuyen().equals("quanli")){
                 rdo_quanli.setChecked(true);
@@ -247,13 +243,6 @@ public class NhanVienAdapter extends RecyclerView.Adapter<NhanVienAdapter.MyView
         btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                nhanvien_edHoTen.setText("");
-                nhanvien_eduser.setText("");
-                nhanvien_edpass.setText("");
-                nhanvien_edNamSinh.setText("");
-                nhanvien_edSoDT.setText("");
-                nhanvien_edUyQuyen.setText("");
-                nhanvien_edStartus.setText("");
                 dialog.dismiss();
             }
         });
