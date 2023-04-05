@@ -79,6 +79,9 @@ public class MonTrongBanAdapter extends RecyclerView.Adapter<MonTrongBanAdapter.
         holder.soluong.setText(list.get(index).getSoLuong() + "");
         holder.tongtien.setText(list.get(index).getSoLuong() * list.get(index).getGiaMon() + " VND");
 
+        Bitmap imageContent = BitmapFactory.decodeByteArray(monTrongBan.getImgMon(), 0, monTrongBan.getImgMon().length);
+        holder.img.setImageBitmap(imageContent);
+
         holder.tenmon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -123,6 +126,7 @@ public class MonTrongBanAdapter extends RecyclerView.Adapter<MonTrongBanAdapter.
             tenmon = itemView.findViewById(R.id.tenmon);
             soluong = itemView.findViewById(R.id.soluong);
             tongtien = itemView.findViewById(R.id.tongtien);
+            img = itemView.findViewById(R.id.img);
 
         }
     }
