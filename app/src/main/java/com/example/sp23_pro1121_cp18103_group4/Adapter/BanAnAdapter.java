@@ -13,10 +13,12 @@ import android.provider.Settings;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,16 +31,20 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.sp23_pro1121_cp18103_group4.Activity.Dialog_MonTrongBan;
 import com.example.sp23_pro1121_cp18103_group4.DAO.BanAnDao;
 import com.example.sp23_pro1121_cp18103_group4.DAO.HoaDonDao;
+import com.example.sp23_pro1121_cp18103_group4.DAO.KhachHangDao;
 import com.example.sp23_pro1121_cp18103_group4.DAO.MonTrongBanDAO;
 
+import com.example.sp23_pro1121_cp18103_group4.DAO.NhanVienDao;
 import com.example.sp23_pro1121_cp18103_group4.Fragment.AllMonFragment;
 import com.example.sp23_pro1121_cp18103_group4.Fragment.LoaiMonFragment;
 import com.example.sp23_pro1121_cp18103_group4.Fragment.MonFragment;
 import com.example.sp23_pro1121_cp18103_group4.Fragment.ThemBanFragment;
 import com.example.sp23_pro1121_cp18103_group4.Model.BanAn;
 import com.example.sp23_pro1121_cp18103_group4.Model.HoaDon;
+import com.example.sp23_pro1121_cp18103_group4.Model.KhachHang;
 import com.example.sp23_pro1121_cp18103_group4.Model.Mon;
 import com.example.sp23_pro1121_cp18103_group4.Model.MonTrongBan;
+import com.example.sp23_pro1121_cp18103_group4.Model.NhanVien;
 import com.example.sp23_pro1121_cp18103_group4.MonActivity;
 import com.example.sp23_pro1121_cp18103_group4.R;
 
@@ -46,6 +52,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 public class BanAnAdapter extends RecyclerView.Adapter<BanAnAdapter.ViewBanan> {
 
@@ -55,7 +62,13 @@ public class BanAnAdapter extends RecyclerView.Adapter<BanAnAdapter.ViewBanan> {
     BanAnDao daoBanAN;
     HoaDonDao hoaDonDao;
 
+    BanAnAdapter banAnAdapter;
 
+    String tenNV,tenKH;
+
+    ArrayList<NhanVien> list1 ;
+
+    ArrayList<KhachHang> listkh;
 
     public BanAnAdapter(Context context, ArrayList<BanAn> list) {
         this.context = context;
@@ -174,27 +187,95 @@ public class BanAnAdapter extends RecyclerView.Adapter<BanAnAdapter.ViewBanan> {
                     @Override
                     public void onClick(View v) {
 
+                        Dialog dialog1 = new Dialog(context, androidx.appcompat.R.style.Theme_AppCompat);
+                        dialog1.setContentView(R.layout.dialog_thanhtoan_hoa_don);
 
-                        HoaDon hoaDon;
-                        hoaDon = new HoaDon();
-                        hoaDonDao = new HoaDonDao(context);
+                        Spinner spn_nhanvien = dialog1.findViewById(R.id.spn_nhanvien);
+                        Spinner spn_khachhang = dialog1.findViewById(R.id.spn_khachhang);
 
-                        hoaDon.setMaBan(String.valueOf(list.get(index).getId()));
-                        hoaDon.setMaKH("KH01");
-                        hoaDon.setMaNV("NV01");
-                        hoaDon.setNgayLap(ngay.getText().toString());
-                        hoaDon.setTongTien(Integer.parseInt(tong.getText().toString()));
+                        Button luu = dialog1.findViewById(R.id.luu);
+                        Button huy = dialog1.findViewById(R.id.huy);
 
-                        hoaDonDao.insertHoaDon(hoaDon);
-                        try {
-                            trongBanDAO.DeleteAll(String.valueOf(list.get(index).getId()));
-                        }catch (Exception e){
-                            Toast.makeText(context, "Thanh Toán Thành CÔng", Toast.LENGTH_SHORT).show();
-                        }
-                        Fragment fragment1 = new ThemBanFragment();
-                        FragmentTransaction transaction = ((AppCompatActivity) context).getSupportFragmentManager().beginTransaction();
-                        transaction.replace(R.id.mainFrame_collection_fragment,fragment1).commit();
-                        dialog.dismiss();
+
+
+                        NhanVienDao daonv = new NhanVienDao(context);
+                         Spiner_NhanVien nhanVien = new Spiner_NhanVien(context);
+
+                         list1 = new ArrayList<>();
+                         list1 = daonv.getAll();
+                         nhanVien.setDaTa(list1);
+                         spn_nhanvien.setAdapter(nhanVien);
+
+                         spn_nhanvien.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                             @Override
+                             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                                 tenNV = list1.get(position).getHoten();
+                             }
+
+                             @Override
+                             public void onNothingSelected(AdapterView<?> parent) {
+
+                             }
+                         });
+
+                        KhachHangDao hangDao = new KhachHangDao(context);
+                        Spiner_KhachHang spiner_khachHang = new Spiner_KhachHang(context);
+                         listkh = new ArrayList<>();
+                        listkh = hangDao.getAll();
+                        spiner_khachHang.setDaTA(listkh);
+                        spn_khachhang.setAdapter(spiner_khachHang);
+
+                        spn_khachhang.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                            @Override
+                            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                                tenKH = listkh.get(position).getHoTen();
+
+                            }
+
+                            @Override
+                            public void onNothingSelected(AdapterView<?> parent) {
+
+                            }
+                        });
+                        huy.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                dialog1.dismiss();
+                            }
+                        });
+
+
+
+                        luu.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+
+                                HoaDon hoaDon;
+                                hoaDon = new HoaDon();
+                                hoaDonDao = new HoaDonDao(context);
+
+                                hoaDon.setMaBan(String.valueOf(list.get(index).getId()));
+                               try {
+                                   hoaDon.setMaKH(tenKH);
+                                   hoaDon.setMaNV(tenNV);
+
+                               }catch (Exception e){
+                                   Toast.makeText(context, "Chưa ĐỦ Thông Tin", Toast.LENGTH_SHORT).show();
+                                   return;
+                               }
+                                hoaDon.setNgayLap(ngay.getText().toString());
+                                hoaDon.setTongTien(Integer.parseInt(tong.getText().toString()));
+                                hoaDonDao.insertHoaDon(hoaDon);
+                                try {
+                                    trongBanDAO.DeleteAll(String.valueOf(list.get(index).getId()));
+                                }catch (Exception e){
+                                    Toast.makeText(context, "Thanh Toán Thành CÔng", Toast.LENGTH_SHORT).show();
+                                }
+                                dialog1.dismiss();
+                            }
+                        });
+                        dialog1.show();
                     }
                 });
 

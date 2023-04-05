@@ -4,6 +4,7 @@ package com.example.sp23_pro1121_cp18103_group4.Adapter;
 import static android.app.Activity.RESULT_OK;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -15,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,6 +32,7 @@ import com.example.sp23_pro1121_cp18103_group4.Model.BanAn;
 import com.example.sp23_pro1121_cp18103_group4.Model.Mon;
 import com.example.sp23_pro1121_cp18103_group4.Model.MonTrongBan;
 import com.example.sp23_pro1121_cp18103_group4.R;
+import com.google.android.material.textfield.TextInputEditText;
 
 
 import java.io.ByteArrayOutputStream;
@@ -106,6 +109,49 @@ public class MonTrongBanAdapter extends RecyclerView.Adapter<MonTrongBanAdapter.
                 });
                 builder.show();
             }
+        });
+
+        holder.img.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Dialog dialog = new Dialog(context,androidx.appcompat.R.style.Theme_AppCompat);
+                dialog.setContentView(R.layout.dialog_sua_montrongban);
+
+                TextInputEditText soluong = dialog.findViewById(R.id.soluong);
+                Button luu = dialog.findViewById(R.id.luu);
+                Button huy = dialog.findViewById(R.id.huy);
+
+                soluong.setText(monTrongBan.getSoLuong()+"");
+
+                huy.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
+
+                luu.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        monTrongBan.setSoLuong(Integer.parseInt(soluong.getText().toString()));
+
+                        if(trongBanDAO.update(monTrongBan)>0){
+
+                            list.set(index,monTrongBan);
+                            notifyDataSetChanged();
+                            Toast.makeText(context, "Thành Công", Toast.LENGTH_SHORT).show();
+                            dialog.dismiss();
+                        }else{
+                            Toast.makeText(context, "Thất Bại", Toast.LENGTH_SHORT).show();
+                        }
+
+                    }
+                });
+                    dialog.show();
+            }
+
         });
 
     }
