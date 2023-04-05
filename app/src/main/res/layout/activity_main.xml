@@ -20,7 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:id="@+id/main_toolBar"
-            android:background="#D98B2B"/>
+            android:background="#F2CB05"/>
 
         <FrameLayout
             android:id="@+id/mainFrame_collection_fragment"

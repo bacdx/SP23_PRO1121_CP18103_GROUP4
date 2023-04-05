@@ -33,13 +33,6 @@ public class NhanVienDao {
     }
 
 
-//    public NhanVien insert(){
-//        NhanVien nhanVien=new NhanVien(0,2003,"fd","admin","admin","admin","765765765756","","");
-//        insertNhanVien(nhanVien);
-//        return nhanVien;
-//
-//    }
-
     public int deleteNhanVien(NhanVien nhanVien){
         return db.delete("NhanVien","maNV=?",new String[]{String.valueOf(nhanVien.getMaNV())});
     }
@@ -52,7 +45,7 @@ public class NhanVienDao {
         values.put("ngaySinh",nhanVien.getNamSinh());
         values.put("uyQuyen",nhanVien.getUyQuyen());
         values.put("status",nhanVien.getStartus());
-        values.put("gioTinh",nhanVien.getGioiTinh());
+        values.put("gioiTinh",nhanVien.getGioiTinh());
         return db.update("NhanVien",values,"maNV=?",new String[]{String.valueOf(nhanVien.getMaNV())});
     }
     public List<NhanVien> getAll(){
@@ -74,7 +67,6 @@ public class NhanVienDao {
             String UyQuyen = c.getString(7);
             int NamSinh = c.getInt(6);
             NhanVien nhanVien = new NhanVien();
-//            NhanVien nhanVien = new NhanVien();
             nhanVien.setMaNV(manv);
             nhanVien.setHoten(hoten);
             nhanVien.setUserName(userName);
@@ -96,4 +88,20 @@ public class NhanVienDao {
         return list.get(0);
     }
 
+    //get id nhan vien check ủy quyền
+    public NhanVien getID(String user){
+        String sql = "Select * from NhanVien where user=?";
+        List<NhanVien> list = getData(sql,user);
+        return list.get(0);
+    }
+
+
+    public int checkLogin(String user,String pass){
+        String sql = "Select * from NhanVien where user=? and passWord=?";
+        List<NhanVien> list  = getData(sql,user,pass);
+        if (list.size() == 0){
+            return -1;
+        }
+        return 1;
+    }
 }
