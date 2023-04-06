@@ -45,7 +45,7 @@
             android:layout_marginRight="10dp"
             android:layout_weight="1"
             android:backgroundTint="#F2CB05"
-            android:text="Save"
+            android:text="Thanh Toán"
             android:textStyle="bold" />
 
         <Button

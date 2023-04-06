@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.example.sp23_pro1121_cp18103_group4.Adapter.Top5Adapter;
 import com.example.sp23_pro1121_cp18103_group4.DAO.HoaDonDao;
+import com.example.sp23_pro1121_cp18103_group4.DAO.MonTrongBan2Dao;
 import com.example.sp23_pro1121_cp18103_group4.DAO.MonTrongBanDAO;
 import com.example.sp23_pro1121_cp18103_group4.Model.Top5;
 import com.example.sp23_pro1121_cp18103_group4.R;
@@ -25,6 +26,8 @@ public class Top5Fragment extends Fragment {
     RecyclerView rcv;
     Top5Adapter top5Adapter;
     MonTrongBanDAO trongBanDAO;
+
+    MonTrongBan2Dao monTrongBan2Dao;
     ArrayList<Top5> list;
 
     @Override
@@ -36,9 +39,10 @@ public class Top5Fragment extends Fragment {
         rcv = view.findViewById(R.id.rcvtop5);
         list = new ArrayList<>();
         trongBanDAO = new MonTrongBanDAO(getContext());
+        monTrongBan2Dao = new MonTrongBan2Dao(getContext());
 
         try {
-            list = trongBanDAO.getTOp();
+            list = monTrongBan2Dao.getTOp();
             top5Adapter = new Top5Adapter(list,getContext());
             rcv.setAdapter(top5Adapter);
         }catch (Exception e){
