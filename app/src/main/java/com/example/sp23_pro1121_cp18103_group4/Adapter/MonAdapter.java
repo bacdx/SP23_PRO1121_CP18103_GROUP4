@@ -86,6 +86,7 @@ public class MonAdapter extends RecyclerView.Adapter<MonAdapter.MyViewHolder> im
                 Bundle bundle = new Bundle();
                 bundle.putString("tenmon",mon.getTenMon());
                 bundle.putInt("giamon",mon.getGiaTien());
+                bundle.putString("trangthai",mon.getTrangThai());
                 intent.putExtra("thongtin",bundle);
                 mContext.startActivity(intent);
 
