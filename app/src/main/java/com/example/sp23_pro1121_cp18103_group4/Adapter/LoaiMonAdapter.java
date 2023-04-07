@@ -70,14 +70,14 @@ public class LoaiMonAdapter extends RecyclerView.Adapter<LoaiMonAdapter.MyViewHo
         LoaiMon loaiMon = list.get(position);
         holder.tvTenLoaiMon.setText(loaiMon.getTenLoaiMon());
 
-        if(loaiMon.getImgLoaiMon()==null){
-
-        }else{
+        if(loaiMon.getImgLoaiMon()!=null){
             Bitmap imageContent = BitmapFactory.decodeByteArray(loaiMon.getImgLoaiMon(),0,loaiMon.getImgLoaiMon().length);
             holder.imgLoaiMon.setImageBitmap(imageContent);
+        }else{
+
         }
-        Bitmap imageContent = BitmapFactory.decodeByteArray(loaiMon.getImgLoaiMon(),0,loaiMon.getImgLoaiMon().length);
-        holder.imgLoaiMon.setImageBitmap(imageContent);
+
+
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -164,6 +164,8 @@ public class BanAnAdapter extends RecyclerView.Adapter<BanAnAdapter.ViewBanan> {
 
                 DateFormat df = new SimpleDateFormat("d/M/yyyy");
 
+                int tongAdapter;
+
                 MonTrongBanAdapter monTrongBanAdapter;
                 tenban.setText(list.get(index).getTenBanAN());
                 ngay.setText(df.format(Calendar.getInstance().getTime()));
@@ -271,9 +273,12 @@ public class BanAnAdapter extends RecyclerView.Adapter<BanAnAdapter.ViewBanan> {
                                     trongBanDAO.DeleteAll(String.valueOf(list.get(index).getId()));
                                 }catch (Exception e){
                                     Toast.makeText(context, "Thanh Toán Thành CÔng", Toast.LENGTH_SHORT).show();
+                                    holder.anh.setImageResource(R.drawable.banan);
+
                                 }
                                 dialog1.dismiss();
                             }
+
                         });
                         dialog1.show();
                     }
