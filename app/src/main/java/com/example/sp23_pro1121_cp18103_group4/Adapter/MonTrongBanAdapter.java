@@ -50,6 +50,8 @@ public class MonTrongBanAdapter extends RecyclerView.Adapter<MonTrongBanAdapter.
     MonDao monDao;
     Mon mon;
 
+    int tong;
+
     MonTrongBanDAO trongBanDAO;
     List<Mon> listMon;
 
@@ -60,6 +62,7 @@ public class MonTrongBanAdapter extends RecyclerView.Adapter<MonTrongBanAdapter.
     public MonTrongBanAdapter(ArrayList<MonTrongBan> list, Context context) {
         this.list = list;
         this.context = context;
+        this.tong = tong;
     }
 
     @NonNull
@@ -140,8 +143,9 @@ public class MonTrongBanAdapter extends RecyclerView.Adapter<MonTrongBanAdapter.
                         if(trongBanDAO.update(monTrongBan)>0){
 
                             list.set(index,monTrongBan);
-                            notifyDataSetChanged();
+                            tong = trongBanDAO.getTong(monTrongBan.getMaBan());
                             Toast.makeText(context, "Thành Công", Toast.LENGTH_SHORT).show();
+                            notifyDataSetChanged();
                             dialog.dismiss();
                         }else{
                             Toast.makeText(context, "Thất Bại", Toast.LENGTH_SHORT).show();

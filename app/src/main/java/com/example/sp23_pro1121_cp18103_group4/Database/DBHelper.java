@@ -14,7 +14,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String DBName = "FAST_FOOD";
 
 
-    public static final int DBVersion = 2;
+    public static final int DBVersion = 3;
 
 
     public DBHelper(@Nullable Context context) {

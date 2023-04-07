@@ -205,14 +205,18 @@ public class LoaiMonFragment extends Fragment {
         tvTitle.setText("Thêm Loại Món");
         edTenLoaiMon = view.findViewById(R.id.loaimon_edTenLoai);
         imgLoaiMon = view.findViewById(R.id.loaimon_addImg);
-        imgLoaiMon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-                intent.setType("image/*");
-                startActivityForResult(intent, PICK_IMAGE_REQUEST);
-            }
-        });
+        try {
+            imgLoaiMon.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+                    intent.setType("image/*");
+                    startActivityForResult(intent, PICK_IMAGE_REQUEST);
+                }
+            });
+        }catch (Exception e){
+            Toast.makeText(getContext(), "Chưa Thêm Ảnh Vào Loại Món", Toast.LENGTH_SHORT).show();
+        }
         Button btnSave, btnCancel;
         btnSave = view.findViewById(R.id.loaimon_btnSave);
         btnCancel = view.findViewById(R.id.loaimon_btnCancel);
