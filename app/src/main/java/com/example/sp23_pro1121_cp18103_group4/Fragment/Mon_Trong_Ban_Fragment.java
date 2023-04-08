@@ -1,12 +1,16 @@
-package com.example.sp23_pro1121_cp18103_group4.Activity;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
+package com.example.sp23_pro1121_cp18103_group4.Fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.Spinner;
@@ -17,8 +21,6 @@ import com.example.sp23_pro1121_cp18103_group4.DAO.BanAnDao;
 import com.example.sp23_pro1121_cp18103_group4.DAO.MonDao;
 import com.example.sp23_pro1121_cp18103_group4.DAO.MonTrongBan2Dao;
 import com.example.sp23_pro1121_cp18103_group4.DAO.MonTrongBanDAO;
-import com.example.sp23_pro1121_cp18103_group4.Fragment.AllMonFragment;
-import com.example.sp23_pro1121_cp18103_group4.Fragment.ThemBanFragment;
 import com.example.sp23_pro1121_cp18103_group4.Model.BanAn;
 import com.example.sp23_pro1121_cp18103_group4.Model.Mon;
 import com.example.sp23_pro1121_cp18103_group4.Model.MonTrongBan;
@@ -27,7 +29,8 @@ import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.ArrayList;
 
-public class Dialog_MonTrongBan extends AppCompatActivity {
+
+public class Mon_Trong_Ban_Fragment extends Fragment {
 
     MonTrongBanDAO trongBanDAO;
 
@@ -45,35 +48,40 @@ public class Dialog_MonTrongBan extends AppCompatActivity {
     int check = 0;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.dialogthemmontrongban);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.dialogthemmontrongban, container, false);
+    }
 
-        TextInputEditText soluong = findViewById(R.id.soluong);
-        Spinner spinner = findViewById(R.id.spn);
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
-        Button luu = findViewById(R.id.luu);
-        Button huy = findViewById(R.id.huy);
+        TextInputEditText soluong = view.findViewById(R.id.soluong);
+        Spinner spinner = view.findViewById(R.id.spn);
+
+        Button luu = view.findViewById(R.id.luu);
+        Button huy = view.findViewById(R.id.huy);
 
         Intent intent = new Intent();
-
-        Bundle bundle = getIntent().getBundleExtra("thongtin");;
+        Bundle bundle = this.getArguments();
         String tenmon = bundle.getString("tenmon");
         int giamon = bundle.getInt("giamon");
         String trangthai = bundle.getString("trangthai");
 
         listBanAN = new ArrayList<>();
-        banAnDao = new BanAnDao(this);
-        adapter_maBan = new Adapter_MaBan(this);
+        banAnDao = new BanAnDao(getContext());
+        adapter_maBan = new Adapter_MaBan(getContext());
         listBanAN = banAnDao.getALL();
         adapter_maBan.setDaTa(listBanAN);
         spinner.setAdapter(adapter_maBan);
 
         mon = new Mon();
-        monDao = new MonDao(this);
+        monDao = new MonDao(getContext());
         mon = monDao.getALLTien(giamon);
-        trongBanDAO = new MonTrongBanDAO(this);
-        monTrongBan2Dao = new MonTrongBan2Dao(this);
+        trongBanDAO = new MonTrongBanDAO(getContext());
+        monTrongBan2Dao = new MonTrongBan2Dao(getContext());
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -97,23 +105,23 @@ public class Dialog_MonTrongBan extends AppCompatActivity {
                 monTrongBan = new MonTrongBan();
 
                 if(soluong.getText().toString().length()==0){
-                    Toast.makeText(Dialog_MonTrongBan.this, "Khong Được Để Trống ", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Khong Được Để Trống ", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                 if (!soluong.getText().toString().matches("\\d+")) {
-                    Toast.makeText(Dialog_MonTrongBan.this, "Yêu cầu  Số Lượng  là số", Toast.LENGTH_SHORT).show();
+                if (!soluong.getText().toString().matches("\\d+")) {
+                    Toast.makeText(getContext(), "Yêu cầu  Số Lượng  là số", Toast.LENGTH_SHORT).show();
                     return;
-                 }
+                }
 
-                 if(trangthai.equals("Hết hàng")){
-                     Toast.makeText(Dialog_MonTrongBan.this, "Món Này Đã Hết Hàng !", Toast.LENGTH_SHORT).show();
-                     return;
-                 }
+                if(trangthai.equals("Hết hàng")){
+                    Toast.makeText(getContext(), "Món Này Đã Hết Hàng !", Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
                 try {
                     check = trongBanDAO.getwGia(String.valueOf(giamon),id12);
                     if(check>0){
-                        Toast.makeText(getApplicationContext(), "Đã Có Món Ăn Này Trong Bàn", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "Đã Có Món Ăn Này Trong Bàn", Toast.LENGTH_SHORT).show();
                         return;
                     }
                 }catch (Exception e){
@@ -128,14 +136,17 @@ public class Dialog_MonTrongBan extends AppCompatActivity {
                 if(trongBanDAO.insert(monTrongBan)>0 && monTrongBan2Dao.insert2(monTrongBan)>0){
 
                     Fragment fragment = new ThemBanFragment();
-                    FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                    FragmentTransaction transaction = ((getActivity())).getSupportFragmentManager().beginTransaction();
                     transaction.replace(R.id.mainFrame_collection_fragment,fragment).commit();
 
-                    Toast.makeText(Dialog_MonTrongBan.this, "Thành CÔng" , Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Thành CÔng" , Toast.LENGTH_SHORT).show();
                 }else{
-                    Toast.makeText(Dialog_MonTrongBan.this, "THất Bại", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "THất Bại", Toast.LENGTH_SHORT).show();
                 }
             }
         });
     }
+
+
+
 }

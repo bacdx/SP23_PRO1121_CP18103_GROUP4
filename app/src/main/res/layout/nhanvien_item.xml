@@ -85,7 +85,7 @@
 
             <TextView
                 android:id="@+id/nhanvien_tvStartus"
-                android:layout_width="50dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Startus"
                 android:textSize="15dp"

@@ -358,14 +358,23 @@ public class MonFragment extends Fragment {
         maLoaiMon = bundle.getInt("maLoaiMon");
         list = dao.getAllWithId(maLoaiMon);
         imgMon = dialog.findViewById(R.id.mon_addImg);
-        imgMon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-                intent.setType("image/*");
-                startActivityForResult(intent, PICK_IMAGE_REQUEST);
-            }
-        });
+
+        try {
+            imgMon.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+                    intent.setType("image/*");
+                    startActivityForResult(intent, PICK_IMAGE_REQUEST);
+                }
+            });
+
+        }catch (Exception e){
+            Toast.makeText(getContext(), "", Toast.LENGTH_SHORT).show();
+        }
+
+
+
         edTenMon = dialog.findViewById(R.id.mon_edTenMon);
         edGiaTien = dialog.findViewById(R.id.mon_edGiaTien);
         chkTrangThai = dialog.findViewById(R.id.mon_chkTrangThai);
@@ -376,6 +385,11 @@ public class MonFragment extends Fragment {
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                if (imgMon == null){
+                    Toast.makeText(getContext(), "Chưa Có Ảnh", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 if (chkTrangThai.isChecked()) {
                     mon.setTrangThai("Còn hàng");
                 } else {
@@ -416,6 +430,7 @@ public class MonFragment extends Fragment {
 
     //validate check
     public int validate() {
+
         int check = 1;
         if (edTenMon.getText().toString().isEmpty() || edGiaTien.getText().toString().isEmpty()) {
             Toast.makeText(getContext(), "Yêu cầu nhập đầy đủ thông tin", Toast.LENGTH_SHORT).show();
@@ -424,6 +439,7 @@ public class MonFragment extends Fragment {
             Toast.makeText(getContext(), "Yêu cầu giá tiền phải là số", Toast.LENGTH_SHORT).show();
             check = -1;
         }
+
         return check;
     }
 

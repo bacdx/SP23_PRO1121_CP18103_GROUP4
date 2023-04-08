@@ -48,12 +48,12 @@ public class NhanVienDao {
         values.put("gioiTinh",nhanVien.getGioiTinh());
         return db.update("NhanVien",values,"maNV=?",new String[]{String.valueOf(nhanVien.getMaNV())});
     }
-    public List<NhanVien> getAll(){
-        String sql = "Select * from NhanVien";
+    public ArrayList<NhanVien> getAll(){
+        String sql = "select * from NhanVien";
         return getData(sql);
     }
-    private List<NhanVien> getData(String sql,String ... Arg) {
-        List<NhanVien> list = new ArrayList<>();
+    private ArrayList<NhanVien> getData(String sql,String ... Arg) {
+        ArrayList<NhanVien> list = new ArrayList<>();
         Cursor c = db.rawQuery(sql,Arg);
         c.moveToFirst();
         while (!c.isAfterLast()){

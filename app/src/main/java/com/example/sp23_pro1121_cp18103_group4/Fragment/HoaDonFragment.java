@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.example.sp23_pro1121_cp18103_group4.Adapter.HoaDonAdapter;
 import com.example.sp23_pro1121_cp18103_group4.DAO.HoaDonDao;
@@ -37,10 +38,8 @@ public class HoaDonFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-
-
         rcv = view.findViewById(R.id.rcv);
+
 
 
     }
@@ -51,10 +50,13 @@ public class HoaDonFragment extends Fragment {
 
         list = new ArrayList<>();
         hoaDonDao = new HoaDonDao(getContext());
-        list = hoaDonDao.getAll();
-
-        hoaDonAdapter = new HoaDonAdapter(list,getContext());
-        rcv.setAdapter(hoaDonAdapter);
+      try {
+          list = hoaDonDao.getAll();
+          hoaDonAdapter = new HoaDonAdapter(list,getContext());
+          rcv.setAdapter(hoaDonAdapter);
+      }catch (Exception e){
+          Toast.makeText(getContext(), "Chưa Có Hóa ĐƠn ", Toast.LENGTH_SHORT).show();
+      }
 
     }
 }
