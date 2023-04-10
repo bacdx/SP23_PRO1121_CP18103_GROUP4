@@ -41,6 +41,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.sp23_pro1121_cp18103_group4.Activity.Dialog_MonTrongBan;
 import com.example.sp23_pro1121_cp18103_group4.DAO.MonDao;
+import com.example.sp23_pro1121_cp18103_group4.Fragment.ChiTietSanPhamFragment;
 import com.example.sp23_pro1121_cp18103_group4.Fragment.Mon_Trong_Ban_Fragment;
 import com.example.sp23_pro1121_cp18103_group4.Model.Mon;
 import com.example.sp23_pro1121_cp18103_group4.R;
@@ -96,13 +97,8 @@ public class MonAdapter extends RecyclerView.Adapter<MonAdapter.MyViewHolder> im
                 fragment.setArguments(bundle);
                 FragmentTransaction transaction = ((FragmentActivity)mContext).getSupportFragmentManager().beginTransaction();
                 transaction.replace(R.id.mainFrame_collection_fragment,fragment).commit();
-
-
             }
         });
-
-
-
         if (mon.getTrangThai().equals("Còn hàng")) {
             holder.mon_tvTrangThai.setText(mon.getTrangThai());
             holder.mon_tvTrangThai.setTextColor(Color.BLUE);

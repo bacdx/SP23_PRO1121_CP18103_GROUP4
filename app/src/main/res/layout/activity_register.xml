@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".Activity.Login">
+    tools:context=".Activity.RegisterActivity">
 
     <RelativeLayout
         android:id="@+id/relativeLayout2"
@@ -34,7 +34,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="HELLO THERE, WELLCOME BACK"
+                android:text="HELLO THERE, WELCOME BACK"
                 android:textColor="#fff"
                 android:textSize="22dp"
                 android:textStyle="bold" />
@@ -77,7 +77,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:text="Sign in to continue"
+                android:text="Register account"
                 android:textSize="25dp"
                 android:textStyle="bold" />
 
@@ -90,12 +90,11 @@
                 app:boxStrokeColor="#9F9F9F">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/login_edUsername"
+                    android:id="@+id/register_edUsername"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:focusable="true"
-                    android:drawableEnd="@drawable/ic_baseline_person_24_ed_username"
-                    android:hint="Nhập username" />
+                    android:hint="Nhập username"
+                    android:focusable="true"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -107,52 +106,33 @@
                 app:boxStrokeColor="#9F9F9F">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/login_edPassword"
+                    android:id="@+id/register_edPassword"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:focusable="true"
-                    android:drawableEnd="@drawable/ic_baseline_lock_24_ed_password"
                     android:hint="Nhập password" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <CheckBox
-                android:id="@+id/login_chkRemember"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_margin="10dp"
-                android:text="Remember me?" />
+                app:hintTextColor="#9F9F9F"
+                app:boxStrokeColor="#9F9F9F">
 
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/register_edRePassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="Comfirm password" />
+            </com.google.android.material.textfield.TextInputLayout>
             <Button
-                android:id="@+id/login_btnLogin"
+                android:id="@+id/register_btnSave"
                 android:layout_width="350dp"
                 android:layout_height="match_parent"
                 android:layout_gravity="center_horizontal"
                 android:backgroundTint="#F2CB05"
-                android:text="Login" />
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center"
-                android:padding="10dp"
-                >
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="Don't have an account?"
-                    android:textStyle="bold"
-                    android:padding="5dp"/>
-                <TextView
-                    android:id="@+id/login_tvRegister"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Register instead"
-                    android:textColor="#0D47A1"
-                    android:textStyle="bold"/>
-            </LinearLayout>
+                android:text="Register" />
         </LinearLayout>
-
     </androidx.cardview.widget.CardView>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout >

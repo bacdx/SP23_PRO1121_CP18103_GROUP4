@@ -14,7 +14,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String DBName = "FAST_FOOD";
 
 
-    public static final int DBVersion = 3;
+    public static final int DBVersion = 1;
 
 
     public DBHelper(@Nullable Context context) {
@@ -81,6 +81,32 @@ public class DBHelper extends SQLiteOpenHelper {
             "diaChi text)";
 
 
+    //khách hàng dùng appp
+    String CreatTalbeDatHang = "Create table DatHang(" +
+            "maDatHang integer not null primary key autoincrement," +
+            "soLuong integer," +
+            "giaTien integer," +
+            "maMon integer references Mon(maMon))";
+    String CreateTableNguoiDung = "Create table NguoiDung(" +
+            "username text not null primary key," +
+            "hoTen text," +
+            "password text," +
+            "soDT text," +
+            "diaChi text)";
+
+    String CreateTableDonHang = "Create table DonHang(" +
+            "maDonHang text primary key ," +
+            "ngayThanhToan text," +
+            "trangThai text," +
+            "tongTien integer," +
+            "maDatHang integer references DatMon(maDatHang)," +
+            "username text references NguoiDung(username)," +
+            "tenNguoiDung text ," +
+            "soDT text ," +
+            "diaChi text)";
+
+
+
 
     @Override
     public void onCreate(SQLiteDatabase db) {
@@ -93,6 +119,9 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL(TABLE_HOADON);
         db.execSQL(Data.insertNhanVien);
         db.execSQL(TABLE_MON_TRONG_BAN2);
+        db.execSQL(CreatTalbeDatHang);
+        db.execSQL(CreateTableNguoiDung);
+        db.execSQL(CreateTableDonHang);
 //        db.execSQL(data.insertLoaiMon);
 //        db.execSQL(data.insertMon);
 //        db.execSQL(data.insertBan);

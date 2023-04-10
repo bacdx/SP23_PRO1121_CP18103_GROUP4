@@ -1,12 +1,6 @@
 package com.example.sp23_pro1121_cp18103_group4.Fragment;
 
 import android.os.Bundle;
-
-import androidx.appcompat.widget.SearchView;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,11 +8,16 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
 
+import androidx.appcompat.widget.SearchView;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.sp23_pro1121_cp18103_group4.Adapter.AllMonAdapter;
 import com.example.sp23_pro1121_cp18103_group4.Adapter.MonAdapter;
 import com.example.sp23_pro1121_cp18103_group4.DAO.MonDao;
 import com.example.sp23_pro1121_cp18103_group4.Model.Mon;
 import com.example.sp23_pro1121_cp18103_group4.R;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -26,15 +25,15 @@ import java.util.Comparator;
 import java.util.List;
 
 
-public class AllMonFragment extends Fragment {
+
+public class FragmentAllMon extends Fragment {
 
     RecyclerView mon_rcView;
     MonDao dao;
     List<Mon> list;
-    MonAdapter adapter;
-    //filter - search view
-    private SearchView searchView;
-    ImageView allMon_filter;
+    AllMonAdapter adapter;
+    ImageView imgFilter;
+    SearchView searchViewAllMon;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,11 +44,11 @@ public class AllMonFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_all_mon, container, false);
+        View view =  inflater.inflate(R.layout.fragment_all_mon, container, false);
         init(view);
         showData();
+        openFilter(view);
         openSearchView(view);
-        openFilter();
         return view;
     }
 
@@ -57,7 +56,6 @@ public class AllMonFragment extends Fragment {
 
     public void init(View view) {
         mon_rcView = view.findViewById(R.id.allmon_rcView);
-        allMon_filter = view.findViewById(R.id.allmon_filter);
     }
     //đổ dữ liệu
     public void showData() {
@@ -65,16 +63,15 @@ public class AllMonFragment extends Fragment {
         list = dao.getAll();
         GridLayoutManager manager = new GridLayoutManager(getContext(), 2);
         mon_rcView.setLayoutManager(manager);
-        adapter = new MonAdapter(getContext(), list);
+        adapter = new AllMonAdapter(getContext(), list);
         mon_rcView.setAdapter(adapter);
         mon_rcView.setHasFixedSize(true);
     }
-
     //*******//
     //thiết lập search view tìm tên món
     public void openSearchView(View view) {
-        searchView = view.findViewById(R.id.allmon_searchView);
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+        searchViewAllMon = view.findViewById(R.id.allmon_searchView);
+        searchViewAllMon.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 adapter.getFilter().filter(query);
@@ -88,15 +85,14 @@ public class AllMonFragment extends Fragment {
             }
         });
     }
-
-
     //*********//
     //thiết lập filter sắp xếp
-    public void openFilter() {
-        allMon_filter.setOnClickListener(new View.OnClickListener() {
+    public void openFilter(View view) {
+        imgFilter = view.findViewById(R.id.allmon_filter);
+        imgFilter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                PopupMenu popupMenu = new PopupMenu(getActivity(), allMon_filter);
+                PopupMenu popupMenu = new PopupMenu(getActivity(), imgFilter);
                 popupMenu.getMenuInflater().inflate(R.menu.popup_menu_mon, popupMenu.getMenu());
                 popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
@@ -142,7 +138,7 @@ public class AllMonFragment extends Fragment {
     //*********//
     //khôi phục all món
     public void restoreAllMon() {
-        adapter = new MonAdapter(getContext(), list);
+        adapter = new AllMonAdapter(getContext(), list);
         mon_rcView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
     }
@@ -157,7 +153,7 @@ public class AllMonFragment extends Fragment {
             }
         };
         Collections.sort(list, com);
-        adapter = new MonAdapter(getContext(), list);
+        adapter = new AllMonAdapter(getContext(), list);
         mon_rcView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
     }
@@ -172,7 +168,7 @@ public class AllMonFragment extends Fragment {
             }
         };
         Collections.sort(list, com);
-        adapter = new MonAdapter(getContext(), list);
+        adapter = new AllMonAdapter(getContext(), list);
         mon_rcView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
     }
@@ -187,7 +183,7 @@ public class AllMonFragment extends Fragment {
             }
         };
         Collections.sort(list, com);
-        adapter = new MonAdapter(getContext(), list);
+        adapter = new AllMonAdapter(getContext(), list);
         mon_rcView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
     }
@@ -202,7 +198,7 @@ public class AllMonFragment extends Fragment {
             }
         };
         Collections.sort(list, com);
-        adapter = new MonAdapter(getContext(), list);
+        adapter = new AllMonAdapter(getContext(), list);
         mon_rcView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
     }
@@ -222,7 +218,7 @@ public class AllMonFragment extends Fragment {
 
         }
 
-        adapter = new MonAdapter(getContext(), temp_arraylist);
+        adapter = new AllMonAdapter(getContext(), temp_arraylist);
         mon_rcView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
     }
@@ -242,7 +238,7 @@ public class AllMonFragment extends Fragment {
 
         }
 
-        adapter = new MonAdapter(getContext(), temp_arraylist);
+        adapter = new AllMonAdapter(getContext(), temp_arraylist);
         mon_rcView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
     }
@@ -262,7 +258,7 @@ public class AllMonFragment extends Fragment {
 
         }
 
-        adapter = new MonAdapter(getContext(), temp_arraylist);
+        adapter = new AllMonAdapter(getContext(), temp_arraylist);
         mon_rcView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
     }
@@ -280,7 +276,7 @@ public class AllMonFragment extends Fragment {
 
         }
 
-        adapter = new MonAdapter(getContext(), temp_arraylist);
+        adapter = new AllMonAdapter(getContext(), temp_arraylist);
         mon_rcView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
     }
