@@ -105,9 +105,6 @@ public class DBHelper extends SQLiteOpenHelper {
             "soDT text ," +
             "diaChi text)";
 
-
-
-
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(TABLE_NHANVIEN);

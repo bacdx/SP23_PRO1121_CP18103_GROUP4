@@ -88,6 +88,7 @@ public class MonTrongBanAdapter extends RecyclerView.Adapter<MonTrongBanAdapter.
         Bitmap imageContent = BitmapFactory.decodeByteArray(monTrongBan.getImgMon(), 0, monTrongBan.getImgMon().length);
         holder.img.setImageBitmap(imageContent);
 
+
         holder.tenmon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -102,6 +103,7 @@ public class MonTrongBanAdapter extends RecyclerView.Adapter<MonTrongBanAdapter.
                             list.remove(index);
                             notifyDataSetChanged();
                             Toast.makeText(context, "Thành CÔng", Toast.LENGTH_SHORT).show();
+
                         }
                     }
                 });
@@ -156,6 +158,18 @@ public class MonTrongBanAdapter extends RecyclerView.Adapter<MonTrongBanAdapter.
                     dialog.show();
             }
 
+
+                        }
+                    }
+                });
+                builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                });
+                builder.show();
+            }
+
         });
 
     }
@@ -176,7 +190,9 @@ public class MonTrongBanAdapter extends RecyclerView.Adapter<MonTrongBanAdapter.
             tenmon = itemView.findViewById(R.id.tenmon);
             soluong = itemView.findViewById(R.id.soluong);
             tongtien = itemView.findViewById(R.id.tongtien);
+
             img = itemView.findViewById(R.id.img);
+
 
         }
     }

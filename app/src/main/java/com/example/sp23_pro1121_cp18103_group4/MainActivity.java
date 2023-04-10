@@ -41,7 +41,9 @@ import com.example.sp23_pro1121_cp18103_group4.Fragment.HoaDonFragment;
 import com.example.sp23_pro1121_cp18103_group4.Fragment.HomeFragment;
 import com.example.sp23_pro1121_cp18103_group4.Fragment.LoaiMonFragment;
 import com.example.sp23_pro1121_cp18103_group4.Fragment.ThemBanFragment;
+
 import com.example.sp23_pro1121_cp18103_group4.Model.NguoiDung;
+
 import com.example.sp23_pro1121_cp18103_group4.Model.NhanVien;
 import com.google.android.material.navigation.NavigationView;
 
@@ -54,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
     TextView tvHeaderUser;
     ImageView imgHeaderUser;
     NhanVienDao dao;
+
     NguoiDungDao nguoiDungDao;
     String user;
 
@@ -132,6 +135,28 @@ public class MainActivity extends AppCompatActivity {
                 nav_View.getMenu().findItem(R.id.toolbar_giohang).setVisible(false);
             }
 
+        String user = mIntent.getStringExtra("user");
+        if (user.equalsIgnoreCase("admin")){
+            tvHeaderUser.setText("Welcome: Admin");
+        }else{
+            username = user;
+            dao = new NhanVienDao(this);
+            NhanVien nhanVien = dao.getID(user);
+            String username = nhanVien.getHoten();
+            tvHeaderUser.setText("Wellcome: "+username);
+            String uyquyen = nhanVien.getUyQuyen();
+            if(uyquyen.equals("quanli")){
+                nav_View.getMenu().findItem(R.id.nav_ThanhVien).setVisible(true);
+                nav_View.getMenu().findItem(R.id.nav_AddThanhVien).setVisible(false);
+                nav_View.getMenu().findItem(R.id.nav_DoanhThu).setVisible(true);
+                nav_View.getMenu().findItem(R.id.nav_Top5).setVisible(true);
+            }else{
+                nav_View.getMenu().findItem(R.id.nav_ThanhVien).setVisible(false);
+                nav_View.getMenu().findItem(R.id.nav_AddThanhVien).setVisible(false);
+                nav_View.getMenu().findItem(R.id.nav_DoanhThu).setVisible(false);
+                nav_View.getMenu().findItem(R.id.nav_Top5).setVisible(false);
+            }
+
         }
         nav_View.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -169,6 +194,7 @@ public class MainActivity extends AppCompatActivity {
                         toolbar.setTitle("Top 5 sản phẩm");
                         replaceFragment(new Top5Fragment());
                         break;
+
                     case R.id.nav_dat_mon:
                         toolbar.setTitle("Đặt món");
                         replaceFragment(new FragmentAllMon());
@@ -210,6 +236,10 @@ public class MainActivity extends AppCompatActivity {
                         finish();
                         startActivity(new Intent(MainActivity.this, Login.class));
                         break;
+
+                    case R.id.nav_DangXuat:
+                        finish();
+                        startActivity(new Intent(MainActivity.this, Login.class));
                 }
                 drawerLayout.closeDrawer(GravityCompat.START);
                 return true;
