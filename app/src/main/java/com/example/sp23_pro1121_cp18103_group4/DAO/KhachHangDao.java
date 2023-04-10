@@ -43,13 +43,13 @@ public class KhachHangDao {
         return db.update("KhachHang",values,"maKhachHang=?",new String[]{String.valueOf(khachHang.getMaKhachHang())});
     }
 
-    public List<KhachHang> getAll(){
+    public ArrayList<KhachHang> getAll(){
         String sql = "Select * from KhachHang";
         return getData(sql);
     }
 
-    private List<KhachHang> getData(String sql,String ... Arg) {
-        List<KhachHang> list = new ArrayList<>();
+    private ArrayList<KhachHang> getData(String sql,String ... Arg) {
+        ArrayList<KhachHang> list = new ArrayList<>();
         Cursor c = db.rawQuery(sql,Arg);
         c.moveToFirst();
         while (!c.isAfterLast()){

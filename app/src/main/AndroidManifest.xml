@@ -16,15 +16,22 @@
         android:theme="@style/Theme.SP23_PRO1121_CP18103_GROUP4"
         tools:targetApi="31">
         <activity
+
+            android:name=".SplashScreenView"
+
             android:name=".Activity.Dialog_MonTrongBan"
             android:exported="false" />
         <activity
             android:name=".Activity.Login"
+
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
+        <activity
+            android:name=".Activity.Dialog_MonTrongBan"
+            android:exported="false" />
         <activity
             android:name=".MonActivity"
             android:exported="false">
@@ -41,12 +48,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".MainActivity"
             android:exported="false">
-
-
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".Activity.RegisterActivity"
+            android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />

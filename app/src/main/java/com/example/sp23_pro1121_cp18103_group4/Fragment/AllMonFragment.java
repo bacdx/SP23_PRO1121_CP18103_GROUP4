@@ -48,6 +48,7 @@ public class AllMonFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_all_mon, container, false);
         init(view);
         showData();
+        openSearchView(view);
         openFilter();
         return view;
     }
@@ -72,7 +73,7 @@ public class AllMonFragment extends Fragment {
     //*******//
     //thiết lập search view tìm tên món
     public void openSearchView(View view) {
-        searchView = view.findViewById(R.id.mon_searchView);
+        searchView = view.findViewById(R.id.allmon_searchView);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {

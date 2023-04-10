@@ -34,10 +34,15 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.sp23_pro1121_cp18103_group4.Activity.Dialog_MonTrongBan;
 import com.example.sp23_pro1121_cp18103_group4.DAO.MonDao;
+import com.example.sp23_pro1121_cp18103_group4.Fragment.ChiTietSanPhamFragment;
+import com.example.sp23_pro1121_cp18103_group4.Fragment.Mon_Trong_Ban_Fragment;
 import com.example.sp23_pro1121_cp18103_group4.Model.Mon;
 import com.example.sp23_pro1121_cp18103_group4.R;
 
@@ -82,18 +87,18 @@ public class MonAdapter extends RecyclerView.Adapter<MonAdapter.MyViewHolder> im
         holder.mon_tvTenMon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(mContext, Dialog_MonTrongBan.class);
+//                Intent intent = new Intent(mContext, Dialog_MonTrongBan.class);
                 Bundle bundle = new Bundle();
                 bundle.putString("tenmon",mon.getTenMon());
                 bundle.putInt("giamon",mon.getGiaTien());
-                intent.putExtra("thongtin",bundle);
-                mContext.startActivity(intent);
-
+                bundle.putString("trangthai",mon.getTrangThai());
+//                intent.putExtra("thongtin",bundle);
+                Fragment fragment = new Mon_Trong_Ban_Fragment();
+                fragment.setArguments(bundle);
+                FragmentTransaction transaction = ((FragmentActivity)mContext).getSupportFragmentManager().beginTransaction();
+                transaction.replace(R.id.mainFrame_collection_fragment,fragment).commit();
             }
         });
-
-
-
         if (mon.getTrangThai().equals("Còn hàng")) {
             holder.mon_tvTrangThai.setText(mon.getTrangThai());
             holder.mon_tvTrangThai.setTextColor(Color.BLUE);

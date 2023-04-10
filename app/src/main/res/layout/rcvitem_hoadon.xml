@@ -58,7 +58,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Mã Nhân Viên :"
+                android:text="Tên Nhân Viên :"
 
                 android:id="@+id/manv"
                 android:textSize="20dp"
@@ -78,7 +78,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Mã Khách Hàng : "
+                android:text="Tên Khách Hàng : "
 
                 android:id="@+id/makh"
 

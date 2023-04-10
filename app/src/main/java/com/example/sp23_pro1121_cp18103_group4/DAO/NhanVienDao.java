@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.example.sp23_pro1121_cp18103_group4.Database.DBHelper;
+import com.example.sp23_pro1121_cp18103_group4.Model.DonHang;
 import com.example.sp23_pro1121_cp18103_group4.Model.Mon;
 import com.example.sp23_pro1121_cp18103_group4.Model.NhanVien;
 
@@ -48,12 +49,18 @@ public class NhanVienDao {
         values.put("gioiTinh",nhanVien.getGioiTinh());
         return db.update("NhanVien",values,"maNV=?",new String[]{String.valueOf(nhanVien.getMaNV())});
     }
-    public List<NhanVien> getAll(){
-        String sql = "Select * from NhanVien";
+    public ArrayList<NhanVien> getAll(){
+        String sql = "select * from NhanVien";
         return getData(sql);
     }
-    private List<NhanVien> getData(String sql,String ... Arg) {
-        List<NhanVien> list = new ArrayList<>();
+
+    public long updateMatKhau(NhanVien nhanVien){
+        ContentValues values = new ContentValues();
+        values.put("passWord",nhanVien.getPassWord());
+        return db.update("NhanVien",values,"maNV=?",new String[]{String.valueOf(nhanVien.getMaNV())});
+    }
+    private ArrayList<NhanVien> getData(String sql,String ... Arg) {
+        ArrayList<NhanVien> list = new ArrayList<>();
         Cursor c = db.rawQuery(sql,Arg);
         c.moveToFirst();
         while (!c.isAfterLast()){
@@ -104,4 +111,17 @@ public class NhanVienDao {
         }
         return 1;
     }
+
+    public int checkTaiKhoan(String user ) {
+        int check;
+        String sql = "Select * from NhanVien where user=?";
+        List<NhanVien> list = getData(sql, user);
+        if (list.size() > 0){
+            check = 1;
+        }else{
+            check = -1;
+        }
+        return check;
+    }
+
 }

@@ -82,13 +82,14 @@
                 android:textStyle="bold"
                 android:textSize="15dp"
                 android:id="@+id/nhanvien_tvUyQuyen"/>
+
             <TextView
-                android:layout_width="wrap_content"
+                android:id="@+id/nhanvien_tvStartus"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Startus"
-                android:textStyle="bold"
                 android:textSize="15dp"
-                android:id="@+id/nhanvien_tvStartus"/>
+                android:textStyle="bold" />
         </LinearLayout>
         <LinearLayout
             android:layout_width="0dp"

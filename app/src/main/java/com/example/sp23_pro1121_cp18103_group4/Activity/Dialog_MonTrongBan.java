@@ -1,6 +1,8 @@
 package com.example.sp23_pro1121_cp18103_group4.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,7 +15,10 @@ import android.widget.Toast;
 import com.example.sp23_pro1121_cp18103_group4.Adapter.Adapter_MaBan;
 import com.example.sp23_pro1121_cp18103_group4.DAO.BanAnDao;
 import com.example.sp23_pro1121_cp18103_group4.DAO.MonDao;
+import com.example.sp23_pro1121_cp18103_group4.DAO.MonTrongBan2Dao;
 import com.example.sp23_pro1121_cp18103_group4.DAO.MonTrongBanDAO;
+import com.example.sp23_pro1121_cp18103_group4.Fragment.AllMonFragment;
+import com.example.sp23_pro1121_cp18103_group4.Fragment.ThemBanFragment;
 import com.example.sp23_pro1121_cp18103_group4.Model.BanAn;
 import com.example.sp23_pro1121_cp18103_group4.Model.Mon;
 import com.example.sp23_pro1121_cp18103_group4.Model.MonTrongBan;
@@ -21,12 +26,14 @@ import com.example.sp23_pro1121_cp18103_group4.R;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class Dialog_MonTrongBan extends AppCompatActivity {
 
     MonTrongBanDAO trongBanDAO;
-    MonTrongBan monTrongBan;
+
+    MonTrongBan2Dao monTrongBan2Dao;
+
+    MonTrongBan monTrongBan,montrongban2;
 
     Adapter_MaBan adapter_maBan;
     ArrayList<BanAn> listBanAN;
@@ -34,6 +41,8 @@ public class Dialog_MonTrongBan extends AppCompatActivity {
     String id12;
     MonDao monDao;
     Mon mon;
+
+    int check = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +60,7 @@ public class Dialog_MonTrongBan extends AppCompatActivity {
         Bundle bundle = getIntent().getBundleExtra("thongtin");;
         String tenmon = bundle.getString("tenmon");
         int giamon = bundle.getInt("giamon");
+        String trangthai = bundle.getString("trangthai");
 
         listBanAN = new ArrayList<>();
         banAnDao = new BanAnDao(this);
@@ -62,6 +72,9 @@ public class Dialog_MonTrongBan extends AppCompatActivity {
         mon = new Mon();
         monDao = new MonDao(this);
         mon = monDao.getALLTien(giamon);
+        trongBanDAO = new MonTrongBanDAO(this);
+        monTrongBan2Dao = new MonTrongBan2Dao(this);
+
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -72,11 +85,15 @@ public class Dialog_MonTrongBan extends AppCompatActivity {
 
             }
         });
-        trongBanDAO = new MonTrongBanDAO(this);
+
+        montrongban2 = new MonTrongBan();
+
+
 
         luu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 monTrongBan = new MonTrongBan();
 
                 if(soluong.getText().toString().length()==0){
@@ -87,12 +104,33 @@ public class Dialog_MonTrongBan extends AppCompatActivity {
                     Toast.makeText(Dialog_MonTrongBan.this, "Yêu cầu  Số Lượng  là số", Toast.LENGTH_SHORT).show();
                     return;
                  }
+
+                 if(trangthai.equals("Hết hàng")){
+                     Toast.makeText(Dialog_MonTrongBan.this, "Món Này Đã Hết Hàng !", Toast.LENGTH_SHORT).show();
+                     return;
+                 }
+
+                try {
+                    check = trongBanDAO.getwGia(String.valueOf(giamon),id12);
+                    if(check>0){
+                        Toast.makeText(getApplicationContext(), "Đã Có Món Ăn Này Trong Bàn", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                }catch (Exception e){
+                }
+
                 monTrongBan.setImgMon(mon.getImgMon());
                 monTrongBan.setSoLuong(Integer.parseInt(soluong.getText().toString()));
                 monTrongBan.setTenMon(tenmon);
                 monTrongBan.setGiaMon(giamon);
                 monTrongBan.setMaBan(String.valueOf(id12));
-                if(trongBanDAO.insert(monTrongBan)>0){
+
+                if(trongBanDAO.insert(monTrongBan)>0 && monTrongBan2Dao.insert2(monTrongBan)>0){
+
+                    Fragment fragment = new ThemBanFragment();
+                    FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                    transaction.replace(R.id.mainFrame_collection_fragment,fragment).commit();
+
                     Toast.makeText(Dialog_MonTrongBan.this, "Thành CÔng" , Toast.LENGTH_SHORT).show();
                 }else{
                     Toast.makeText(Dialog_MonTrongBan.this, "THất Bại", Toast.LENGTH_SHORT).show();

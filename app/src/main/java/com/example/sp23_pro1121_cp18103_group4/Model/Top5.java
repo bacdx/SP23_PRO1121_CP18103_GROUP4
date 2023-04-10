@@ -2,25 +2,25 @@ package com.example.sp23_pro1121_cp18103_group4.Model;
 
 public class Top5 {
 
-        String tongtien;
-        String mahoadon;
+        String soluong,tenmon;
+
 
     public Top5() {
     }
 
-    public String getTongtien() {
-        return tongtien;
+    public String getSoluong() {
+        return soluong;
     }
 
-    public void setTongtien(String tongtien) {
-        this.tongtien = tongtien;
+    public void setSoluong(String soluong) {
+        this.soluong = soluong;
     }
 
-    public String getMahoadon() {
-        return mahoadon;
+    public String getTenmon() {
+        return tenmon;
     }
 
-    public void setMahoadon(String mahoadon) {
-        this.mahoadon = mahoadon;
+    public void setTenmon(String tenmon) {
+        this.tenmon = tenmon;
     }
 }

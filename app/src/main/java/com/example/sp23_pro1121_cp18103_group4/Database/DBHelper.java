@@ -14,10 +14,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String DBName = "FAST_FOOD";
 
 
-    public static final int DBVersion = 15;
-
-
-
+    public static final int DBVersion = 1;
 
 
     public DBHelper(@Nullable Context context) {
@@ -36,6 +33,16 @@ public class DBHelper extends SQLiteOpenHelper {
             "giaMon integer not null," +
             "imgMon text," +
             "soLuong integer);";
+
+    private static final String TABLE_MON_TRONG_BAN2 = "create table MonTrongBan2 (" +
+            "id integer not null primary key ," +
+            "maBan integer references Ban(maBan)," +
+            "maMon integer references Mon(maMon)," +
+            "tenMon text," +
+            "giaMon integer not null," +
+            "imgMon text," +
+            "soLuong integer);";
+
     private static final String TABLE_LOAI_MON = "create table LoaiMon (maLoaiMon integer primary key autoincrement," +
             "tenLoaiMon text not null," +
             "imgLoaiMon text)";
@@ -51,10 +58,8 @@ public class DBHelper extends SQLiteOpenHelper {
             "user text," +
             "passWord text," +
             "numberPhone text," +
-
             "gioiTinh text," +
             "ngaySinh date," +
-
             "uyQuyen text," +
             "status text);";
     private static final String TABLE_HOADON = "create table HoaDon(" +
@@ -74,6 +79,32 @@ public class DBHelper extends SQLiteOpenHelper {
             "gioiTinh text," +
             "soDT text," +
             "diaChi text)";
+
+
+    //khách hàng dùng appp
+    String CreatTalbeDatHang = "Create table DatHang(" +
+            "maDatHang integer not null primary key autoincrement," +
+            "soLuong integer," +
+            "giaTien integer," +
+            "maMon integer references Mon(maMon))";
+    String CreateTableNguoiDung = "Create table NguoiDung(" +
+            "username text not null primary key," +
+            "hoTen text," +
+            "password text," +
+            "soDT text," +
+            "diaChi text)";
+
+    String CreateTableDonHang = "Create table DonHang(" +
+            "maDonHang text primary key ," +
+            "ngayThanhToan text," +
+            "trangThai text," +
+            "tongTien integer," +
+            "maDatHang integer references DatMon(maDatHang)," +
+            "username text references NguoiDung(username)," +
+            "tenNguoiDung text ," +
+            "soDT text ," +
+            "diaChi text)";
+
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(TABLE_NHANVIEN);
@@ -84,6 +115,10 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL(TABLE_kHACH_HANG);
         db.execSQL(TABLE_HOADON);
         db.execSQL(Data.insertNhanVien);
+        db.execSQL(TABLE_MON_TRONG_BAN2);
+        db.execSQL(CreatTalbeDatHang);
+        db.execSQL(CreateTableNguoiDung);
+        db.execSQL(CreateTableDonHang);
 //        db.execSQL(data.insertLoaiMon);
 //        db.execSQL(data.insertMon);
 //        db.execSQL(data.insertBan);
@@ -101,6 +136,7 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL("Drop table if exists MonTrongBan");
         db.execSQL("Drop table if exists KhachHang");
         db.execSQL("Drop table if exists HoaDon");
+        db.execSQL("Drop table if exists MonTrongBan2");
         //khoi tao lai database
         onCreate(db);
     }
