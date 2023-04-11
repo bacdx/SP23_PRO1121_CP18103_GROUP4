@@ -104,6 +104,11 @@ public class Mon_Trong_Ban_Fragment extends Fragment {
 
                 monTrongBan = new MonTrongBan();
 
+                if(id12 == null){
+                    Toast.makeText(getContext(), "Chưa Có Bàn Ăn", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
                 if(soluong.getText().toString().length()==0){
                     Toast.makeText(getContext(), "Khong Được Để Trống ", Toast.LENGTH_SHORT).show();
                     return;
