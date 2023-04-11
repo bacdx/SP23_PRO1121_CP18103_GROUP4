@@ -65,10 +65,6 @@
                 android:checkableBehavior="single"
                 >
                 <item
-                    android:id="@+id/nav_AddThanhVien"
-                    android:icon="@drawable/ic_baseline_person_add_alt_24_add_user"
-                    android:title="Thêm Tài Khoản"/>
-                <item
                     android:id="@+id/nav_DoiMK"
                     android:icon="@drawable/ic_baseline_key_24_nav_doi_mk"
                     android:title="Đổi Mật Khẩu"/>

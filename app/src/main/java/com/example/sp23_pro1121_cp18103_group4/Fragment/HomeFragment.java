@@ -1,5 +1,6 @@
 package com.example.sp23_pro1121_cp18103_group4.Fragment;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,12 +25,15 @@ import java.util.List;
 
 public class HomeFragment extends Fragment {
     ViewFlipper viewQuangCao;
+
+    ImageView thongke,thucdon,banan,hoadon,nhanluc;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
     }
 
+    @SuppressLint("MissingInflatedId")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -37,6 +41,11 @@ public class HomeFragment extends Fragment {
         View view =  inflater.inflate(R.layout.fragment_home, container, false);
         viewQuangCao = view.findViewById(R.id.home_viewFlipper);
         TextView tvMenu = view.findViewById(R.id.tvMenu);
+        thongke = view.findViewById(R.id.img_thongke);
+        thucdon = view.findViewById(R.id.img_thucdon);
+        banan = view.findViewById(R.id.img_banan);
+        hoadon = view.findViewById(R.id.img_hoadon);
+        nhanluc = view.findViewById(R.id.img_nhanluc);
         tvMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -45,6 +54,52 @@ public class HomeFragment extends Fragment {
                 transaction.replace(R.id.mainFrame_collection_fragment,fragment).commit();
             }
         });
+
+        thongke.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Fragment fragment = new Top5Fragment();
+                FragmentTransaction transaction = ((FragmentActivity)getContext()).getSupportFragmentManager().beginTransaction();
+                transaction.replace(R.id.mainFrame_collection_fragment,fragment).commit();
+            }
+        });
+
+        banan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Fragment fragment = new ThemBanFragment();
+                FragmentTransaction transaction = ((FragmentActivity)getContext()).getSupportFragmentManager().beginTransaction();
+                transaction.replace(R.id.mainFrame_collection_fragment,fragment).commit();
+            }
+        });
+
+        hoadon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Fragment fragment = new HoaDonFragment();
+                FragmentTransaction transaction = ((FragmentActivity)getContext()).getSupportFragmentManager().beginTransaction();
+                transaction.replace(R.id.mainFrame_collection_fragment,fragment).commit();
+            }
+        });
+
+        nhanluc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Fragment fragment = new NhanVienFragment();
+                FragmentTransaction transaction = ((FragmentActivity)getContext()).getSupportFragmentManager().beginTransaction();
+                transaction.replace(R.id.mainFrame_collection_fragment,fragment).commit();
+            }
+        });
+
+        thucdon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Fragment fragment = new AllMonFragment();
+                FragmentTransaction transaction = ((FragmentActivity)getContext()).getSupportFragmentManager().beginTransaction();
+                transaction.replace(R.id.mainFrame_collection_fragment,fragment).commit();
+            }
+        });
+
         AnimationViewFlipper();
         return view;
     }
