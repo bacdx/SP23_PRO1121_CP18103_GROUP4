@@ -89,9 +89,7 @@ public class MonAdapter extends RecyclerView.Adapter<MonAdapter.MyViewHolder> im
             public void onClick(View view) {
 //                Intent intent = new Intent(mContext, Dialog_MonTrongBan.class);
                 Bundle bundle = new Bundle();
-                bundle.putString("tenmon",mon.getTenMon());
-                bundle.putInt("giamon",mon.getGiaTien());
-                bundle.putString("trangthai",mon.getTrangThai());
+                bundle.putString("maMon",mon.getMaMon());
 //                intent.putExtra("thongtin",bundle);
                 Fragment fragment = new Mon_Trong_Ban_Fragment();
                 fragment.setArguments(bundle);
@@ -99,17 +97,19 @@ public class MonAdapter extends RecyclerView.Adapter<MonAdapter.MyViewHolder> im
                 transaction.replace(R.id.mainFrame_collection_fragment,fragment).commit();
             }
         });
-        if (mon.getTrangThai().equals("Còn hàng")) {
-            holder.mon_tvTrangThai.setText(mon.getTrangThai());
+        if (mon.getTrangThai()==Mon.CON_HANG) {
+            holder.mon_tvTrangThai.setText("Còn Hàng");
             holder.mon_tvTrangThai.setTextColor(Color.BLUE);
             holder.mon_tvTrangThai.setPaintFlags(holder.mon_tvGiaTien.getPaintFlags() | Paint.FAKE_BOLD_TEXT_FLAG);
         } else {
-            holder.mon_tvTrangThai.setText(mon.getTrangThai());
+            holder.mon_tvTrangThai.setText("Hết Hàng");
             holder.mon_tvTrangThai.setTextColor(Color.RED);
             holder.mon_tvTrangThai.setPaintFlags(holder.mon_tvGiaTien.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
         }
-        Bitmap imageContent = BitmapFactory.decodeByteArray(mon.getImgMon(), 0, mon.getImgMon().length);
-        holder.mon_imgMon.setImageBitmap(imageContent);
+        if(mon.getImgMon()!=null){
+            Bitmap imageContent = BitmapFactory.decodeByteArray(mon.getImgMon(), 0, mon.getImgMon().length);
+            holder.mon_imgMon.setImageBitmap(imageContent);
+        }
         holder.img_popupMon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -233,21 +233,23 @@ public class MonAdapter extends RecyclerView.Adapter<MonAdapter.MyViewHolder> im
         mon_imgMon = dialog.findViewById(R.id.mon_addImg);
         btnSave = dialog.findViewById(R.id.mon_btnSave);
         btnCancel = dialog.findViewById(R.id.mon_btnCancel);
-        if (mon.getTrangThai().equals("Còn hàng")) {
+        if (mon.getTrangThai()==Mon.CON_HANG) {
             mon_chkTrangThai.setChecked(true);
         } else {
             mon_chkTrangThai.setChecked(false);
         }
-        byte[] img = mon.getImgMon();
-        Bitmap bitmap = BitmapFactory.decodeByteArray(img, 0, img.length);
-        mon_imgMon.setImageBitmap(bitmap);
+       if(mon.getImgMon()!=null){
+           byte[] img = mon.getImgMon();
+           Bitmap bitmap = BitmapFactory.decodeByteArray(img, 0, img.length);
+           mon_imgMon.setImageBitmap(bitmap);
+       }
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (mon_chkTrangThai.isChecked()) {
-                    mon.setTrangThai("Còn hàng");
+                    mon.setTrangThai(Mon.CON_HANG);
                 } else {
-                    mon.setTrangThai("Hết hàng");
+                    mon.setTrangThai(Mon.HET_HANG);
                 }
                 dao = new MonDao(mContext);
                 if (dao.updateMon(mon) > 0) {

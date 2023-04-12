@@ -41,7 +41,9 @@ public class Top5Adapter extends RecyclerView.Adapter<Top5Adapter.ViewTop5> {
     public void onBindViewHolder(@NonNull ViewTop5 holder, int position) {
 
         holder.temon.setText(list.get(position).getTenmon()+"");
-        holder.soluong.setText(list.get(position).getSoluong()+"");
+        holder.soluong.setText("So Luong Ban: "+list.get(position).getSoluong()+"");
+        holder.tongTien.setText("Top: "+String.valueOf(position+1));
+
 
     }
 
@@ -52,13 +54,13 @@ public class Top5Adapter extends RecyclerView.Adapter<Top5Adapter.ViewTop5> {
 
     class ViewTop5 extends RecyclerView.ViewHolder{
 
-        TextView temon,soluong;
+        TextView temon,soluong,tongTien;
         public ViewTop5(@NonNull View itemView) {
             super(itemView);
 
             temon = itemView.findViewById(R.id.tenmon);
             soluong = itemView.findViewById(R.id.soluong);
-
+            tongTien=itemView.findViewById(R.id.tongTien);
         }
     }
 }

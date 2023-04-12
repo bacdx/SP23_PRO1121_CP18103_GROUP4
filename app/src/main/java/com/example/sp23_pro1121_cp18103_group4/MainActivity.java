@@ -56,7 +56,6 @@ public class MainActivity extends AppCompatActivity {
     TextView tvHeaderUser;
     ImageView imgHeaderUser;
     NhanVienDao dao;
-
     NguoiDungDao nguoiDungDao;
     String user;
 
@@ -104,16 +103,8 @@ public class MainActivity extends AppCompatActivity {
                 NhanVien nhanVien = dao.getID(user);
                 username = nhanVien.getHoten();
                 tvHeaderUser.setText("Wellcome: " + username);
-                String uyquyen = nhanVien.getUyQuyen();
-                if (uyquyen.equals("quanli")) {
-                    nav_View.getMenu().findItem(R.id.nav_ThanhVien).setVisible(false);
-                    nav_View.getMenu().findItem(R.id.nav_DoanhThu).setVisible(true);
-                    nav_View.getMenu().findItem(R.id.nav_Top5).setVisible(true);
-                    nav_View.getMenu().findItem(R.id.nav_dat_hang).setVisible(false);
-                    nav_View.getMenu().findItem(R.id.nav_NguoiDung).setVisible(true);
-                    nav_View.getMenu().findItem(R.id.nav_infoUser).setVisible(false);
-                    nav_View.getMenu().findItem(R.id.toolbar_giohang).setVisible(false);
-                } else {
+                int uyquyen = nhanVien.getUyQuyen();
+                if (uyquyen==NhanVien.QUANLY) {
                     nav_View.getMenu().findItem(R.id.nav_ThanhVien).setVisible(false);
                     nav_View.getMenu().findItem(R.id.nav_thong_ke).setVisible(false);
                     nav_View.getMenu().findItem(R.id.nav_DoanhThu).setVisible(false);
@@ -122,6 +113,17 @@ public class MainActivity extends AppCompatActivity {
                     nav_View.getMenu().findItem(R.id.nav_NguoiDung).setVisible(false);
                     nav_View.getMenu().findItem(R.id.nav_infoUser).setVisible(false);
                     nav_View.getMenu().findItem(R.id.toolbar_giohang).setVisible(false);
+
+                } else {
+                    nav_View.getMenu().findItem(R.id.nav_ThanhVien).setVisible(false);
+                    nav_View.getMenu().findItem(R.id.nav_DoanhThu).setVisible(true);
+                    nav_View.getMenu().findItem(R.id.nav_Top5).setVisible(true);
+                    nav_View.getMenu().findItem(R.id.nav_dat_hang).setVisible(false);
+                    nav_View.getMenu().findItem(R.id.nav_NguoiDung).setVisible(true);
+                    nav_View.getMenu().findItem(R.id.nav_infoUser).setVisible(false);
+                    nav_View.getMenu().findItem(R.id.toolbar_giohang).setVisible(false);
+
+
                 }
             } else {
                 username = user;
@@ -133,28 +135,6 @@ public class MainActivity extends AppCompatActivity {
                 nav_View.getMenu().findItem(R.id.nav_quan_ly).setVisible(false);
                 nav_View.getMenu().findItem(R.id.nav_dat_mon).setVisible(true);
                 nav_View.getMenu().findItem(R.id.toolbar_giohang).setVisible(false);
-            }
-
-        String user = mIntent.getStringExtra("user");
-        if (user.equalsIgnoreCase("admin")){
-            tvHeaderUser.setText("Welcome: Admin");
-        }else{
-            username = user;
-            dao = new NhanVienDao(this);
-            NhanVien nhanVien = dao.getID(user);
-            String username = nhanVien.getHoten();
-            tvHeaderUser.setText("Wellcome: "+username);
-            String uyquyen = nhanVien.getUyQuyen();
-            if(uyquyen.equals("quanli")){
-                nav_View.getMenu().findItem(R.id.nav_ThanhVien).setVisible(true);
-                nav_View.getMenu().findItem(R.id.nav_AddThanhVien).setVisible(false);
-                nav_View.getMenu().findItem(R.id.nav_DoanhThu).setVisible(true);
-                nav_View.getMenu().findItem(R.id.nav_Top5).setVisible(true);
-            }else{
-                nav_View.getMenu().findItem(R.id.nav_ThanhVien).setVisible(false);
-                nav_View.getMenu().findItem(R.id.nav_AddThanhVien).setVisible(false);
-                nav_View.getMenu().findItem(R.id.nav_DoanhThu).setVisible(false);
-                nav_View.getMenu().findItem(R.id.nav_Top5).setVisible(false);
             }
 
         }
@@ -194,7 +174,6 @@ public class MainActivity extends AppCompatActivity {
                         toolbar.setTitle("Top 5 sản phẩm");
                         replaceFragment(new Top5Fragment());
                         break;
-
                     case R.id.nav_dat_mon:
                         toolbar.setTitle("Đặt món");
                         replaceFragment(new FragmentAllMon());
@@ -236,10 +215,6 @@ public class MainActivity extends AppCompatActivity {
                         finish();
                         startActivity(new Intent(MainActivity.this, Login.class));
                         break;
-
-                    case R.id.nav_DangXuat:
-                        finish();
-                        startActivity(new Intent(MainActivity.this, Login.class));
                 }
                 drawerLayout.closeDrawer(GravityCompat.START);
                 return true;
@@ -300,5 +275,4 @@ public class MainActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-
 }

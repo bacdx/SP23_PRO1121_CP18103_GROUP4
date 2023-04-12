@@ -83,11 +83,12 @@ public class MonTrongBanAdapter extends RecyclerView.Adapter<MonTrongBanAdapter.
 
         holder.tenmon.setText(list.get(position).getTenMon());
         holder.soluong.setText(list.get(index).getSoLuong() + "");
-        holder.tongtien.setText(list.get(index).getSoLuong() * list.get(index).getGiaMon() + " VND");
+        holder.tongtien.setText(list.get(index).getTien()+" VND");
 
-        Bitmap imageContent = BitmapFactory.decodeByteArray(monTrongBan.getImgMon(), 0, monTrongBan.getImgMon().length);
-        holder.img.setImageBitmap(imageContent);
-
+        if(monTrongBan.getImgMon()!=null){
+            Bitmap imageContent = BitmapFactory.decodeByteArray(monTrongBan.getImgMon(), 0, monTrongBan.getImgMon().length);
+            holder.img.setImageBitmap(imageContent);
+        }
 
         holder.tenmon.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -103,7 +104,6 @@ public class MonTrongBanAdapter extends RecyclerView.Adapter<MonTrongBanAdapter.
                             list.remove(index);
                             notifyDataSetChanged();
                             Toast.makeText(context, "Thành CÔng", Toast.LENGTH_SHORT).show();
-
                         }
                     }
                 });
@@ -116,13 +116,12 @@ public class MonTrongBanAdapter extends RecyclerView.Adapter<MonTrongBanAdapter.
             }
         });
 
-        holder.img.setOnClickListener(new View.OnClickListener() {
+        holder.soluong.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 Dialog dialog = new Dialog(context,androidx.appcompat.R.style.Theme_AppCompat);
                 dialog.setContentView(R.layout.dialog_sua_montrongban);
-
                 TextInputEditText soluong = dialog.findViewById(R.id.soluong);
                 Button luu = dialog.findViewById(R.id.luu);
                 Button huy = dialog.findViewById(R.id.huy);
@@ -155,19 +154,7 @@ public class MonTrongBanAdapter extends RecyclerView.Adapter<MonTrongBanAdapter.
 
                     }
                 });
-                    dialog.show();
-            }
-
-
-                        }
-                    }
-                });
-                builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                    }
-                });
-                builder.show();
+                dialog.show();
             }
 
         });
@@ -191,11 +178,11 @@ public class MonTrongBanAdapter extends RecyclerView.Adapter<MonTrongBanAdapter.
             soluong = itemView.findViewById(R.id.soluong);
             tongtien = itemView.findViewById(R.id.tongtien);
 
-            img = itemView.findViewById(R.id.img);
-
 
         }
     }
 
-
 }
+
+
+

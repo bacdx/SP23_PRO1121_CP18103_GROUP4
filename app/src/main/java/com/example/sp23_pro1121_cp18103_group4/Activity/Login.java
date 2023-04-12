@@ -88,7 +88,7 @@ public class Login extends AppCompatActivity {
         });
     }
 
-    public void checkLogin(View v){
+    public void checkLogin(View v) {
         String strUser = login_edUsername.getText().toString().trim();
         String strPass = login_edPassword.getText().toString().trim();
         dao = new NhanVienDao(this);
@@ -96,33 +96,34 @@ public class Login extends AppCompatActivity {
 
         nguoiDungDao = new NguoiDungDao(this);
         nguoiDung = new NguoiDung();
-        if (strUser.isEmpty() || strPass.isEmpty()){
+        if (strUser.isEmpty() || strPass.isEmpty()) {
             Toast.makeText(this, "Không được để trống", Toast.LENGTH_SHORT).show();
-        }else if (dao.checkLogin(strUser,strPass) > 0 || strUser.equals("admin") && strPass.equals("admin")
-        || nguoiDungDao.checkLogin(strUser,strPass) >0) {
+        } else if (dao.checkLogin(strUser, strPass) > 0 || strUser.equals("admin") && strPass.equals("admin")
+                || nguoiDungDao.checkLogin(strUser, strPass) > 0) {
 
-        if (strUser.isEmpty() || strPass.isEmpty()){
-            Toast.makeText(this, "Không được để trống", Toast.LENGTH_SHORT).show();
-        }else if (dao.checkLogin(strUser,strPass) > 0 || strUser.equals("admin") && strPass.equals("admin")) {
+            if (strUser.isEmpty() || strPass.isEmpty()) {
+                Toast.makeText(this, "Không được để trống", Toast.LENGTH_SHORT).show();
+            } else if (dao.checkLogin(strUser, strPass) > 0 || strUser.equals("admin") && strPass.equals("admin")) {
 
-            Toast.makeText(this, "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
-            rememberPassword(strUser, strPass, chkRemember.isChecked());
-            Intent intent = new Intent(Login.this,MainActivity.class);
-            intent.putExtra("user",strUser);
-            startActivity(intent);
-            finish();
-        }else if(strUser.equals("admin") && !strPass.equals("admin")){
-            Toast.makeText(this, "Sai mật khẩu", Toast.LENGTH_SHORT).show();
-        }else if(!strUser.equals("admin") && strPass.equals("admin")){
-            Toast.makeText(this, "Sai tên đăng nhập", Toast.LENGTH_SHORT).show();
-        }else if(dao.checkLogin(strUser,strPass) < 0){
-            Toast.makeText(this, "Đăng nhập không thành công", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
+                rememberPassword(strUser, strPass, chkRemember.isChecked());
+                Intent intent = new Intent(Login.this, MainActivity.class);
+                intent.putExtra("user", strUser);
+                startActivity(intent);
+                finish();
+            } else if (strUser.equals("admin") && !strPass.equals("admin")) {
+                Toast.makeText(this, "Sai mật khẩu", Toast.LENGTH_SHORT).show();
+            } else if (!strUser.equals("admin") && strPass.equals("admin")) {
+                Toast.makeText(this, "Sai tên đăng nhập", Toast.LENGTH_SHORT).show();
+            } else if (dao.checkLogin(strUser, strPass) < 0) {
+                Toast.makeText(this, "Đăng nhập không thành công", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
     //********//
     //hàm nhớ mật khẩu
-    public void rememberPassword(String u , String p , boolean status){
+    public void rememberPassword (String u, String p , boolean status){
         SharedPreferences sharedPreferences = getSharedPreferences("USER_FILE",MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         if (!status){

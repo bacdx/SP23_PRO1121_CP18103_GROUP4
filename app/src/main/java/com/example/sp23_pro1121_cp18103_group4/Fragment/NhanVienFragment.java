@@ -143,9 +143,9 @@ public class NhanVienFragment extends Fragment {
                     nhanVien.setStartus(nhanvien_edStartus.getText().toString());
 
                     if(rdo_quanli.isChecked()){
-                        nhanVien.setUyQuyen("quanli");
+                        nhanVien.setUyQuyen(NhanVien.QUANLY);
                     }else{
-                        nhanVien.setUyQuyen("nhanvien");
+                        nhanVien.setUyQuyen(NhanVien.NHANVIEN);
                     }
 
 

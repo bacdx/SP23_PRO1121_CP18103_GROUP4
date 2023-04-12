@@ -1,17 +1,20 @@
 package com.example.sp23_pro1121_cp18103_group4.Model;
 
 public class NhanVien {
-
+    public static final int NHANVIEN=0;
+    public static final int QUANLY=1;
+    public static  NhanVien NV;
    private int MaNV,NamSinh ;
 
     private String gioiTinh;
-    private String hoten ,userName,PassWord,SoDienThoai ,Startus, UyQuyen;
+    private String hoten ,userName,PassWord,SoDienThoai ,Startus ;
+    private  int uyQuyen;
 
     public NhanVien() {
 
     }
 
-    public NhanVien(int maNV, int namSinh, String gioiTinh, String hoten, String userName, String passWord, String soDienThoai, String startus, String uyQuyen) {
+    public NhanVien(int maNV, int namSinh, String gioiTinh, String hoten, String userName, String passWord, String soDienThoai, String startus, int uyQuyen) {
         MaNV = maNV;
         NamSinh = namSinh;
         this.gioiTinh = gioiTinh;
@@ -20,7 +23,7 @@ public class NhanVien {
         PassWord = passWord;
         SoDienThoai = soDienThoai;
         Startus = startus;
-        UyQuyen = uyQuyen;
+        this.uyQuyen = uyQuyen;
     }
 
 
@@ -88,11 +91,11 @@ public class NhanVien {
         Startus = startus;
     }
 
-    public String getUyQuyen() {
-        return UyQuyen;
+    public int getUyQuyen() {
+        return uyQuyen;
     }
 
-    public void setUyQuyen(String uyQuyen) {
-        UyQuyen = uyQuyen;
+    public void setUyQuyen(int uyQuyen) {
+        this.uyQuyen = uyQuyen;
     }
 }

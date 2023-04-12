@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toolbar;
 import android.widget.ViewFlipper;
@@ -24,6 +25,7 @@ import java.util.List;
 
 public class HomeFragment extends Fragment {
     ViewFlipper viewQuangCao;
+    LinearLayout lnThongKe,liThucDon,lnBanAn,lnNhanLuc,lnHoaDon;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +39,11 @@ public class HomeFragment extends Fragment {
         View view =  inflater.inflate(R.layout.fragment_home, container, false);
         viewQuangCao = view.findViewById(R.id.home_viewFlipper);
         TextView tvMenu = view.findViewById(R.id.tvMenu);
+        lnThongKe=view.findViewById(R.id.ln_thongKe);
+        liThucDon=view.findViewById(R.id.ln_thucDon);
+        lnBanAn=view.findViewById(R.id.ln_banAn);
+        lnNhanLuc=view.findViewById(R.id.ln_nhanLuc);
+        lnHoaDon=view.findViewById(R.id.ln_hoaDon);
         tvMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -76,5 +83,52 @@ public class HomeFragment extends Fragment {
         Animation slide_out = AnimationUtils.loadAnimation(getContext(), R.anim.anim_out_right);
         viewQuangCao.setInAnimation(slide_in);
         viewQuangCao.setOutAnimation(slide_out);
+
+
+        lnHoaDon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Fragment fragment = new HoaDonFragment();
+                FragmentTransaction transaction = ((FragmentActivity)getContext()).getSupportFragmentManager().beginTransaction();
+                transaction.replace(R.id.mainFrame_collection_fragment,fragment).commit();
+            }
+        });
+        lnNhanLuc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Fragment fragment = new HoaDonFragment();
+                FragmentTransaction transaction = ((FragmentActivity)getContext()).getSupportFragmentManager().beginTransaction();
+                transaction.replace(R.id.mainFrame_collection_fragment,fragment).commit();
+            }
+        });
+
+        lnThongKe.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Fragment fragment = new Top5Fragment();
+                FragmentTransaction transaction = ((FragmentActivity)getContext()).getSupportFragmentManager().beginTransaction();
+                transaction.replace(R.id.mainFrame_collection_fragment,fragment).commit();
+            }
+        });
+
+        lnBanAn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Fragment fragment = new ThemBanFragment();
+                FragmentTransaction transaction = ((FragmentActivity)getContext()).getSupportFragmentManager().beginTransaction();
+                transaction.replace(R.id.mainFrame_collection_fragment,fragment).commit();
+            }
+        });
+
+        liThucDon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Fragment fragment = new AllMonFragment();
+                FragmentTransaction transaction = ((FragmentActivity)getContext()).getSupportFragmentManager().beginTransaction();
+                transaction.replace(R.id.mainFrame_collection_fragment,fragment).commit();
+            }
+        });
+
     }
+
 }

@@ -183,7 +183,7 @@ public class AllMonFragment extends Fragment {
         Comparator<Mon> com = new Comparator<Mon>() {
             @Override
             public int compare(Mon o1, Mon o2) {
-                return Integer.valueOf(o1.getGiaTien()).compareTo(o2.getGiaTien());
+                return Float.valueOf(o1.getGiaTien()).compareTo(o2.getGiaTien());
             }
         };
         Collections.sort(list, com);
@@ -198,7 +198,7 @@ public class AllMonFragment extends Fragment {
         Comparator<Mon> com = new Comparator<Mon>() {
             @Override
             public int compare(Mon o1, Mon o2) {
-                return Integer.valueOf(o2.getGiaTien()).compareTo(o1.getGiaTien());
+                return Float.valueOf(o2.getGiaTien()).compareTo(o1.getGiaTien());
             }
         };
         Collections.sort(list, com);
@@ -273,8 +273,9 @@ public class AllMonFragment extends Fragment {
 
         for (int i = 0; i < list.size(); i++) {
 
-            String trangThai = list.get(i).getTrangThai();
-            if (trangThai.equalsIgnoreCase("Còn hàng")) {
+            int trangThai = list.get(i).getTrangThai();
+           // trangThai.equalsIgnoreCase("Còn hàng"
+            if (trangThai==Mon.CON_HANG) {
                 temp_arraylist.add(list.get(i));
             }
 

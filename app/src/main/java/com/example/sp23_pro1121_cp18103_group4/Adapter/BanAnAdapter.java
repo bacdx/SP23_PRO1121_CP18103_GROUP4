@@ -35,6 +35,7 @@ import com.example.sp23_pro1121_cp18103_group4.DAO.KhachHangDao;
 import com.example.sp23_pro1121_cp18103_group4.DAO.MonTrongBanDAO;
 
 import com.example.sp23_pro1121_cp18103_group4.DAO.NhanVienDao;
+import com.example.sp23_pro1121_cp18103_group4.DialogThanhToan;
 import com.example.sp23_pro1121_cp18103_group4.Fragment.AllMonFragment;
 import com.example.sp23_pro1121_cp18103_group4.Fragment.LoaiMonFragment;
 import com.example.sp23_pro1121_cp18103_group4.Fragment.MonFragment;
@@ -89,6 +90,7 @@ public class BanAnAdapter extends RecyclerView.Adapter<BanAnAdapter.ViewBanan> {
 
         holder.tenban.setText(list.get(position).getTenBanAN());
         int index = position;
+        BanAn banAn=list.get(position);
         daoBanAN = new BanAnDao(context);
         MonTrongBanDAO trongBanDAO1;
         trongBanDAO1 = new MonTrongBanDAO(context);
@@ -142,149 +144,8 @@ public class BanAnAdapter extends RecyclerView.Adapter<BanAnAdapter.ViewBanan> {
         holder.hoadon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ArrayList<MonTrongBan> listmtb;
-                MonTrongBanDAO trongBanDAO;
-                listmtb = new ArrayList<>();
-                trongBanDAO = new MonTrongBanDAO(context);
-                try {
-                    listmtb = trongBanDAO.getAllWithId(String.valueOf(list.get(index).getId()));
-                }catch (Exception e){
-                    Toast.makeText(context, "Chưa Thêm Món Ăn Vào Bàn ", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                Dialog dialog = new Dialog(context, androidx.appcompat.R.style.Theme_AppCompat);
-                dialog.setContentView(R.layout.dialog_tinh_tien);
-
-                RecyclerView rcv = dialog.findViewById(R.id.rcv);
-                TextView tenban = dialog.findViewById(R.id.tenban);
-                TextView ngay = dialog.findViewById(R.id.ngay);
-                CheckBox checkBox1 = dialog.findViewById(R.id.checkb);
-                TextView tong = dialog.findViewById(R.id.tong);
-                Button thanhtoan = dialog.findViewById(R.id.thanhtoan);
-
-                DateFormat df = new SimpleDateFormat("d/M/yyyy");
-
-                int tongAdapter;
-
-                MonTrongBanAdapter monTrongBanAdapter;
-                tenban.setText(list.get(index).getTenBanAN());
-                ngay.setText(df.format(Calendar.getInstance().getTime()));
-                monTrongBanAdapter = new MonTrongBanAdapter(listmtb,context);
-                rcv.setAdapter(monTrongBanAdapter);
-
-                tong.setText(trongBanDAO.getTong(String.valueOf(list.get(index).getId()))+"");
-
-                checkBox1.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        boolean check = ((CheckBox)v).isChecked();
-                        if(check){
-                            tong.setText(trongBanDAO.getGIamGia(String.valueOf(list.get(index).getId()))+"");
-                        }else{
-                            tong.setText(trongBanDAO.getTong(String.valueOf(list.get(index).getId()))+"");
-                        }
-                    }
-                });
-                thanhtoan.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-
-                        Dialog dialog1 = new Dialog(context, androidx.appcompat.R.style.Theme_AppCompat);
-                        dialog1.setContentView(R.layout.dialog_thanhtoan_hoa_don);
-
-                        Spinner spn_nhanvien = dialog1.findViewById(R.id.spn_nhanvien);
-                        Spinner spn_khachhang = dialog1.findViewById(R.id.spn_khachhang);
-
-                        Button luu = dialog1.findViewById(R.id.luu);
-                        Button huy = dialog1.findViewById(R.id.huy);
-
-
-
-                        NhanVienDao daonv = new NhanVienDao(context);
-                         Spiner_NhanVien nhanVien = new Spiner_NhanVien(context);
-
-                         list1 = new ArrayList<>();
-                         list1 = daonv.getAll();
-                         nhanVien.setDaTa(list1);
-                         spn_nhanvien.setAdapter(nhanVien);
-
-                         spn_nhanvien.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                             @Override
-                             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                                 tenNV = list1.get(position).getHoten();
-                             }
-
-                             @Override
-                             public void onNothingSelected(AdapterView<?> parent) {
-
-                             }
-                         });
-
-                        KhachHangDao hangDao = new KhachHangDao(context);
-                        Spiner_KhachHang spiner_khachHang = new Spiner_KhachHang(context);
-                         listkh = new ArrayList<>();
-                        listkh = hangDao.getAll();
-                        spiner_khachHang.setDaTA(listkh);
-                        spn_khachhang.setAdapter(spiner_khachHang);
-
-                        spn_khachhang.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                            @Override
-                            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-                                tenKH = listkh.get(position).getHoTen();
-
-                            }
-
-                            @Override
-                            public void onNothingSelected(AdapterView<?> parent) {
-
-                            }
-                        });
-                        huy.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                dialog1.dismiss();
-                            }
-                        });
-
-
-
-                        luu.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-
-                                HoaDon hoaDon;
-                                hoaDon = new HoaDon();
-                                hoaDonDao = new HoaDonDao(context);
-
-                                hoaDon.setMaBan(String.valueOf(list.get(index).getId()));
-                               try {
-                                   hoaDon.setMaKH(tenKH);
-                                   hoaDon.setMaNV(tenNV);
-
-                               }catch (Exception e){
-                                   Toast.makeText(context, "Chưa ĐỦ Thông Tin", Toast.LENGTH_SHORT).show();
-                                   return;
-                               }
-                                hoaDon.setNgayLap(ngay.getText().toString());
-                                hoaDon.setTongTien(Integer.parseInt(tong.getText().toString()));
-                                hoaDonDao.insertHoaDon(hoaDon);
-                                try {
-                                    trongBanDAO.DeleteAll(String.valueOf(list.get(index).getId()));
-                                }catch (Exception e){
-                                    Toast.makeText(context, "Thanh Toán Thành CÔng", Toast.LENGTH_SHORT).show();
-                                    holder.anh.setImageResource(R.drawable.banan);
-
-                                }
-                                dialog1.dismiss();
-                            }
-
-                        });
-                        dialog1.show();
-                    }
-                });
-
-                dialog.show();
+                DialogThanhToan dialogThanhToan=new DialogThanhToan(view.getContext(), banAn.getId());
+                dialogThanhToan.show();
             }
         });
     }

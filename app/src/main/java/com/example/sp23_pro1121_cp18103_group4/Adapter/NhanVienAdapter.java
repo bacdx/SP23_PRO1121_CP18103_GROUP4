@@ -181,7 +181,7 @@ public class NhanVienAdapter extends RecyclerView.Adapter<NhanVienAdapter.MyView
 
         nhanvien_edStartus.setText(nhanVien1.getStartus());
 
-        if(nhanVien1.getUyQuyen().equals("quanli")){
+        if(nhanVien1.getUyQuyen()==NhanVien.QUANLY){
                 rdo_quanli.setChecked(true);
         }else{
             rdo_nhanvien.setChecked(true);
@@ -212,7 +212,7 @@ public class NhanVienAdapter extends RecyclerView.Adapter<NhanVienAdapter.MyView
                     nhanVien1.setPassWord(nhanvien_edpass.getText().toString());
                     nhanVien1.setNamSinh(Integer.parseInt("" + nhanvien_edNamSinh.getText().toString()));
                     nhanVien1.setSoDienThoai(nhanvien_edSoDT.getText().toString());
-                    nhanVien1.setUyQuyen(nhanvien_edUyQuyen.getText().toString());
+                    nhanVien1.setUyQuyen(Integer.parseInt(nhanvien_edUyQuyen.getText().toString()));
                     nhanVien1.setStartus(nhanvien_edStartus.getText().toString());
                     if (nhanvien_rdNam.isChecked()) {
                         nhanVien1.setGioiTinh("Nam");

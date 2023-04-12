@@ -14,7 +14,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String DBName = "FAST_FOOD";
 
 
-    public static final int DBVersion = 1;
+    public static final int DBVersion = 4;
 
 
     public DBHelper(@Nullable Context context) {
@@ -26,11 +26,12 @@ public class DBHelper extends SQLiteOpenHelper {
             "tenBan text not null ," +
             "status text );";
     private static final String TABLE_MON_TRONG_BAN = "create table MonTrongBan (" +
-            "id integer not null primary key ," +
-            "maBan integer references Ban(maBan)," +
-            "maMon integer references Mon(maMon)," +
+            "id integer not null primary key autoincrement ," +
+            "maBan text references Ban(maBan)," +
+            "maMon text references Mon(maMon)," +
+            "maHoaDon text references HoaDon(maHoaDon),"+
             "tenMon text," +
-            "giaMon integer not null," +
+            "tien float not null," +
             "imgMon text," +
             "soLuong integer);";
 
@@ -39,7 +40,7 @@ public class DBHelper extends SQLiteOpenHelper {
             "maBan integer references Ban(maBan)," +
             "maMon integer references Mon(maMon)," +
             "tenMon text," +
-            "giaMon integer not null," +
+            "giaMon float not null," +
             "imgMon text," +
             "soLuong integer);";
 
@@ -48,8 +49,8 @@ public class DBHelper extends SQLiteOpenHelper {
             "imgLoaiMon text)";
     private static final String TABLE_MON = "Create Table Mon(maMon integer primary key autoincrement," +
             "tenMon text not null," +
-            "giaTien integer ," +
-            "trangThai text not null," +
+            "giaTien float ," +
+            "trangThai integer not null," +
             "maLoaiMon integer references LoaiMon(maLoaiMon)," +
             "imgMon text)";
     private static final String TABLE_NHANVIEN = "create table NhanVien(" +
@@ -60,15 +61,15 @@ public class DBHelper extends SQLiteOpenHelper {
             "numberPhone text," +
             "gioiTinh text," +
             "ngaySinh date," +
-            "uyQuyen text," +
+            "uyQuyen integer," +
             "status text);";
+
     private static final String TABLE_HOADON = "create table HoaDon(" +
-            "maHoaDon integer not null primary key," +
-            "maBan integer references Ban(maBan)," +
+            "maHoaDon integer not null primary key autoincrement," +
             "maNV integer references NhanVien(maNV)," +
             "ngayLap date not null," +
             "maKhachHang integer references KhachHang(maKhachHang)," +
-            "tongTien integer); ";
+            "tongTien float); ";
 
 
 

@@ -71,7 +71,7 @@ public class NhanVienDao {
             String numberPhone = c.getString(4);
             String gioiTinh=c.getString(5);
             String Startus = c.getString(8);
-            String UyQuyen = c.getString(7);
+            Integer UyQuyen = c.getInt(7);
             int NamSinh = c.getInt(6);
             NhanVien nhanVien = new NhanVien();
             nhanVien.setMaNV(manv);

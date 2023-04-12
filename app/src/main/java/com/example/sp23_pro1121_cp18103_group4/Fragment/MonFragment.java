@@ -208,7 +208,7 @@ public class MonFragment extends Fragment {
         Comparator<Mon> com = new Comparator<Mon>() {
             @Override
             public int compare(Mon o1, Mon o2) {
-                return Integer.valueOf(o1.getGiaTien()).compareTo(o2.getGiaTien());
+                return Float.valueOf(o1.getGiaTien()).compareTo(o2.getGiaTien());
             }
         };
         Collections.sort(list, com);
@@ -223,7 +223,7 @@ public class MonFragment extends Fragment {
         Comparator<Mon> com = new Comparator<Mon>() {
             @Override
             public int compare(Mon o1, Mon o2) {
-                return Integer.valueOf(o2.getGiaTien()).compareTo(o1.getGiaTien());
+                return Float.valueOf(o2.getGiaTien()).compareTo(o1.getGiaTien());
             }
         };
         Collections.sort(list, com);
@@ -295,11 +295,11 @@ public class MonFragment extends Fragment {
     //phương thức sắp xếp món còn hàng
     public void filterCheckMon() {
         List<Mon> temp_arraylist = new ArrayList<Mon>();
-
+        int trangThai=0;
         for (int i = 0; i < list.size(); i++) {
 
-            String trangThai = list.get(i).getTrangThai();
-            if (trangThai.equalsIgnoreCase("Còn hàng")) {
+             trangThai = list.get(i).getTrangThai();
+            if (trangThai==Mon.CON_HANG) {
                 temp_arraylist.add(list.get(i));
             }
 
@@ -391,9 +391,9 @@ public class MonFragment extends Fragment {
                     return;
                 }
                 if (chkTrangThai.isChecked()) {
-                    mon.setTrangThai("Còn hàng");
+                    mon.setTrangThai(Mon.CON_HANG);
                 } else {
-                    mon.setTrangThai("Hết hàng");
+                    mon.setTrangThai(Mon.HET_HANG);
                 }
                 mon.setTenMon(edTenMon.getText().toString());
                 mon.setGiaTien(Integer.parseInt("" + edGiaTien.getText().toString()));

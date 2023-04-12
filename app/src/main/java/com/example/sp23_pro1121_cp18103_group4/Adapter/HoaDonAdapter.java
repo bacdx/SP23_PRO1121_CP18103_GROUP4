@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.sp23_pro1121_cp18103_group4.DAO.HoaDonDao;
 import com.example.sp23_pro1121_cp18103_group4.Model.HoaDon;
+import com.example.sp23_pro1121_cp18103_group4.Model.HoaDonHT;
 import com.example.sp23_pro1121_cp18103_group4.R;
 
 import java.util.ArrayList;
@@ -24,15 +25,15 @@ import java.util.ArrayList;
 public class HoaDonAdapter extends RecyclerView.Adapter<HoaDonAdapter.ViewHoaDon> {
 
 
-    ArrayList<HoaDon> list ;
+    ArrayList<HoaDonHT> list ;
     Context context;
     HoaDonDao hoaDonDao ;
 
-    public HoaDonAdapter(ArrayList<HoaDon> list, Context context) {
+    public HoaDonAdapter(ArrayList<HoaDonHT> list, Context context) {
         this.list = list;
         this.context = context;
     }
-    public void setList(ArrayList<HoaDon>list){
+    public void setList(ArrayList<HoaDonHT>list){
         this.list=list;
         notifyDataSetChanged();
     }
@@ -50,17 +51,15 @@ public class HoaDonAdapter extends RecyclerView.Adapter<HoaDonAdapter.ViewHoaDon
 
     @Override
     public void onBindViewHolder(@NonNull ViewHoaDon holder, int position) {
+        HoaDonHT hoaDonHT=list.get(position);
+
+        holder.maHoaDon.setText("Mã HD: "+hoaDonHT.getMaHD()+"");
+        holder.maNhanVien.setText("Tên NV: "+hoaDonHT.getTenNV());
+        holder.ngayLap.setText(hoaDonHT.getNgayLap());
+        holder.tongTien.setText("Tổng tiền: "+hoaDonHT.getTongTien()+" VND");
 
 
-        holder.maHoaDon.setText("Mã HD: "+list.get(position).getMaHoaDon()+"");
-        holder.maNhanVien.setText("Tên NV: "+list.get(position).getMaNV());
-        holder.maKhachHang.setText("Tên KH: "+list.get(position).getMaKH());
-        holder.ngayLap.setText(list.get(position).getNgayLap());
-        holder.tongTien.setText("Tổng tiền: "+list.get(position).getTongTien()+" VND");
 
-
-        int index = position;
-        hoaDonDao = new HoaDonDao(context);
 
 
     }
@@ -72,14 +71,13 @@ public class HoaDonAdapter extends RecyclerView.Adapter<HoaDonAdapter.ViewHoaDon
 
     class ViewHoaDon extends RecyclerView.ViewHolder{
 
-        TextView maHoaDon,maNhanVien,maKhachHang,ngayLap,tongTien;
+        TextView maHoaDon,maNhanVien,ngayLap,tongTien;
 
         public ViewHoaDon(@NonNull View itemView) {
             super(itemView);
 
             maHoaDon = itemView.findViewById(R.id.id);
             maNhanVien = itemView.findViewById(R.id.manv);
-            maKhachHang = itemView.findViewById(R.id.makh);
             ngayLap = itemView.findViewById(R.id.ngaytao);
             tongTien = itemView.findViewById(R.id.tong);
 

@@ -108,7 +108,6 @@ public class KhachHangFragment extends Fragment {
 
 
     //***********//
-=======
 //đổ dữ liệu dao
 
     public void setData() {

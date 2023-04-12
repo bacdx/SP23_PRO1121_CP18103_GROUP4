@@ -66,7 +66,7 @@ public class AllMonAdapter extends RecyclerView.Adapter<AllMonAdapter.MyViewHold
         Mon mon = list.get(position);
         holder.mon_tvTenMon.setText(mon.getTenMon());
         holder.mon_tvGiaTien.setText("Giá tiền: " + mon.getGiaTien());
-        if (mon.getTrangThai().equals("Còn hàng")) {
+        if (mon.getTrangThai()==Mon.CON_HANG) {
             holder.mon_tvTrangThai.setText(mon.getTrangThai());
             holder.mon_tvTrangThai.setTextColor(Color.BLUE);
             holder.mon_tvTrangThai.setPaintFlags(holder.mon_tvGiaTien.getPaintFlags() | Paint.FAKE_BOLD_TEXT_FLAG);
@@ -77,14 +77,14 @@ public class AllMonAdapter extends RecyclerView.Adapter<AllMonAdapter.MyViewHold
         }
         Bitmap imageContent = BitmapFactory.decodeByteArray(mon.getImgMon(), 0, mon.getImgMon().length);
         holder.mon_imgMon.setImageBitmap(imageContent);
-        if (mon.getTrangThai().equals("Còn hàng")) {
+        if (mon.getTrangThai()==Mon.CON_HANG) {
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Bundle bundle = new Bundle();
-                    bundle.putInt("chiTietMaMon", mon.getMaMon());
+                    bundle.putString("chiTietMaMon", mon.getMaMon());
                     bundle.putString("chiTietTenMon",mon.getTenMon());
-                    bundle.putInt("chiTietGiaTien", mon.getGiaTien());
+                    bundle.putFloat("chiTietGiaTien", mon.getGiaTien());
                     bundle.putByteArray("chiTietImgMon", mon.getImgMon());
                     Fragment fragment = new ChiTietSanPhamFragment();
                     fragment.setArguments(bundle);
