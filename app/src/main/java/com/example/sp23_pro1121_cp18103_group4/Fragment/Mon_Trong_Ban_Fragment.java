@@ -123,14 +123,14 @@ public class Mon_Trong_Ban_Fragment extends Fragment {
                     return;
                 }
 
-//                try {
-//                    check = trongBanDAO.getwGia(String.valueOf(mon.getGiaTien()),id12);
-//                    if(check>0){
-//                        Toast.makeText(getContext(), "Đã Có Món Ăn Này Trong Bàn", Toast.LENGTH_SHORT).show();
-//                        return;
-//                    }
-//                }catch (Exception e){
-//                }
+                try {
+                    check = trongBanDAO.getwGia(String.valueOf(maMon),id12);
+                    if(check>0){
+                        Toast.makeText(getContext(), "Đã Có Món Ăn Này Trong Bàn", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                }catch (Exception e){
+                }
 
                 monTrongBan.setImgMon(mon.getImgMon());
                 monTrongBan.setSoLuong(Integer.parseInt(soluong.getText().toString()));

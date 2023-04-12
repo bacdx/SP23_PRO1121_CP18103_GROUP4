@@ -100,11 +100,6 @@ public class Login extends AppCompatActivity {
             Toast.makeText(this, "Không được để trống", Toast.LENGTH_SHORT).show();
         } else if (dao.checkLogin(strUser, strPass) > 0 || strUser.equals("admin") && strPass.equals("admin")
                 || nguoiDungDao.checkLogin(strUser, strPass) > 0) {
-
-            if (strUser.isEmpty() || strPass.isEmpty()) {
-                Toast.makeText(this, "Không được để trống", Toast.LENGTH_SHORT).show();
-            } else if (dao.checkLogin(strUser, strPass) > 0 || strUser.equals("admin") && strPass.equals("admin")) {
-
                 Toast.makeText(this, "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
                 rememberPassword(strUser, strPass, chkRemember.isChecked());
                 Intent intent = new Intent(Login.this, MainActivity.class);
@@ -118,7 +113,6 @@ public class Login extends AppCompatActivity {
             } else if (dao.checkLogin(strUser, strPass) < 0) {
                 Toast.makeText(this, "Đăng nhập không thành công", Toast.LENGTH_SHORT).show();
             }
-        }
     }
 
     //********//

@@ -33,10 +33,22 @@ public class Top5Fragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         View view= inflater.inflate(R.layout.fragment_top5, container, false);
+        return view;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
         rcv = view.findViewById(R.id.rcvtop5);
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
         list = new ArrayList<>();
         trongBanDAO = new MonTrongBanDAO(getContext());
         monTrongBanDAO = new MonTrongBanDAO(getContext());
@@ -48,7 +60,6 @@ public class Top5Fragment extends Fragment {
         }catch (Exception e){
             Toast.makeText(getContext(), "Chưa Có Hóa ĐƠn ", Toast.LENGTH_SHORT).show();
         }
-        return view;
-    }
 
+    }
 }
