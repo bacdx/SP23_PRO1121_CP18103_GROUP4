@@ -106,9 +106,7 @@ public class ThemBanFragment extends Fragment {
                             dialog.dismiss();
                         }
 
-//                        list = daott.getALL();
-//                        adapterBanAn = new BanAnAdapter(getContext(),list);
-//                        rcv.setAdapter(adapterBanAn);
+
 
                     }
                 });

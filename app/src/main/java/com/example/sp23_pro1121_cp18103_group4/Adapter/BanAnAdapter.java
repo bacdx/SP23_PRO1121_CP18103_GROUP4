@@ -144,8 +144,21 @@ public class BanAnAdapter extends RecyclerView.Adapter<BanAnAdapter.ViewBanan> {
         holder.hoadon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DialogThanhToan dialogThanhToan=new DialogThanhToan(view.getContext(), banAn.getId());
-                dialogThanhToan.show();
+
+                try {
+                    trongBanDAO1.getwid(String.valueOf(list.get(index).getId()));
+                    if( trongBanDAO1.getwid(String.valueOf(list.get(index).getId()))>0){
+
+                        Toast.makeText(context, "Chưa Có Món Trong Bàn", Toast.LENGTH_SHORT).show();
+                        return ;
+                    }else{
+                        DialogThanhToan dialogThanhToan=new DialogThanhToan(view.getContext(), banAn.getId());
+                        dialogThanhToan.show();
+                    }
+                }catch (Exception e){
+                }
+
+
             }
         });
     }

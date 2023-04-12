@@ -39,7 +39,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 public class DialogThanhToan extends Dialog {
-    public static final BanAn BAN_MANG_VE=new BanAn("0","MangVe","");
+    public static final BanAn BAN_MANG_VE=new BanAn("0","Mang Ve","");
     RecyclerView rcv;
     TextView tenban, ngay, checkBox1, tong, thanhtoan;
     float tongTien = 0;
@@ -78,11 +78,9 @@ public class DialogThanhToan extends Dialog {
         try{
             list = new MonTrongBanDAO(getContext()).getDataByMaBanAndNull(maBan);
         }
-        catch (Exception e){
+        catch (Exception e) {
 
         }
-
-
         int tongAdapter;
         BanAn banAn=new BanAn();
         if(maBan== DialogThanhToan.BAN_MANG_VE.getId()){
@@ -140,103 +138,6 @@ public class DialogThanhToan extends Dialog {
                 }else {
                     Toast.makeText(view.getContext(),"Tao That Bai",Toast.LENGTH_LONG);
                 }
-
-
-
-//
-//                Dialog dialog1 = new Dialog(context, androidx.appcompat.R.style.Theme_AppCompat);
-//                dialog1.setContentView(R.layout.dialog_thanhtoan_hoa_don);
-//
-//                Spinner spn_nhanvien = dialog1.findViewById(R.id.spn_nhanvien);
-//                Spinner spn_khachhang = dialog1.findViewById(R.id.spn_khachhang);
-//
-//                Button luu = dialog1.findViewById(R.id.luu);
-//                Button huy = dialog1.findViewById(R.id.huy);
-//
-//
-//
-//                NhanVienDao daonv = new NhanVienDao(context);
-//                Spiner_NhanVien nhanVien = new Spiner_NhanVien(context);
-//
-//                list1 = new ArrayList<>();
-//                list1 = daonv.getAll();
-//                nhanVien.setDaTa(list1);
-//                spn_nhanvien.setAdapter(nhanVien);
-//
-//                spn_nhanvien.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//                    @Override
-//                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-//                        tenNV = list1.get(position).getHoten();
-//                    }
-//
-//                    @Override
-//                    public void onNothingSelected(AdapterView<?> parent) {
-//
-//                    }
-//                });
-//
-//                KhachHangDao hangDao = new KhachHangDao(context);
-//                Spiner_KhachHang spiner_khachHang = new Spiner_KhachHang(context);
-//                listkh = new ArrayList<>();
-//                listkh = hangDao.getAll();
-//                spiner_khachHang.setDaTA(listkh);
-//                spn_khachhang.setAdapter(spiner_khachHang);
-//
-//                spn_khachhang.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//                    @Override
-//                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-//
-//                        tenKH = listkh.get(position).getHoTen();
-//
-//                    }
-//
-//                    @Override
-//                    public void onNothingSelected(AdapterView<?> parent) {
-//
-//                    }
-//                });
-//                huy.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//                        dialog1.dismiss();
-//                    }
-//                });
-//
-//
-//
-//                luu.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//
-//                        HoaDon hoaDon;
-//                        hoaDon = new HoaDon();
-//                        hoaDonDao = new HoaDonDao(context);
-//
-//                        hoaDon.setMaBan(String.valueOf(list.get(index).getId()));
-//                        try {
-//                            hoaDon.setMaKH(tenKH);
-//                            hoaDon.setMaNV(tenNV);
-//
-//                        }catch (Exception e){
-//                            Toast.makeText(context, "Chưa ĐỦ Thông Tin", Toast.LENGTH_SHORT).show();
-//                            return;
-//                        }
-//                        hoaDon.setNgayLap(ngay.getText().toString());
-//                        hoaDon.setTongTien(Integer.parseInt(tong.getText().toString()));
-//                        hoaDonDao.insertHoaDon(hoaDon);
-//                        try {
-//                            trongBanDAO.DeleteAll(String.valueOf(list.get(index).getId()));
-//                        }catch (Exception e){
-//                            Toast.makeText(context, "Thanh Toán Thành CÔng", Toast.LENGTH_SHORT).show();
-//                            holder.anh.setImageResource(R.drawable.banan);
-//
-//                        }
-//                        dialog1.dismiss();
-//                    }
-//
-//                });
-//                dialog1.show();
-
             }
         });
 

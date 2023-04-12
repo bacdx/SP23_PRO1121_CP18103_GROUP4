@@ -120,7 +120,7 @@ return db.delete("MonTrongBan","id=?",new String[]{id});
         return getData(sql,id);
     }
     public int getwid(String id){
-        String sql = "Select * from MonTrongBan where maBan= ?";
+        String sql = "Select * from MonTrongBan where maBan= ? and maHoaDon = '0'";
         ArrayList<MonTrongBan> list = getData(sql,id);
         if(list.size()>0){
             return 1;
@@ -131,7 +131,7 @@ return db.delete("MonTrongBan","id=?",new String[]{id});
 
 
     public int getwGia(String gia,String maban){
-        String sql = "Select * from MonTrongBan where tien= ? and maBan = ? and maHoaDon= null";
+        String sql = "Select * from MonTrongBan where maMon= ? and maBan = ? and maHoaDon = '0'";
         ArrayList<MonTrongBan> list = getData(sql,gia,maban);
         if(list.size()>0){
             return 1;
@@ -146,9 +146,9 @@ return db.delete("MonTrongBan","id=?",new String[]{id});
     }
 
     @SuppressLint("Range")
-    public ArrayList<Top5> getTOp(){
+    public ArrayList<Top5>getTOp(){
 
-        String sqltop = "select tenMon,sum(soLuong) as sl ,sum(tien) as tong from MonTrongBan group by tenMon order by soLuong desc limit 5";
+        String sqltop = "select tenMon,sum(soLuong) as sl ,sum(tien) as tong from MonTrongBan where maHoaDon != '0' group by tenMon order by sl desc limit 5";
         ArrayList<Top5> list = new ArrayList<>();
         Cursor c = db.rawQuery(sqltop,null);
         while(c.moveToNext()){
