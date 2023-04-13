@@ -69,4 +69,16 @@ public class DatHangDao {
         }
         return check;
     }
+
+    public int checkTrong() {
+        int check;
+        String sql = "Select * from DatHang ";
+        List<DatHang> list = getData(sql);
+        if (list.size() > 0){
+            check = 1;
+        }else{
+            check = -1;
+        }
+        return check;
+    }
 }
