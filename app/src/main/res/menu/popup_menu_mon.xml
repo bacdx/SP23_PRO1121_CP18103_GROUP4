@@ -1,41 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:title="Sắp xếp">
+        <menu>
+            <group>
 
-    <item
-        android:id="@+id/sortUpGiaTien"
-        android:title="Giá tiền ↑" />
-
-    <item
-        android:id="@+id/sortDownGiaTien"
-        android:title="Giá tiền ↓" />
-    <item
-        android:title="Lọc"
-        >
-        <menu
-            >
-            <group
-                >
                 <item
-                    android:id="@+id/filterAllMon"
-                    android:title="All"/>
+                    android:id="@+id/sortUpGiaTien"
+                    android:title="Giá tiền ↑" />
+
+                <item
+                    android:id="@+id/sortDownGiaTien"
+                    android:title="Giá tiền ↓" />
                 <item
                     android:id="@+id/sortUpTenMon"
                     android:title="Tên món a-z" />
                 <item
                     android:id="@+id/sortDownTenMon"
                     android:title="Tên món z-a" />
+            </group>
+        </menu>
+    </item>
+    <item android:title="Lọc">
+        <menu>
+            <group>
                 <item
-                    android:title="Giá dưới 20.000đ"
-                    android:id="@+id/sortGiaTienMin"/>
+                    android:id="@+id/filterAllMon"
+                    android:title="All" />
                 <item
-                    android:title="Từ 20.000 → 50.000đ"
-                    android:id="@+id/sortGiaTienBetween"/>
+                    android:id="@+id/sortGiaTienMin"
+                    android:title="Giá dưới 20.000đ" />
                 <item
-                    android:title="Giá trên 50.000đ"
-                    android:id="@+id/sortGiaTienMax"/>
+                    android:id="@+id/sortGiaTienBetween"
+                    android:title="Từ 20.000 → 50.000đ" />
                 <item
-                    android:title="Sản phẩm còn hàng"
-                    android:id="@+id/filterCheckMon"/>
+                    android:id="@+id/sortGiaTienMax"
+                    android:title="Giá trên 50.000đ" />
+                <item
+                    android:id="@+id/filterCheckMon"
+                    android:title="Sản phẩm còn hàng" />
             </group>
         </menu>
     </item>

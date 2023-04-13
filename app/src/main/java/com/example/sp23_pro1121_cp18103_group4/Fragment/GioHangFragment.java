@@ -44,6 +44,7 @@ public class GioHangFragment extends Fragment {
     DonHang donHang;
     //ánh xạ
     TextView tvTongTien;
+    TextView tvTrong;
     Button btnThanhToan;
     String username, hoTen, soDt, diaChi;
     DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
@@ -59,13 +60,24 @@ public class GioHangFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_gio_hang, container, false);
         tvTongTien = view.findViewById(R.id.giohang_tvTongTien);
+        tvTrong = view.findViewById(R.id.giohang_tvTrong);
         rc_gioHang = view.findViewById(R.id.rc_gioHang);
         dao = new DatHangDao(getContext());
-        list = dao.getAll();
-        LinearLayoutManager manager = new LinearLayoutManager(getContext());
-        rc_gioHang.setLayoutManager(manager);
-        adapter = new GioHangAdapter(getContext(), list, tvTongTien);
-        rc_gioHang.setAdapter(adapter);
+//        list = dao.getAll();
+//        LinearLayoutManager manager = new LinearLayoutManager(getContext());
+//        rc_gioHang.setLayoutManager(manager);
+//        adapter = new GioHangAdapter(getContext(), list, tvTongTien);
+//        rc_gioHang.setAdapter(adapter);
+        if (dao.checkTrong() > 0){
+            tvTrong.setText("");
+            list = dao.getAll();
+            LinearLayoutManager manager = new LinearLayoutManager(getContext());
+            rc_gioHang.setLayoutManager(manager);
+            adapter = new GioHangAdapter(getContext(), list, tvTongTien);
+            rc_gioHang.setAdapter(adapter);
+        }else{
+            tvTrong.setText("Giỏ Hàng Trống");
+        }
         openTongTien(view);
         openThanhToan(view);
         return  view;
