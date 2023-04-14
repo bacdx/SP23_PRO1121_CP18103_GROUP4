@@ -50,7 +50,7 @@ public class DBHelper extends SQLiteOpenHelper {
     private static final String TABLE_MON = "Create Table Mon(maMon integer primary key autoincrement," +
             "tenMon text not null," +
             "giaTien float ," +
-            "trangThai integer not null," +
+            "trangThai text not null," +
             "maLoaiMon integer references LoaiMon(maLoaiMon)," +
             "imgMon text)";
     private static final String TABLE_NHANVIEN = "create table NhanVien(" +
@@ -61,7 +61,7 @@ public class DBHelper extends SQLiteOpenHelper {
             "numberPhone text," +
             "gioiTinh text," +
             "ngaySinh date," +
-            "uyQuyen integer," +
+            "uyQuyen text," +
             "status text);";
 
     private static final String TABLE_HOADON = "create table HoaDon(" +
@@ -85,9 +85,12 @@ public class DBHelper extends SQLiteOpenHelper {
     //khách hàng dùng appp
     String CreatTalbeDatHang = "Create table DatHang(" +
             "maDatHang integer not null primary key autoincrement," +
+            "maDonHang integer references DonHang(maDonHang),  " +
             "soLuong integer," +
             "giaTien integer," +
             "maMon integer references Mon(maMon))";
+
+
     String CreateTableNguoiDung = "Create table NguoiDung(" +
             "username text not null primary key," +
             "hoTen text," +
@@ -100,7 +103,6 @@ public class DBHelper extends SQLiteOpenHelper {
             "ngayThanhToan text," +
             "trangThai text," +
             "tongTien integer," +
-            "maDatHang integer references DatMon(maDatHang)," +
             "username text references NguoiDung(username)," +
             "tenNguoiDung text ," +
             "soDT text ," +
@@ -116,7 +118,7 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL(TABLE_kHACH_HANG);
         db.execSQL(TABLE_HOADON);
         db.execSQL(Data.insertNhanVien);
-        db.execSQL(TABLE_MON_TRONG_BAN2);
+
         db.execSQL(CreatTalbeDatHang);
         db.execSQL(CreateTableNguoiDung);
         db.execSQL(CreateTableDonHang);

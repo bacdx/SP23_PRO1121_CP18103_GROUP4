@@ -103,7 +103,7 @@ public class Dialog_MonTrongBan extends AppCompatActivity {
                     return;
                  }
 
-                 if(mon.getTrangThai()==Mon.HET_HANG){
+                 if(mon.getTrangThai().equals("Hết hàng")){
                      Toast.makeText(Dialog_MonTrongBan.this, "Món Này Đã Hết Hàng !", Toast.LENGTH_SHORT).show();
                      return;
                  }

@@ -66,18 +66,29 @@ public class AllMonAdapter extends RecyclerView.Adapter<AllMonAdapter.MyViewHold
         Mon mon = list.get(position);
         holder.mon_tvTenMon.setText(mon.getTenMon());
         holder.mon_tvGiaTien.setText("Giá tiền: " + mon.getGiaTien());
-        if (mon.getTrangThai()==Mon.CON_HANG) {
-            holder.mon_tvTrangThai.setText(mon.getTrangThai());
+//        if (mon.getTrangThai()==Mon.CON_HANG) {
+//            holder.mon_tvTrangThai.setText(mon.getTrangThai());
+//            holder.mon_tvTrangThai.setTextColor(Color.BLUE);
+//            holder.mon_tvTrangThai.setPaintFlags(holder.mon_tvGiaTien.getPaintFlags() | Paint.FAKE_BOLD_TEXT_FLAG);
+//        } else {
+//            holder.mon_tvTrangThai.setText(mon.getTrangThai());
+//            holder.mon_tvTrangThai.setTextColor(Color.RED);
+//            holder.mon_tvTrangThai.setPaintFlags(holder.mon_tvGiaTien.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+//        }
+        if (mon.getTrangThai().equals("Còn hàng")) {
+            holder.mon_tvTrangThai.setText("Còn hàng");
             holder.mon_tvTrangThai.setTextColor(Color.BLUE);
             holder.mon_tvTrangThai.setPaintFlags(holder.mon_tvGiaTien.getPaintFlags() | Paint.FAKE_BOLD_TEXT_FLAG);
         } else {
-            holder.mon_tvTrangThai.setText(mon.getTrangThai());
+            holder.mon_tvTrangThai.setText("Hết hàng");
             holder.mon_tvTrangThai.setTextColor(Color.RED);
             holder.mon_tvTrangThai.setPaintFlags(holder.mon_tvGiaTien.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
         }
-        Bitmap imageContent = BitmapFactory.decodeByteArray(mon.getImgMon(), 0, mon.getImgMon().length);
-        holder.mon_imgMon.setImageBitmap(imageContent);
-        if (mon.getTrangThai()==Mon.CON_HANG) {
+        if(mon.getImgMon()!=null){
+            Bitmap imageContent = BitmapFactory.decodeByteArray(mon.getImgMon(), 0, mon.getImgMon().length);
+            holder.mon_imgMon.setImageBitmap(imageContent);
+        }
+        if (mon.getTrangThai().equals("Còn hàng")) {
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

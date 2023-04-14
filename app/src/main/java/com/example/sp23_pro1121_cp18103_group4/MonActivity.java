@@ -144,9 +144,9 @@ public class MonActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (chkTrangThai.isChecked()) {
-                    mon.setTrangThai(Mon.CON_HANG);
+                    mon.setTrangThai("Còn hàng");
                 } else {
-                    mon.setTrangThai(Mon.HET_HANG);
+                    mon.setTrangThai("Hết hàng");
                 }
                 mon.setTenMon(edTenMon.getText().toString());
                 mon.setGiaTien(Integer.parseInt("" + edGiaTien.getText().toString()));
@@ -221,9 +221,9 @@ public class MonActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (chkTrangThai.isChecked()) {
-                    mon.setTrangThai(Mon.CON_HANG);
+                    mon.setTrangThai("Còn hàng");
                 } else {
-                    mon.setTrangThai(Mon.HET_HANG);
+                    mon.setTrangThai("Hết hàng");
                 }
                 mon.setTenMon(edTenMon.getText().toString());
                 mon.setGiaTien(Integer.parseInt("" + edGiaTien.getText().toString()));

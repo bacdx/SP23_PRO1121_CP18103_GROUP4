@@ -93,12 +93,14 @@ public class HoaDonDao {
     }
     public ArrayList <HoaDonHT> getListHD(){
         ArrayList<HoaDonHT> list=new ArrayList<>();
-        HoaDonHT hoaDonHT=new HoaDonHT();
-        String sql=" select maHoaDon ,NhanVien.name, HoaDon.tongTien ,HoaDon.ngaylap " +
-                "from HoaDon  join NhanVien  on HoaDon.maNV= NhanVien.maNV ";
+
+        String sql="SELECT HoaDon.maHoaDon, NhanVien.name, HoaDon.tongTien, HoaDon.ngayLap " +
+                "FROM HoaDon " +
+                "INNER JOIN NhanVien ON HoaDon.maNV = NhanVien.maNV";
         Cursor cursor=db.rawQuery(sql,null);
         cursor.moveToFirst();
         do{
+            HoaDonHT hoaDonHT=new HoaDonHT();
            hoaDonHT.setMaHD(cursor.getString(0));
            hoaDonHT.setTenNV(cursor.getString(1));
            hoaDonHT.setTongTien(cursor.getString(2));

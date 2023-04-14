@@ -19,8 +19,10 @@ import android.widget.Toast;
 import com.example.sp23_pro1121_cp18103_group4.Adapter.GioHangAdapter;
 import com.example.sp23_pro1121_cp18103_group4.DAO.DatHangDao;
 import com.example.sp23_pro1121_cp18103_group4.DAO.DonHangDao;
+import com.example.sp23_pro1121_cp18103_group4.DAO.NguoiDungDao;
 import com.example.sp23_pro1121_cp18103_group4.Model.DatHang;
 import com.example.sp23_pro1121_cp18103_group4.Model.DonHang;
+import com.example.sp23_pro1121_cp18103_group4.Model.NguoiDung;
 import com.example.sp23_pro1121_cp18103_group4.R;
 
 import java.text.DateFormat;
@@ -72,8 +74,8 @@ public class GioHangFragment extends Fragment {
     }
 
     public void openTongTien(View view) {
-        int sum = 0, i;
-        for (i = 0; i < list.size(); i++) {
+        float sum = 0;
+        for ( int i = 0; i < list.size(); i++) {
             sum = sum + (list.get(i).getSoLuong() * list.get(i).getGiaTien());
         }
         tvTongTien.setText("" + sum + "đ");
@@ -83,9 +85,10 @@ public class GioHangFragment extends Fragment {
     public void openThanhToan(View view) {
         btnThanhToan = view.findViewById(R.id.giohang_btnThanhToan);
         donHang = new DonHang();
-        datHang = new DatHang();
         Bundle bundle = this.getArguments();
         username = bundle.getString("usernameGioHang");
+        NguoiDung nguoiDung=new NguoiDungDao(getContext()).getID(username);
+
         btnThanhToan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -101,6 +104,9 @@ public class GioHangFragment extends Fragment {
                 edSoDT = dialog.findViewById(R.id.donhang_edSoDT);
                 edDiaChi = dialog.findViewById(R.id.donhang_edDiaChi);
                 donHang = new DonHang();
+                edDiaChi.setText(nguoiDung.getDiaChi());
+                edHoTen.setText(nguoiDung.getHoTen());
+                edSoDT.setText(nguoiDung.getSoDT());
                 Button btnSave , btnCancel;
                 btnSave = dialog.findViewById(R.id.donhang_btnSave);
                 btnCancel = dialog.findViewById(R.id.donhang_btnCancel);
@@ -113,33 +119,39 @@ public class GioHangFragment extends Fragment {
                                 edSoDT.getText().toString().isEmpty()){
                             Toast.makeText(getContext(), "Yêu cầu nhập đầy đủ thông tin", Toast.LENGTH_SHORT).show();
                         }else{
+                            nguoiDung.setHoTen(edHoTen.getText().toString());
+                            nguoiDung.setDiaChi(edDiaChi.getText().toString());
+                            nguoiDung.setSoDT(edSoDT.getText().toString());
+                            NguoiDungDao nguoiDungDao=new NguoiDungDao(getContext());
+                            nguoiDungDao.updateKhachHang(nguoiDung);
                             donHang.setMaDonHang("18092003"+val);
                             donHang.setNgayThanhToan(df.format(Calendar.getInstance().getTime()));
                             donHang.setTrangThai("Đang xử lý");
-                            int tongTien = 0, i;
-                            for (i = 0; i < list.size(); i++) {
+                            donHang.setTenNguoiDung(edHoTen.getText().toString());
+                            donHang.setDiaChi(edDiaChi.getText().toString());
+                            donHang.setSoDt(edSoDT.getText().toString());
+                            float tongTien = 0;
+                            for (int i = 0; i < list.size(); i++) {
                                 tongTien = tongTien + (list.get(i).getSoLuong() * list.get(i).getGiaTien());
                                 donHang.setTongTien(tongTien);
                             }
                             donHang.setMaNguoiDung(username);
-                            donHang.setTenNguoiDung(edHoTen.getText().toString());
-                            donHang.setSoDt(edSoDT.getText().toString());
-                            donHang.setDiaChi(edDiaChi.getText().toString());
                             dao = new DatHangDao(getContext());
                             donHangDao = new DonHangDao(getContext());
                             if (donHangDao.insertDonHang(donHang) > 0) {
                                 Toast.makeText(getContext(), "Thanh toán thành công", Toast.LENGTH_SHORT).show();
-                                for (i = 0; i < list.size(); i++) {
-                                    dao.deleteAll(String.valueOf(list.get(i).getMaDatHang()));
+                                for (int i = 0; i < list.size(); i++) {
+                                    list.get(i).setMaDonHang(donHang.getMaDonHang());
+                                    dao.update(list.get(i));
                                 }
                                 list.clear();
                                 list = dao.getAll();
                                 adapter = new GioHangAdapter(getContext(), list, tvTongTien);
                                 adapter.notifyDataSetChanged();
                                 rc_gioHang.setAdapter(adapter);
-                                int resetTongTien = 0;
-                                for (int j = 0; j < list.size(); j++) {
-                                    resetTongTien = resetTongTien + (list.get(j).getSoLuong() * list.get(j).getGiaTien());
+                                float resetTongTien = 0;
+                                for (int i = 0; i < list.size(); i++) {
+                                    resetTongTien = resetTongTien + (list.get(i).getSoLuong() * list.get(i).getGiaTien());
                                 }
                                 tvTongTien.setText("" + resetTongTien + "đ");
                                 dialog.dismiss();

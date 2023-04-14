@@ -85,11 +85,6 @@ public class MonTrongBanAdapter extends RecyclerView.Adapter<MonTrongBanAdapter.
         holder.soluong.setText(list.get(index).getSoLuong() + "");
         holder.tongtien.setText(list.get(index).getTien()+" VND");
 
-        if(monTrongBan.getImgMon()!=null){
-            Bitmap imageContent = BitmapFactory.decodeByteArray(monTrongBan.getImgMon(), 0, monTrongBan.getImgMon().length);
-            holder.img.setImageBitmap(imageContent);
-        }
-
         holder.tenmon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

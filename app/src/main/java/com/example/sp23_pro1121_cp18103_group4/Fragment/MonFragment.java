@@ -295,11 +295,11 @@ public class MonFragment extends Fragment {
     //phương thức sắp xếp món còn hàng
     public void filterCheckMon() {
         List<Mon> temp_arraylist = new ArrayList<Mon>();
-        int trangThai=0;
+//        int trangThai=0;
         for (int i = 0; i < list.size(); i++) {
 
-             trangThai = list.get(i).getTrangThai();
-            if (trangThai==Mon.CON_HANG) {
+             String trangThai = list.get(i).getTrangThai();
+            if (trangThai.equalsIgnoreCase("Còn hàng")) {
                 temp_arraylist.add(list.get(i));
             }
 
@@ -391,9 +391,9 @@ public class MonFragment extends Fragment {
                     return;
                 }
                 if (chkTrangThai.isChecked()) {
-                    mon.setTrangThai(Mon.CON_HANG);
+                    mon.setTrangThai("Còn hàng");
                 } else {
-                    mon.setTrangThai(Mon.HET_HANG);
+                    mon.setTrangThai("Hết hàng");
                 }
                 mon.setTenMon(edTenMon.getText().toString());
                 mon.setGiaTien(Integer.parseInt("" + edGiaTien.getText().toString()));

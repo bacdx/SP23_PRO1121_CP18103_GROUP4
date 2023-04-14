@@ -7,6 +7,7 @@
     android:background="@drawable/shape_custom_dialog"
     android:orientation="vertical">
     <TextView
+        android:id="@+id/nhanvien_tvTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/custom_textview"
@@ -14,7 +15,6 @@
         android:padding="12dp"
         android:text="Thêm/sửa Nhân Viên"
         android:textColor="#fff"
-        android:id="@+id/nhanvien_tvTitle"
         android:textSize="20dp"
         android:textStyle="bold" />
 
@@ -30,6 +30,7 @@
             android:layout_height="match_parent"
             android:hint="Nhập họ tên" />
     </com.google.android.material.textfield.TextInputLayout>
+
     <com.google.android.material.textfield.TextInputLayout
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
@@ -42,6 +43,7 @@
             android:layout_height="match_parent"
             android:hint="Nhập user" />
     </com.google.android.material.textfield.TextInputLayout>
+
     <com.google.android.material.textfield.TextInputLayout
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
@@ -54,6 +56,7 @@
             android:layout_height="match_parent"
             android:hint="Nhập Password" />
     </com.google.android.material.textfield.TextInputLayout>
+
     <com.google.android.material.textfield.TextInputLayout
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
@@ -66,12 +69,12 @@
             android:layout_height="match_parent"
             android:hint="Nhập năm sinh" />
     </com.google.android.material.textfield.TextInputLayout>
+
     <com.google.android.material.textfield.TextInputLayout
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="3dp">
-
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/nhanvien_edSoDT"
             android:layout_width="match_parent"
@@ -79,67 +82,56 @@
             android:hint="Nhập số điện thoại" />
     </com.google.android.material.textfield.TextInputLayout>
 
-
-            <RadioGroup
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:orientation="horizontal"
-                >
-
-                <RadioButton
-                    android:id="@+id/quanli"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Quản Lí "
-
-                    />
-                <RadioButton
-                    android:id="@+id/nhanvien"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Nhân Viên  "
-                    android:layout_marginLeft="30dp"
-                    />
-
-            </RadioGroup>
-
-    <com.google.android.material.textfield.TextInputLayout
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+    <RadioGroup
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="3dp">
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="horizontal">
+        <RadioButton
+            android:id="@+id/nhanvien_rdQuanLy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Quản Lí "
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/nhanvien_Status"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:hint="Nhập StaTus  " />
-    </com.google.android.material.textfield.TextInputLayout>
-
+            />
+        <RadioButton
+            android:id="@+id/nhanvien_rdNhanVien"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:text="Nhân Viên" />
+    </RadioGroup>
     <RadioGroup
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
+
         <RadioButton
+            android:id="@+id/nhanvien_rdNam"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Nam"
             android:layout_margin="3dp"
-            android:id="@+id/nhanvien_rdNam"/>
+            android:text="Nam" />
+
         <RadioButton
+            android:id="@+id/nhanvien_rdNu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Nữ"
             android:layout_margin="3dp"
-            android:id="@+id/nhanvien_rdNu"/>
+            android:text="Nữ" />
+
         <RadioButton
+            android:id="@+id/nhanvien_rdKhac"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Khác"
             android:layout_margin="3dp"
-            android:id="@+id/nhanvien_rdKhac"/>
+            android:text="Khác" />
     </RadioGroup>
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Đang làm việc"
+        android:id="@+id/nhanvien_chkTrangThai"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

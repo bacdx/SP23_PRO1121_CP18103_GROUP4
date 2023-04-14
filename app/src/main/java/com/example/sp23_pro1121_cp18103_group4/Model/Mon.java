@@ -6,13 +6,14 @@ public class Mon {
     private String maMon;
     private String tenMon;
     private float giaTien;
-    private int trangThai=this.CON_HANG;
+//    private int trangThai=this.CON_HANG;
+    private String trangThai;
     private int maLoaiMon;
     private byte[] imgMon;
     public Mon() {
     }
 
-    public Mon(String maMon, String tenMon, float giaTien, int trangThai, int maLoaiMon) {
+    public Mon(String maMon, String tenMon, float giaTien, String trangThai, int maLoaiMon) {
         this.maMon = maMon;
         this.tenMon = tenMon;
         this.giaTien = giaTien;
@@ -44,11 +45,11 @@ public class Mon {
         this.giaTien = giaTien;
     }
 
-    public int getTrangThai() {
+    public String getTrangThai() {
         return trangThai;
     }
 
-    public void setTrangThai(int trangThai) {
+    public void setTrangThai(String trangThai) {
         this.trangThai = trangThai;
     }
 

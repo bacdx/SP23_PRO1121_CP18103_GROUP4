@@ -26,19 +26,29 @@ public class DatHangDao {
         values.put("soLuong", datHang.getSoLuong());
         values.put("giaTien", datHang.getGiaTien());
         values.put("maMon", datHang.getMaMon());
+        values.put("maDonHang",datHang.getmaDonHang());
+
         return db.insert("DatHang", null, values);
     }
 
     public int deleteDatHang(DatHang datHang) {
         return db.delete("DatHang", "maDatHang=?", new String[]{String.valueOf(datHang.getMaDatHang())});
     }
+    public int update(DatHang datHang){
+        ContentValues values = new ContentValues();
+        values.put("soLuong", datHang.getSoLuong());
+        values.put("giaTien", datHang.getGiaTien());
+        values.put("maMon", datHang.getMaMon());
+        values.put("maDonHang",datHang.getmaDonHang());
+        return db.update("DatHang",values,"maDatHang=?",new String[]{String.valueOf(datHang.getMaDatHang())});
+    };
 
     public List<DatHang> deleteAll(String maDatHang){
         String sql = "Delete from DatHang where maDatHang=?";
         return getData(sql,maDatHang);
     }
     public List<DatHang> getAll() {
-        String sql = "Select * from DatHang";
+        String sql = "Select * from DatHang where maDonHang is null";
         return getData(sql);
     }
 
@@ -48,10 +58,11 @@ public class DatHangDao {
         c.moveToFirst();
         while (!c.isAfterLast()) {
             int maDatHang = c.getInt(0);
-            int soLuong = c.getInt(1);
-            int giaTien = c.getInt(2);
-            int maMon = c.getInt(3);
-            DatHang datHang = new DatHang(maDatHang, soLuong, giaTien, maMon);
+            int soLuong = c.getInt(2);
+            int giaTien = c.getInt(3);
+            int maMon = c.getInt(4);
+            String maDonHang =c.getString(1);
+            DatHang datHang = new DatHang(maDatHang, soLuong, giaTien, maMon,maDonHang);
             list.add(datHang);
             c.moveToNext();
         }
@@ -60,7 +71,7 @@ public class DatHangDao {
 
     public int checkThanhToan(String maMon ) {
         int check;
-        String sql = "Select * from DatHang where maMon=?";
+        String sql = "Select * from DatHang where maMon=? and maDonHang is null";
         List<DatHang> list = getData(sql, maMon);
         if (list.size() > 0){
             check = 1;

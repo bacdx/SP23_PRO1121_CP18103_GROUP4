@@ -97,12 +97,21 @@ public class MonAdapter extends RecyclerView.Adapter<MonAdapter.MyViewHolder> im
                 transaction.replace(R.id.mainFrame_collection_fragment,fragment).commit();
             }
         });
-        if (mon.getTrangThai()==Mon.CON_HANG) {
-            holder.mon_tvTrangThai.setText("Còn Hàng");
+//        if (mon.getTrangThai()==Mon.CON_HANG) {
+//            holder.mon_tvTrangThai.setText("Còn Hàng");
+//            holder.mon_tvTrangThai.setTextColor(Color.BLUE);
+//            holder.mon_tvTrangThai.setPaintFlags(holder.mon_tvGiaTien.getPaintFlags() | Paint.FAKE_BOLD_TEXT_FLAG);
+//        } else {
+//            holder.mon_tvTrangThai.setText("Hết Hàng");
+//            holder.mon_tvTrangThai.setTextColor(Color.RED);
+//            holder.mon_tvTrangThai.setPaintFlags(holder.mon_tvGiaTien.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+//        }
+        if (mon.getTrangThai().equals("Còn hàng")) {
+            holder.mon_tvTrangThai.setText("Còn hàng");
             holder.mon_tvTrangThai.setTextColor(Color.BLUE);
             holder.mon_tvTrangThai.setPaintFlags(holder.mon_tvGiaTien.getPaintFlags() | Paint.FAKE_BOLD_TEXT_FLAG);
         } else {
-            holder.mon_tvTrangThai.setText("Hết Hàng");
+            holder.mon_tvTrangThai.setText("Hết hàng");
             holder.mon_tvTrangThai.setTextColor(Color.RED);
             holder.mon_tvTrangThai.setPaintFlags(holder.mon_tvGiaTien.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
         }
@@ -233,7 +242,7 @@ public class MonAdapter extends RecyclerView.Adapter<MonAdapter.MyViewHolder> im
         mon_imgMon = dialog.findViewById(R.id.mon_addImg);
         btnSave = dialog.findViewById(R.id.mon_btnSave);
         btnCancel = dialog.findViewById(R.id.mon_btnCancel);
-        if (mon.getTrangThai()==Mon.CON_HANG) {
+        if (mon.getTrangThai().equals("Còn hàng")) {
             mon_chkTrangThai.setChecked(true);
         } else {
             mon_chkTrangThai.setChecked(false);
@@ -247,9 +256,9 @@ public class MonAdapter extends RecyclerView.Adapter<MonAdapter.MyViewHolder> im
             @Override
             public void onClick(View v) {
                 if (mon_chkTrangThai.isChecked()) {
-                    mon.setTrangThai(Mon.CON_HANG);
+                    mon.setTrangThai("Còn hàng");
                 } else {
-                    mon.setTrangThai(Mon.HET_HANG);
+                    mon.setTrangThai("Hết hàng");
                 }
                 dao = new MonDao(mContext);
                 if (dao.updateMon(mon) > 0) {

@@ -118,7 +118,7 @@ public class Mon_Trong_Ban_Fragment extends Fragment {
                     return;
                 }
 
-                if(mon.getTrangThai()== Mon.HET_HANG){
+                if(mon.getTrangThai().equals("Hết hàng")){
                     Toast.makeText(getContext(), "Món Này Đã Hết Hàng !", Toast.LENGTH_SHORT).show();
                     return;
                 }

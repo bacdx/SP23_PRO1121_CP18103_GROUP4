@@ -273,9 +273,9 @@ public class AllMonFragment extends Fragment {
 
         for (int i = 0; i < list.size(); i++) {
 
-            int trangThai = list.get(i).getTrangThai();
+            String trangThai = list.get(i).getTrangThai();
            // trangThai.equalsIgnoreCase("Còn hàng"
-            if (trangThai==Mon.CON_HANG) {
+            if (trangThai.equalsIgnoreCase("Còn hàng")) {
                 temp_arraylist.add(list.get(i));
             }
 

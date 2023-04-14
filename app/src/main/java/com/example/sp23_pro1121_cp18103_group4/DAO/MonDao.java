@@ -51,7 +51,8 @@ public class MonDao {
             String maMon = c.getString(0);
             String tenMon = c.getString(1);
             int giaTien = c.getInt(2);
-            int trangThai = c.getInt(3);
+//            int trangThai = c.getInt(3);
+            String trangThai = c.getString(3);
             int maLoaiMon = c.getInt(4);
             byte[] imgMon = c.getBlob(5);
             Mon mon = new Mon(maMon,tenMon,giaTien,trangThai,maLoaiMon);

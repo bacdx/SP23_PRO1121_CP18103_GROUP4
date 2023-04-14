@@ -53,10 +53,11 @@ public class DonHangAdapter extends RecyclerView.Adapter<DonHangAdapter.MyViewHo
                 bundle.putString("dhctSoDT",donHang.getSoDt());
                 bundle.putString("dhctDiaChi",donHang.getDiaChi());
                 bundle.putString("dhctNgay",donHang.getNgayThanhToan());
-                bundle.putInt("dhctTongTien",donHang.getTongTien());
+                bundle.putFloat("dhctTongTien",donHang.getTongTien());
                 bundle.putString("dhctTrangThai",donHang.getTrangThai());
-                bundle.putInt("dhctMaDatHang",donHang.getMaDatHang());
                 Fragment fragment = new DonHangChiTietFragment();
+
+
                 fragment.setArguments(bundle);
                 FragmentTransaction transaction = ((FragmentActivity)mContext).getSupportFragmentManager().beginTransaction();
                 transaction.replace(R.id.mainFrame_collection_fragment,fragment).commit();

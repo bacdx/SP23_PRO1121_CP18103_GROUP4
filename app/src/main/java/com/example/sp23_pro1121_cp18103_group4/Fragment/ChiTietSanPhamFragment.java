@@ -43,13 +43,15 @@ public class ChiTietSanPhamFragment extends Fragment {
     DonHang donHang;
     DonHangDao donHangDao;
     //
-    int maMon, giaTien;
+    String maMon;
+    float giaTien;
     String tenMon;
     byte[] imgMon;
     List<DatHang> list = new ArrayList<>();
     //set ngay hien tai
     GioHangAdapter adapter;
     DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,9 +71,9 @@ public class ChiTietSanPhamFragment extends Fragment {
         dao = new DatHangDao(getContext());
         //tạo bundle lấy dữ liệu
         Bundle bundle = this.getArguments();
-        maMon = bundle.getInt("chiTietMaMon");
+        maMon = bundle.getString("chiTietMaMon");
         tenMon = bundle.getString("chiTietTenMon");
-        giaTien = bundle.getInt("chiTietGiaTien");
+        giaTien = bundle.getFloat("chiTietGiaTien");
         imgMon = bundle.getByteArray("chiTietImgMon");
         //set dữ liệu bundle vào textview , img
         setBundle();
@@ -98,8 +100,10 @@ public class ChiTietSanPhamFragment extends Fragment {
     public void setBundle() {
         tvChiTietTenMon.setText(tenMon);
         tvChiTietGiaTien.setText("Giá tiền: " + giaTien + "đ");
-        Bitmap imageContent = BitmapFactory.decodeByteArray(imgMon, 0, imgMon.length);
-        imgChiTietImgMon.setImageBitmap(imageContent);
+        if(imgMon!=null){
+    Bitmap imageContent = BitmapFactory.decodeByteArray(imgMon, 0, imgMon.length);
+    imgChiTietImgMon.setImageBitmap(imageContent);
+}
     }
 
     //*********//
@@ -121,8 +125,8 @@ public class ChiTietSanPhamFragment extends Fragment {
                         datHang = new DatHang();
                         dao = new DatHangDao(getContext());
                         datHang.setSoLuong(Integer.parseInt("" + chitiet_edSoLuong.getText().toString()));
-                        datHang.setMaMon(maMon);
-                        datHang.setGiaTien(Integer.parseInt("" + giaTien));
+                        datHang.setMaMon(Integer.parseInt(maMon));
+                        datHang.setGiaTien(giaTien);
                         if (dao.insertDatHang(datHang) > 0) {
                             Toast.makeText(getContext(), "Thêm thành công", Toast.LENGTH_SHORT).show();
                             chitiet_edSoLuong.setText("");

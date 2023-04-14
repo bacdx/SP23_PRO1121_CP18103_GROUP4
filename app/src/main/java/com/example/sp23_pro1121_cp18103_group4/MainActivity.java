@@ -103,8 +103,8 @@ public class MainActivity extends AppCompatActivity {
                 NhanVien nhanVien = dao.getID(user);
                 username = nhanVien.getHoten();
                 tvHeaderUser.setText("Wellcome: " + username);
-                int uyquyen = nhanVien.getUyQuyen();
-                if (uyquyen==NhanVien.QUANLY) {
+                String uyquyen = nhanVien.getUyQuyen();
+                if (uyquyen.equals(NhanVien.QUANLY)) {
                     nav_View.getMenu().findItem(R.id.nav_ThanhVien).setVisible(false);
                     nav_View.getMenu().findItem(R.id.nav_thong_ke).setVisible(false);
                     nav_View.getMenu().findItem(R.id.nav_DoanhThu).setVisible(false);

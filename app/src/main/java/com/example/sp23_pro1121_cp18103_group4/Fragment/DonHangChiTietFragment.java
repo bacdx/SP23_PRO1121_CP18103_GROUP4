@@ -92,7 +92,7 @@ public class DonHangChiTietFragment extends Fragment {
         String soDT = bundle.getString("dhctSoDT");
         String diaChi = bundle.getString("dhctDiaChi");
         String ngay = bundle.getString("dhctNgay");
-        int tongTien = bundle.getInt("dhctTongTien");
+        float tongTien = bundle.getFloat("dhctTongTien");
         String trangThai = bundle.getString("dhctTrangThai");
         tvHoTen.setText("Họ tên: " + hoTen);
         tvSoDT.setText("Số điện thoại: " + soDT);
