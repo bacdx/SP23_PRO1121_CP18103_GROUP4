@@ -49,7 +49,7 @@ public class DatHangDao {
         while (!c.isAfterLast()) {
             int maDatHang = c.getInt(0);
             int soLuong = c.getInt(1);
-            int giaTien = c.getInt(2);
+            float giaTien = c.getInt(2);
             int maMon = c.getInt(3);
             DatHang datHang = new DatHang(maDatHang, soLuong, giaTien, maMon);
             list.add(datHang);
@@ -62,6 +62,17 @@ public class DatHangDao {
         int check;
         String sql = "Select * from DatHang where maMon=?";
         List<DatHang> list = getData(sql, maMon);
+        if (list.size() > 0){
+            check = 1;
+        }else{
+            check = -1;
+        }
+        return check;
+    }
+    public int checkTrong() {
+        int check;
+        String sql = "Select * from DatHang ";
+        List<DatHang> list = getData(sql);
         if (list.size() > 0){
             check = 1;
         }else{

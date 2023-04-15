@@ -85,7 +85,7 @@ public class DonHangDao {
             String maDonHang = c.getString(0);
             String ngayThanhToan = c.getString(1);
             String trangThai = c.getString(2);
-            int tongTien = c.getInt(3);
+            Float tongTien = c.getFloat(3);
             int maDatHang = c.getInt(4);
             String maKhachHang = c.getString(5);
             String tenNguoiDung = c.getString(6);

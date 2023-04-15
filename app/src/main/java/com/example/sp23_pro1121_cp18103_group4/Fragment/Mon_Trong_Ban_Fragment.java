@@ -67,8 +67,8 @@ public class Mon_Trong_Ban_Fragment extends Fragment {
 
 
         Bundle bundle = this.getArguments();
-        String maMon = bundle.getString("maMon");
-        mon=new MonDao(getContext()).getID(maMon);
+        int maMon = bundle.getInt("maMon");
+        mon=new MonDao(getContext()).getID(String.valueOf(maMon));
 
 
         listBanAN = new ArrayList<>();

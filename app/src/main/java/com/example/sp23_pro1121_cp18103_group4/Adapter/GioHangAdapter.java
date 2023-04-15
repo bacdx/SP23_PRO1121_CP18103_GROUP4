@@ -165,7 +165,8 @@ public class GioHangAdapter extends RecyclerView.Adapter<GioHangAdapter.MyViewHo
     }
 
     public void updateprice(View view) {
-        int sum = 0, i;
+        float sum = 0;
+        int i;
         for (i = 0; i < list.size(); i++)
             sum = sum + (list.get(i).getSoLuong() * list.get(i).getGiaTien());
         tvTongTien.setText("" + sum + "đ");

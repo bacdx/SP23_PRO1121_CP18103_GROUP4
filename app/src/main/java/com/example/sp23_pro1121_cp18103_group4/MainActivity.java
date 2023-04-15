@@ -63,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        setTitle("Quản Lý Quán Ăn");
         init();
         setDraw();
     }
@@ -76,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
 
     //thiết lập drawable , toolbar , navigation
     public void setDraw() {
-        toolbar.setTitle("Quản Lý Quán Ăn");
+//        toolbar.setTitle("Quản Lý Quán Ăn");
         setSupportActionBar(toolbar);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open_draw, R.string.close_draw);
         drawerLayout.addDrawerListener(toggle);
@@ -164,7 +165,7 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case R.id.nav_KhachHang:
                         toolbar.setTitle("Quản lý khách hàng");
-                        replaceFragment(new KhachHangFragment());
+                        replaceFragment(new NguoiDungFragment());
                         break;
                     case R.id.nav_DoanhThu:
                         toolbar.setTitle("Quản lý doanh thu");
@@ -184,7 +185,7 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case R.id.nav_NguoiDung:
                         toolbar.setTitle("Quản lý người dùng");
-                        replaceFragment(new NguoiDungFragment());
+                        replaceFragment(new NhanVienFragment());
                         break;
                     case R.id.nav_DoiMK:
                         toolbar.setTitle("Đổi mật khẩu");

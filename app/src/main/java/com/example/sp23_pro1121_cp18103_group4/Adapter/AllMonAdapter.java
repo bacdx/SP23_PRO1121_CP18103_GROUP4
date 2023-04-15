@@ -67,11 +67,11 @@ public class AllMonAdapter extends RecyclerView.Adapter<AllMonAdapter.MyViewHold
         holder.mon_tvTenMon.setText(mon.getTenMon());
         holder.mon_tvGiaTien.setText("Giá tiền: " + mon.getGiaTien());
         if (mon.getTrangThai()==Mon.CON_HANG) {
-            holder.mon_tvTrangThai.setText(mon.getTrangThai());
+            holder.mon_tvTrangThai.setText("Còn hàng");
             holder.mon_tvTrangThai.setTextColor(Color.BLUE);
             holder.mon_tvTrangThai.setPaintFlags(holder.mon_tvGiaTien.getPaintFlags() | Paint.FAKE_BOLD_TEXT_FLAG);
         } else {
-            holder.mon_tvTrangThai.setText(mon.getTrangThai());
+            holder.mon_tvTrangThai.setText("Hết hàng");
             holder.mon_tvTrangThai.setTextColor(Color.RED);
             holder.mon_tvTrangThai.setPaintFlags(holder.mon_tvGiaTien.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
         }
@@ -82,7 +82,7 @@ public class AllMonAdapter extends RecyclerView.Adapter<AllMonAdapter.MyViewHold
                 @Override
                 public void onClick(View v) {
                     Bundle bundle = new Bundle();
-                    bundle.putString("chiTietMaMon", mon.getMaMon());
+                    bundle.putInt("chiTietMaMon", mon.getMaMon());
                     bundle.putString("chiTietTenMon",mon.getTenMon());
                     bundle.putFloat("chiTietGiaTien", mon.getGiaTien());
                     bundle.putByteArray("chiTietImgMon", mon.getImgMon());
@@ -93,12 +93,12 @@ public class AllMonAdapter extends RecyclerView.Adapter<AllMonAdapter.MyViewHold
                 }
             });
         }else{
-           holder.itemView.setOnClickListener(new View.OnClickListener() {
-               @Override
-               public void onClick(View v) {
-                   Toast.makeText(mContext, "Sản phẩm đã hết hàng", Toast.LENGTH_SHORT).show();
-               }
-           });
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(mContext, "Sản phẩm đã hết hàng", Toast.LENGTH_SHORT).show();
+                }
+            });
         }
     }
 

@@ -89,7 +89,7 @@ public class MonAdapter extends RecyclerView.Adapter<MonAdapter.MyViewHolder> im
             public void onClick(View view) {
 //                Intent intent = new Intent(mContext, Dialog_MonTrongBan.class);
                 Bundle bundle = new Bundle();
-                bundle.putString("maMon",mon.getMaMon());
+                bundle.putInt("maMon",mon.getMaMon());
 //                intent.putExtra("thongtin",bundle);
                 Fragment fragment = new Mon_Trong_Ban_Fragment();
                 fragment.setArguments(bundle);
