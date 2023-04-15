@@ -43,7 +43,8 @@ public class GioHangFragment extends Fragment {
     DatHang datHang;
     DonHang donHang;
     //ánh xạ
-    TextView tvTongTien;
+    TextView tvTongTien , tvTrong;
+
     Button btnThanhToan;
     String username, hoTen, soDt, diaChi;
     DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
@@ -59,20 +60,27 @@ public class GioHangFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_gio_hang, container, false);
         tvTongTien = view.findViewById(R.id.giohang_tvTongTien);
+        tvTrong = view.findViewById(R.id.giohang_tvTrong);
         rc_gioHang = view.findViewById(R.id.rc_gioHang);
         dao = new DatHangDao(getContext());
-        list = dao.getAll();
-        LinearLayoutManager manager = new LinearLayoutManager(getContext());
-        rc_gioHang.setLayoutManager(manager);
-        adapter = new GioHangAdapter(getContext(), list, tvTongTien);
-        rc_gioHang.setAdapter(adapter);
+        if (dao.checkTrong() > 0){
+            tvTrong.setText("");
+            list = dao.getAll();
+            LinearLayoutManager manager = new LinearLayoutManager(getContext());
+            rc_gioHang.setLayoutManager(manager);
+            adapter = new GioHangAdapter(getContext(), list, tvTongTien);
+            rc_gioHang.setAdapter(adapter);
+        }else{
+            tvTrong.setText("Giỏ Hàng Trống");
+        }
         openTongTien(view);
         openThanhToan(view);
         return  view;
     }
 
     public void openTongTien(View view) {
-        int sum = 0, i;
+        float sum = 0;
+        int i;
         for (i = 0; i < list.size(); i++) {
             sum = sum + (list.get(i).getSoLuong() * list.get(i).getGiaTien());
         }
@@ -116,7 +124,8 @@ public class GioHangFragment extends Fragment {
                             donHang.setMaDonHang("18092003"+val);
                             donHang.setNgayThanhToan(df.format(Calendar.getInstance().getTime()));
                             donHang.setTrangThai("Đang xử lý");
-                            int tongTien = 0, i;
+                            float tongTien = 0;
+                            int i;
                             for (i = 0; i < list.size(); i++) {
                                 tongTien = tongTien + (list.get(i).getSoLuong() * list.get(i).getGiaTien());
                                 donHang.setTongTien(tongTien);
@@ -137,7 +146,7 @@ public class GioHangFragment extends Fragment {
                                 adapter = new GioHangAdapter(getContext(), list, tvTongTien);
                                 adapter.notifyDataSetChanged();
                                 rc_gioHang.setAdapter(adapter);
-                                int resetTongTien = 0;
+                                float resetTongTien = 0;
                                 for (int j = 0; j < list.size(); j++) {
                                     resetTongTien = resetTongTien + (list.get(j).getSoLuong() * list.get(j).getGiaTien());
                                 }

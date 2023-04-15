@@ -3,13 +3,13 @@ package com.example.sp23_pro1121_cp18103_group4.Model;
 public class DatHang {
     private int maDatHang;
     private int soLuong;
-    private int giaTien;
+    private Float giaTien;
     private int maMon;
 
     public DatHang() {
     }
 
-    public DatHang(int maDatHang, int soLuong, int giaTien, int maMon) {
+    public DatHang(int maDatHang, int soLuong, Float giaTien, int maMon) {
         this.maDatHang = maDatHang;
         this.soLuong = soLuong;
         this.giaTien = giaTien;
@@ -32,11 +32,11 @@ public class DatHang {
         this.soLuong = soLuong;
     }
 
-    public int getGiaTien() {
+    public Float getGiaTien() {
         return giaTien;
     }
 
-    public void setGiaTien(int giaTien) {
+    public void setGiaTien(Float giaTien) {
         this.giaTien = giaTien;
     }
 

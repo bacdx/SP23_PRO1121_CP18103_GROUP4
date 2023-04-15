@@ -3,7 +3,7 @@ package com.example.sp23_pro1121_cp18103_group4.Model;
 public class Mon {
     public static final int CON_HANG=1;
     public static final int HET_HANG=0;
-    private String maMon;
+    private int maMon;
     private String tenMon;
     private float giaTien;
     private int trangThai=this.CON_HANG;
@@ -12,7 +12,7 @@ public class Mon {
     public Mon() {
     }
 
-    public Mon(String maMon, String tenMon, float giaTien, int trangThai, int maLoaiMon) {
+    public Mon(int maMon, String tenMon, float giaTien, int trangThai, int maLoaiMon) {
         this.maMon = maMon;
         this.tenMon = tenMon;
         this.giaTien = giaTien;
@@ -20,11 +20,11 @@ public class Mon {
         this.maLoaiMon = maLoaiMon;
     }
 
-    public String getMaMon() {
+    public int getMaMon() {
         return maMon;
     }
 
-    public void setMaMon(String maMon) {
+    public void setMaMon(int maMon) {
         this.maMon = maMon;
     }
 

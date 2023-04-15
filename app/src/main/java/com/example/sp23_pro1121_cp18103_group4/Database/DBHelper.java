@@ -86,7 +86,7 @@ public class DBHelper extends SQLiteOpenHelper {
     String CreatTalbeDatHang = "Create table DatHang(" +
             "maDatHang integer not null primary key autoincrement," +
             "soLuong integer," +
-            "giaTien integer," +
+            "giaTien float," +
             "maMon integer references Mon(maMon))";
     String CreateTableNguoiDung = "Create table NguoiDung(" +
             "username text not null primary key," +
@@ -99,7 +99,7 @@ public class DBHelper extends SQLiteOpenHelper {
             "maDonHang text primary key ," +
             "ngayThanhToan text," +
             "trangThai text," +
-            "tongTien integer," +
+            "tongTien float," +
             "maDatHang integer references DatMon(maDatHang)," +
             "username text references NguoiDung(username)," +
             "tenNguoiDung text ," +

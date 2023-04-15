@@ -74,7 +74,11 @@ public class NhanVienAdapter extends RecyclerView.Adapter<NhanVienAdapter.MyView
             holder.imgGioiTinh.setImageResource(R.drawable.rdkhac);
         }
         holder.tvSoDT.setText("SoDT: "+ nhanVien.getSoDienThoai());
-        holder.tvUyQuyen.setText("Uỷ Quyền: "+ nhanVien.getUyQuyen());
+        if(nhanVien.getUyQuyen() == 1){
+            holder.tvUyQuyen.setText("Uỷ Quyền: "+ "Nhân Viên ");
+        }else{
+            holder.tvUyQuyen.setText("Uỷ Quyền: "+ "Quản Lí ");
+        }
         holder.tvStartus.setText("Status :" + nhanVien.getStartus());
         holder.imgDelete.setOnClickListener(new View.OnClickListener() {
             @Override
