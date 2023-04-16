@@ -48,7 +48,6 @@ public class MonTrongBanAdapter extends RecyclerView.Adapter<MonTrongBanAdapter.
     Context context;
 
     MonDao monDao;
-    Mon mon;
 
     int tong;
 
@@ -63,6 +62,7 @@ public class MonTrongBanAdapter extends RecyclerView.Adapter<MonTrongBanAdapter.
         this.list = list;
         this.context = context;
         this.tong = tong;
+        monDao = new MonDao(context);
     }
 
     @NonNull
@@ -80,11 +80,12 @@ public class MonTrongBanAdapter extends RecyclerView.Adapter<MonTrongBanAdapter.
         int index = position;
         MonTrongBan monTrongBan = list.get(position);
         trongBanDAO = new MonTrongBanDAO(context);
-
+        Mon mon = monDao.getID(monTrongBan.getMaMon());
         holder.tenmon.setText(list.get(position).getTenMon());
         holder.soluong.setText(list.get(index).getSoLuong() + "");
         holder.tongtien.setText(list.get(index).getTien()+" VND");
-
+        Bitmap imageContent = BitmapFactory.decodeByteArray(mon.getImgMon(), 0, mon.getImgMon().length);
+        holder.img.setImageBitmap(imageContent);
         holder.tenmon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

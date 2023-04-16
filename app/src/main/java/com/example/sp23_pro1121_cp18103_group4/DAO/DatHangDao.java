@@ -68,10 +68,9 @@ public class DatHangDao {
         }
         return list;
     }
-
-    public int checkThanhToan(String maMon ) {
+    public int checkThanhToan(String maMon) {
         int check;
-        String sql = "Select * from DatHang where maMon=? and maDonHang is null";
+        String sql = "Select * from DatHang where maMon=?";
         List<DatHang> list = getData(sql, maMon);
         if (list.size() > 0){
             check = 1;
@@ -79,5 +78,32 @@ public class DatHangDao {
             check = -1;
         }
         return check;
+    }
+    //cart ep so luong gio hang
+    public int checkTrong() {
+        int check;
+        String sql = "Select * from DatHang ";
+        List<DatHang> list = getData(sql);
+        if (list.size() > 0){
+            check = 1;
+        }else{
+            check = -1;
+        }
+        return check;
+    }
+    //cart ep so luong gio hang
+    public int addSoLuong(String maMon){
+        int tot=0;
+        String query= "SELECT SUM(soLuong) from DatHang where maMon=" +maMon;
+        Cursor cursor=db.rawQuery(query,null);
+        if(cursor.moveToFirst()){
+            tot+=cursor.getInt(0);
+        }
+        return tot;
+    }
+
+    public List<DatHang> deleteWithMaMon(String maMon){
+        String sql = "Delete from DatHang where maMon=?";
+        return getData(sql,maMon);
     }
 }
