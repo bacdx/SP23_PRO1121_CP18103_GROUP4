@@ -33,8 +33,7 @@ import java.util.List;
 
 public class DonHangChiTietFragment extends Fragment {
 
-    TextView tvHoTen, tvSoDT, tvDiaChi, tvNgay, tvTongTien, tvTrangThai;
-    ImageView img_Update;
+    TextView tvHoTen, tvSoDT, tvDiaChi, tvNgay, tvTongTien, tvTrangThai ,img_Update;
     Button btn_Update;
     int maDatHang;
     DatHangDao datHangDao;

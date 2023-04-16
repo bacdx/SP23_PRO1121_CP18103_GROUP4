@@ -76,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
 
     //thiết lập drawable , toolbar , navigation
     public void setDraw() {
-        toolbar.setTitle("Quản Lý Quán Ăn");
+        setTitle("Quản Lý Quán Ăn");
         setSupportActionBar(toolbar);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open_draw, R.string.close_draw);
         drawerLayout.addDrawerListener(toggle);
@@ -129,8 +129,12 @@ public class MainActivity extends AppCompatActivity {
                 username = user;
                 nguoiDungDao = new NguoiDungDao(this);
                 NguoiDung nguoiDung = nguoiDungDao.getID(user);
-                String username = nguoiDung.getHoTen();
-                tvHeaderUser.setText("Welcome: " + username);
+                if (nguoiDung.getHoTen().equals("")){
+                    tvHeaderUser.setText("Wellcome: user");
+                }else{
+                    String username = nguoiDung.getHoTen();
+                    tvHeaderUser.setText("Wellcome: "+username);
+                }
                 nav_View.getMenu().findItem(R.id.nav_thong_ke).setVisible(false);
                 nav_View.getMenu().findItem(R.id.nav_quan_ly).setVisible(false);
                 nav_View.getMenu().findItem(R.id.nav_dat_mon).setVisible(true);

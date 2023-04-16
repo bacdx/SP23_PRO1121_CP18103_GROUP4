@@ -2,6 +2,7 @@ package com.example.sp23_pro1121_cp18103_group4.Fragment;
 
 import static android.app.Activity.RESULT_OK;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -81,6 +82,7 @@ public class MonFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_mon, container, false);
+        ((Activity)getContext()).setTitle("Quản lý món");
         init(view);
         showData();
         insertMon();

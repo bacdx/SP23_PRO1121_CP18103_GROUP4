@@ -44,7 +44,7 @@ public class RegisterActivity extends AppCompatActivity {
         nguoiDung = new NguoiDung();
         nguoiDung.setUsername(edUsername.getText().toString());
         nguoiDung.setPassword(edPassword.getText().toString());
-        nguoiDung.setHoTen("user");
+        nguoiDung.setHoTen("");
         nguoiDung.setSoDT("");
         nguoiDung.setDiaChi("");
         edUsername.setOnClickListener(new View.OnClickListener() {
