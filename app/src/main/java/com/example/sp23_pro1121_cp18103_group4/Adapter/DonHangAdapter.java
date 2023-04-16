@@ -1,6 +1,7 @@
 package com.example.sp23_pro1121_cp18103_group4.Adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -41,9 +42,11 @@ public class DonHangAdapter extends RecyclerView.Adapter<DonHangAdapter.MyViewHo
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         DonHang donHang = list.get(position);
         holder.tvMaDonHang.setText("Mã đơn hàng: "+donHang.getMaDonHang());
+        holder.tvMaDonHang.setTextColor(Color.BLUE);
         holder.tvNgayThanhToan.setText("Ngày: "+donHang.getNgayThanhToan());
         holder.tvHoTen.setText("Họ tên: "+donHang.getTenNguoiDung());
         holder.tvTongTien.setText("Tổng tiền: "+donHang.getTongTien()+"đ");
+        holder.tvTongTien.setTextColor(Color.RED);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

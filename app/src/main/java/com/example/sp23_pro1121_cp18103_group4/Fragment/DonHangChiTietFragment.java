@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -60,7 +61,6 @@ public class DonHangChiTietFragment extends Fragment {
         init(view);
         //set bundle lấy dữ liệu từ giỏ hàng adapter
         openBundle();
-
         //update thông tin nhận hàng
         openDialogUpdate();
         //update trạng thái hủy hàng
@@ -79,11 +79,8 @@ public class DonHangChiTietFragment extends Fragment {
         img_Update = view.findViewById(R.id.dhct_updateThongTin);
 
     }
-
     //get data lay du lieu trong sqlite
-
-
-    //get du lieu tu bundl
+    //get du lieu tu bundle
     public void openBundle() {
         Bundle bundle = this.getArguments();
         maDatHang = bundle.getInt("dhctMaDatHang");
@@ -98,6 +95,7 @@ public class DonHangChiTietFragment extends Fragment {
         tvDiaChi.setText("Địa chỉ: " + diaChi);
         tvNgay.setText("Ngày: " + ngay);
         tvTongTien.setText("Tổng tiền: " + tongTien + "đ");
+        tvTongTien.setTextColor(Color.RED);
         tvTrangThai.setText("Trạng thái: " + trangThai);
     }
 

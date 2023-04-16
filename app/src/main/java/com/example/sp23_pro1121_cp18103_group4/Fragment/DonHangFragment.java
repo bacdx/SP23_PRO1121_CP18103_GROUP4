@@ -28,7 +28,6 @@ public class DonHangFragment extends Fragment {
     DonHangAdapter adapter;
     RecyclerView rc_donHang;
     DonHang donHang;
-    String username;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
