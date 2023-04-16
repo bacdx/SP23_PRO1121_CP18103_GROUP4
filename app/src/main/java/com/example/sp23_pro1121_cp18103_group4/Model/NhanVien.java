@@ -1,11 +1,15 @@
 package com.example.sp23_pro1121_cp18103_group4.Model;
 
 public class NhanVien {
+    public static final String  NHANVIEN="Nhân Viên";
+    public static final String QUANLY="Quản Lý";
 
+    public static  NhanVien NV;
    private int MaNV,NamSinh ;
 
     private String gioiTinh;
-    private String hoten ,userName,PassWord,SoDienThoai ,Startus, UyQuyen;
+    private String hoten ,userName,PassWord,SoDienThoai ,Startus ;
+    private  String uyQuyen;
 
     public NhanVien() {
 
@@ -20,7 +24,7 @@ public class NhanVien {
         PassWord = passWord;
         SoDienThoai = soDienThoai;
         Startus = startus;
-        UyQuyen = uyQuyen;
+        this.uyQuyen = uyQuyen;
     }
 
 
@@ -89,10 +93,10 @@ public class NhanVien {
     }
 
     public String getUyQuyen() {
-        return UyQuyen;
+        return uyQuyen;
     }
 
     public void setUyQuyen(String uyQuyen) {
-        UyQuyen = uyQuyen;
+        this.uyQuyen = uyQuyen;
     }
 }

@@ -5,6 +5,8 @@ import android.app.Dialog;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -19,8 +21,10 @@ import android.widget.Toast;
 import com.example.sp23_pro1121_cp18103_group4.Adapter.GioHangAdapter;
 import com.example.sp23_pro1121_cp18103_group4.DAO.DatHangDao;
 import com.example.sp23_pro1121_cp18103_group4.DAO.DonHangDao;
+import com.example.sp23_pro1121_cp18103_group4.DAO.NguoiDungDao;
 import com.example.sp23_pro1121_cp18103_group4.Model.DatHang;
 import com.example.sp23_pro1121_cp18103_group4.Model.DonHang;
+import com.example.sp23_pro1121_cp18103_group4.Model.NguoiDung;
 import com.example.sp23_pro1121_cp18103_group4.R;
 
 import java.text.DateFormat;
@@ -45,9 +49,10 @@ public class GioHangFragment extends Fragment {
     //ánh xạ
     TextView tvTongTien;
     TextView tvTrong;
-    Button btnThanhToan;
+    Button btnThanhToan , btnTiepTucChon;
     String username, hoTen, soDt, diaChi;
     DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,11 +68,6 @@ public class GioHangFragment extends Fragment {
         tvTrong = view.findViewById(R.id.giohang_tvTrong);
         rc_gioHang = view.findViewById(R.id.rc_gioHang);
         dao = new DatHangDao(getContext());
-//        list = dao.getAll();
-//        LinearLayoutManager manager = new LinearLayoutManager(getContext());
-//        rc_gioHang.setLayoutManager(manager);
-//        adapter = new GioHangAdapter(getContext(), list, tvTongTien);
-//        rc_gioHang.setAdapter(adapter);
         if (dao.checkTrong() > 0){
             tvTrong.setText("");
             list = dao.getAll();
@@ -80,11 +80,13 @@ public class GioHangFragment extends Fragment {
         }
         openTongTien(view);
         openThanhToan(view);
-        return  view;
+        return view;
     }
 
+
     public void openTongTien(View view) {
-        int sum = 0, i;
+        float sum = 0;
+        int i;
         for (i = 0; i < list.size(); i++) {
             sum = sum + (list.get(i).getSoLuong() * list.get(i).getGiaTien());
         }
@@ -128,7 +130,8 @@ public class GioHangFragment extends Fragment {
                             donHang.setMaDonHang("18092003"+val);
                             donHang.setNgayThanhToan(df.format(Calendar.getInstance().getTime()));
                             donHang.setTrangThai("Đang xử lý");
-                            int tongTien = 0, i;
+                            float tongTien = 0;
+                            int i;
                             for (i = 0; i < list.size(); i++) {
                                 tongTien = tongTien + (list.get(i).getSoLuong() * list.get(i).getGiaTien());
                                 donHang.setTongTien(tongTien);
@@ -145,11 +148,12 @@ public class GioHangFragment extends Fragment {
                                     dao.deleteAll(String.valueOf(list.get(i).getMaDatHang()));
                                 }
                                 list.clear();
-                                list = dao.getAll();
+                                list.addAll(dao.getAll());
                                 adapter = new GioHangAdapter(getContext(), list, tvTongTien);
                                 adapter.notifyDataSetChanged();
                                 rc_gioHang.setAdapter(adapter);
-                                int resetTongTien = 0;
+                                tvTrong.setText("Giỏ Hàng Trống");
+                                float resetTongTien = 0;
                                 for (int j = 0; j < list.size(); j++) {
                                     resetTongTien = resetTongTien + (list.get(j).getSoLuong() * list.get(j).getGiaTien());
                                 }
@@ -170,6 +174,15 @@ public class GioHangFragment extends Fragment {
                         dialog.dismiss();
                     }
                 });
+            }
+        });
+        btnTiepTucChon = view.findViewById(R.id.giohang_btnTiepTuc);
+        btnTiepTucChon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Fragment fragment = new FragmentAllMon();
+                FragmentTransaction transaction = ((FragmentActivity)getContext()).getSupportFragmentManager().beginTransaction();
+                transaction.replace(R.id.mainFrame_collection_fragment,fragment).commit();
             }
         });
     }

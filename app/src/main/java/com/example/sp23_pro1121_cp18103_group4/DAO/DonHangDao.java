@@ -25,7 +25,7 @@ public class DonHangDao {
         values.put("ngayThanhToan",donHang.getNgayThanhToan());
         values.put("trangThai",donHang.getTrangThai());
         values.put("tongTien",donHang.getTongTien());
-        values.put("maDatHang",donHang.getMaDatHang());
+
         values.put("username",donHang.getMaNguoiDung());
         values.put("tenNguoiDung",donHang.getTenNguoiDung());
         values.put("soDT",donHang.getSoDt());
@@ -86,12 +86,11 @@ public class DonHangDao {
             String ngayThanhToan = c.getString(1);
             String trangThai = c.getString(2);
             int tongTien = c.getInt(3);
-            int maDatHang = c.getInt(4);
-            String maKhachHang = c.getString(5);
-            String tenNguoiDung = c.getString(6);
-            String soDt = c.getString(7);
-            String diaChi = c.getString(8);
-            DonHang donHang = new DonHang(maDonHang,ngayThanhToan,trangThai,tongTien,maDatHang,maKhachHang,tenNguoiDung,soDt,diaChi);
+            String maKhachHang = c.getString(4);
+            String tenNguoiDung = c.getString(5);
+            String soDt = c.getString(6);
+            String diaChi = c.getString(7);
+            DonHang donHang = new DonHang(maDonHang,ngayThanhToan,trangThai,tongTien,maKhachHang,tenNguoiDung,soDt,diaChi);
             list.add(donHang);
             c.moveToNext();
         }

@@ -4,7 +4,7 @@ public class DonHang {
     private String maDonHang;
     private String ngayThanhToan;
     private String trangThai;//dang xử lý
-    private int tongTien;
+    private float tongTien;
     private int maDatHang;
     private String maNguoiDung;
     private String tenNguoiDung;
@@ -14,12 +14,11 @@ public class DonHang {
     public DonHang() {
     }
 
-    public DonHang(String maDonHang, String ngayThanhToan, String trangThai, int tongTien, int maDatHang, String maNguoiDung, String tenNguoiDung, String soDt, String diaChi) {
+    public DonHang(String maDonHang, String ngayThanhToan, String trangThai, float tongTien, String maNguoiDung, String tenNguoiDung, String soDt, String diaChi) {
         this.maDonHang = maDonHang;
         this.ngayThanhToan = ngayThanhToan;
         this.trangThai = trangThai;
         this.tongTien = tongTien;
-        this.maDatHang = maDatHang;
         this.maNguoiDung = maNguoiDung;
         this.tenNguoiDung = tenNguoiDung;
         SoDt = soDt;
@@ -50,14 +49,6 @@ public class DonHang {
         this.trangThai = trangThai;
     }
 
-    public int getMaDatHang() {
-        return maDatHang;
-    }
-
-    public void setMaDatHang(int maDatHang) {
-        this.maDatHang = maDatHang;
-    }
-
     public String getMaNguoiDung() {
         return maNguoiDung;
     }
@@ -66,11 +57,11 @@ public class DonHang {
         this.maNguoiDung = maNguoiDung;
     }
 
-    public int getTongTien() {
+    public float getTongTien() {
         return tongTien;
     }
 
-    public void setTongTien(int tongTien) {
+    public void setTongTien(float tongTien) {
         this.tongTien = tongTien;
     }
 

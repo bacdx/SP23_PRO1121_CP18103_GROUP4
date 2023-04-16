@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.example.sp23_pro1121_cp18103_group4.Adapter.HoaDonAdapter;
 import com.example.sp23_pro1121_cp18103_group4.DAO.HoaDonDao;
 import com.example.sp23_pro1121_cp18103_group4.Model.HoaDon;
+import com.example.sp23_pro1121_cp18103_group4.Model.HoaDonHT;
 import com.example.sp23_pro1121_cp18103_group4.R;
 import com.google.android.material.textfield.TextInputEditText;
 
@@ -26,7 +27,7 @@ public class HoaDonFragment extends Fragment {
 
     RecyclerView rcv;
     HoaDonDao hoaDonDao;
-    ArrayList<HoaDon> list;
+    ArrayList<HoaDonHT> list;
     HoaDonAdapter hoaDonAdapter;
 
     @Override
@@ -51,7 +52,8 @@ public class HoaDonFragment extends Fragment {
         list = new ArrayList<>();
         hoaDonDao = new HoaDonDao(getContext());
       try {
-          list = hoaDonDao.getAll();
+          list = hoaDonDao.getListHD();
+          ArrayList<HoaDon> list1=hoaDonDao.getAll();
           hoaDonAdapter = new HoaDonAdapter(list,getContext());
           rcv.setAdapter(hoaDonAdapter);
       }catch (Exception e){

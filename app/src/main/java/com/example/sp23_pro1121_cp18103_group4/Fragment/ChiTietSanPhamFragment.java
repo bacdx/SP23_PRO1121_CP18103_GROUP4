@@ -47,7 +47,8 @@ public class ChiTietSanPhamFragment extends Fragment {
     DonHang donHang;
     DonHangDao donHangDao;
     //
-    int maMon, giaTien;
+    String maMon;
+    float giaTien;
     String tenMon;
     byte[] imgMon;
     List<DatHang> list = new ArrayList<>();
@@ -74,13 +75,15 @@ public class ChiTietSanPhamFragment extends Fragment {
         dao = new DatHangDao(getContext());
         //tạo bundle lấy dữ liệu
         Bundle bundle = this.getArguments();
-        maMon = bundle.getInt("chiTietMaMon");
+        maMon = bundle.getString("chiTietMaMon");
         tenMon = bundle.getString("chiTietTenMon");
-        giaTien = bundle.getInt("chiTietGiaTien");
+        giaTien = bundle.getFloat("chiTietGiaTien");
         imgMon = bundle.getByteArray("chiTietImgMon");
         //set dữ liệu bundle vào textview , img
         setBundle();
+
         //nhập số lượng thêm vào giỏ hàng
+
         openThemGioHang();
         return view;
     }
@@ -100,7 +103,7 @@ public class ChiTietSanPhamFragment extends Fragment {
     //*********//
     //tạo hàm set dữ liệu
     public void setBundle() {
-        tvChiTietTenMon.setText(tenMon);
+        tvChiTietTenMon.setText("Tên món: "+tenMon);
         tvChiTietGiaTien.setText("Giá tiền: " + giaTien + "đ");
         Bitmap imageContent = BitmapFactory.decodeByteArray(imgMon, 0, imgMon.length);
         imgChiTietImgMon.setImageBitmap(imageContent);
@@ -112,33 +115,36 @@ public class ChiTietSanPhamFragment extends Fragment {
         chitiet_btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int check = dao.checkThanhToan(String.valueOf(maMon));
-                if (check > 0) {
-                    Toast.makeText(getContext(), "Đã có món trong giỏ hàng", Toast.LENGTH_SHORT).show();
-                    return;
+                if (chitiet_edSoLuong.getText().toString().isEmpty()) {
+                    Toast.makeText(getContext(), "Không đc để trống", Toast.LENGTH_SHORT).show();
+                } else if (!chitiet_edSoLuong.getText().toString().matches("\\d+")) {
+                    Toast.makeText(getContext(), "Yêu cầu nhập số nguyên", Toast.LENGTH_SHORT).show();
                 } else {
-                    if (chitiet_edSoLuong.getText().toString().isEmpty()) {
-                        Toast.makeText(getContext(), "Không đc để trống", Toast.LENGTH_SHORT).show();
-                    } else if (!chitiet_edSoLuong.getText().toString().matches("\\d+")) {
-                        Toast.makeText(getContext(), "Yêu cầu nhập số nguyên", Toast.LENGTH_SHORT).show();
+                    datHang = new DatHang();
+                    dao = new DatHangDao(getContext());
+                    int check = dao.checkThanhToan(String.valueOf(maMon));
+                    if (check > 0) {
+                        int soLuong = Integer.parseInt("" + chitiet_edSoLuong.getText().toString());
+                        int add = dao.addSoLuong(String.valueOf(maMon));
+                        add += soLuong;
+                        datHang.setSoLuong(add);
+                        dao.deleteWithMaMon(String.valueOf(maMon));
                     } else {
-                        datHang = new DatHang();
-                        dao = new DatHangDao(getContext());
                         datHang.setSoLuong(Integer.parseInt("" + chitiet_edSoLuong.getText().toString()));
-                        datHang.setMaMon(maMon);
-                        datHang.setGiaTien(Integer.parseInt("" + giaTien));
-                        if (dao.insertDatHang(datHang) > 0) {
-                            Toast.makeText(getContext(), "Thêm giỏ hàng thành công", Toast.LENGTH_SHORT).show();
-                            chitiet_edSoLuong.setText("");
-                            list = dao.getAll();
-                            adapter = new GioHangAdapter(getContext(), list);
-                            adapter.notifyDataSetChanged();
-                            Fragment fragment = new FragmentAllMon();
-                            FragmentTransaction transaction = ((FragmentActivity) getContext()).getSupportFragmentManager().beginTransaction();
-                            transaction.replace(R.id.mainFrame_collection_fragment, fragment).commit();
-                        } else {
-                            Toast.makeText(getContext(), "Thêm giỏ hàng không thành công", Toast.LENGTH_SHORT).show();
-                        }
+                    }
+                    datHang.setMaMon(Integer.parseInt(maMon));
+                    datHang.setGiaTien(Float.parseFloat("" + giaTien));
+                    if (dao.insertDatHang(datHang) > 0) {
+                        Toast.makeText(getContext(), "Thêm thành công", Toast.LENGTH_SHORT).show();
+                        chitiet_edSoLuong.setText("");
+                        list = dao.getAll();
+                        adapter = new GioHangAdapter(getContext(), list);
+                        adapter.notifyDataSetChanged();
+                        Fragment fragment = new FragmentAllMon();
+                        FragmentTransaction transaction = ((FragmentActivity) getContext()).getSupportFragmentManager().beginTransaction();
+                        transaction.replace(R.id.mainFrame_collection_fragment, fragment).commit();
+                    } else {
+                        Toast.makeText(getContext(), "Thêm không thành công", Toast.LENGTH_SHORT).show();
                     }
                 }
             }
@@ -148,71 +154,84 @@ public class ChiTietSanPhamFragment extends Fragment {
             public void onClick(View v) {
                 datHang = new DatHang();
                 dao = new DatHangDao(getContext());
-                if (!chitiet_edSoLuong.getText().toString().matches("\\d+")) {
+                if (chitiet_edSoLuong.getText().toString().isEmpty()) {
+                    Toast.makeText(getContext(), "Không đc để trống", Toast.LENGTH_SHORT).show();
+                } else if (!chitiet_edSoLuong.getText().toString().matches("\\d+")) {
                     Toast.makeText(getContext(), "Yêu cầu nhập số nguyên", Toast.LENGTH_SHORT).show();
-                    return;
                 } else {
                     datHang.setSoLuong(Integer.parseInt("" + chitiet_edSoLuong.getText().toString()));
-                    int soluong = Integer.parseInt("" + chitiet_edSoLuong.getText().toString());
-                    int donhang_giaTien = giaTien;
-                    datHang.setMaMon(maMon);
-                    datHang.setGiaTien(Integer.parseInt("" + giaTien));
-                    chitiet_edSoLuong.setText("");
-                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                    v = LayoutInflater.from(getContext()).inflate(R.layout.dialog_dia_chi_nhan_hang, null);
-                    builder.setView(v);
-                    Dialog dialog = builder.create();
-                    dialog.show();
-                    TextView tvTilte = dialog.findViewById(R.id.donhang_tvTitle);
-                    tvTilte.setText("Nhập thông tin nhận hàng");
-                    EditText edHoTen, edSoDT, edDiaChi;
-                    edHoTen = dialog.findViewById(R.id.donhang_edHoTen);
-                    edSoDT = dialog.findViewById(R.id.donhang_edSoDT);
-                    edDiaChi = dialog.findViewById(R.id.donhang_edDiaChi);
-                    donHang = new DonHang();
-                    Button btnSave, btnCancel;
-                    btnSave = dialog.findViewById(R.id.donhang_btnSave);
-                    btnCancel = dialog.findViewById(R.id.donhang_btnCancel);
-                    Random random = new Random();
-                    int val = random.nextInt(1000);
-                    btnSave.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            if (edDiaChi.getText().toString().isEmpty() || edHoTen.getText().toString().isEmpty() ||
-                                    edSoDT.getText().toString().isEmpty()) {
-                                Toast.makeText(getContext(), "Yêu cầu nhập đầy đủ thông tin", Toast.LENGTH_SHORT).show();
-                            } else {
-                                donHang.setMaDonHang("18092003" + val);
-                                donHang.setNgayThanhToan(df.format(Calendar.getInstance().getTime()));
-                                donHang.setTrangThai("Đang xử lý");
-                                //lấy số lượng từ Edittext , giá tiền từ bundle món
-                                int tongTien = 0;
-                                tongTien = tongTien + (soluong * donhang_giaTien);
-                                //set tổng tiền cho đơn hàng
-                                donHang.setTongTien(tongTien);
-                                donHang.setTenNguoiDung(edHoTen.getText().toString());
-                                donHang.setSoDt(edSoDT.getText().toString());
-                                donHang.setDiaChi(edDiaChi.getText().toString());
-                                dao = new DatHangDao(getContext());
-                                donHangDao = new DonHangDao(getContext());
-                                if (donHangDao.insertDonHang(donHang) > 0) {
-                                    Toast.makeText(getContext(), "Thanh toán thành công", Toast.LENGTH_SHORT).show();
-                                    dialog.dismiss();
+                    datHang.setMaMon(Integer.parseInt(maMon));
+                    datHang.setGiaTien(Float.parseFloat("" + giaTien));
+                    if (dao.insertDatHang(datHang) > 0) {
+                        list = dao.getAll();
+                        adapter = new GioHangAdapter(getContext(), list);
+                        chitiet_edSoLuong.setText("");
+                        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                        v = LayoutInflater.from(getContext()).inflate(R.layout.dialog_dia_chi_nhan_hang, null);
+                        builder.setView(v);
+                        Dialog dialog = builder.create();
+                        dialog.show();
+                        TextView tvTilte = dialog.findViewById(R.id.donhang_tvTitle);
+                        tvTilte.setText("Nhập thông tin nhận hàng");
+                        EditText edHoTen, edSoDT, edDiaChi;
+                        edHoTen = dialog.findViewById(R.id.donhang_edHoTen);
+                        edSoDT = dialog.findViewById(R.id.donhang_edSoDT);
+                        edDiaChi = dialog.findViewById(R.id.donhang_edDiaChi);
+                        donHang = new DonHang();
+                        Button btnSave, btnCancel;
+                        btnSave = dialog.findViewById(R.id.donhang_btnSave);
+                        btnCancel = dialog.findViewById(R.id.donhang_btnCancel);
+                        Random random = new Random();
+                        int val = random.nextInt(1000);
+                        btnSave.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                if (edDiaChi.getText().toString().isEmpty() || edHoTen.getText().toString().isEmpty() ||
+                                        edSoDT.getText().toString().isEmpty()) {
+                                    Toast.makeText(getContext(), "Yêu cầu nhập đầy đủ thông tin", Toast.LENGTH_SHORT).show();
                                 } else {
-                                    Toast.makeText(getContext(), "Thanh toán không thành công", Toast.LENGTH_SHORT).show();
+                                    donHang.setMaDonHang("18092003" + val);
+                                    donHang.setNgayThanhToan(df.format(Calendar.getInstance().getTime()));
+                                    donHang.setTrangThai("Đang xử lý");
+                                    float tongTien = 0;
+                                    int i;
+                                    for (i = 0; i < list.size(); i++) {
+                                        tongTien = tongTien + (list.get(i).getSoLuong() * list.get(i).getGiaTien());
+                                        donHang.setTongTien(tongTien);
+                                    }
+                                    donHang.setTenNguoiDung(edHoTen.getText().toString());
+                                    donHang.setSoDt(edSoDT.getText().toString());
+                                    donHang.setDiaChi(edDiaChi.getText().toString());
+                                    dao = new DatHangDao(getContext());
+                                    donHangDao = new DonHangDao(getContext());
+                                    if (donHangDao.insertDonHang(donHang) > 0) {
+                                        Toast.makeText(getContext(), "Thanh toán thành công", Toast.LENGTH_SHORT).show();
+                                        for (i = 0; i < list.size(); i++) {
+                                            dao.deleteAll(String.valueOf(list.get(i).getMaDatHang()));
+                                        }
+                                        list.clear();
+                                        list = dao.getAll();
+                                        adapter = new GioHangAdapter(getContext(), list);
+                                        adapter.notifyDataSetChanged();
+                                        dialog.dismiss();
+                                    } else {
+                                        Toast.makeText(getContext(), "Thanh toán không thành công", Toast.LENGTH_SHORT).show();
+                                    }
                                 }
                             }
-                        }
-                    });
-                    btnCancel.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            edHoTen.setText("");
-                            edDiaChi.setText("");
-                            edSoDT.setText("");
-                            dialog.dismiss();
-                        }
-                    });
+                        });
+                        btnCancel.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                edHoTen.setText("");
+                                edDiaChi.setText("");
+                                edSoDT.setText("");
+                                dialog.dismiss();
+                            }
+                        });
+                    } else {
+                        Toast.makeText(getContext(), "Thêm không thành công", Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         });

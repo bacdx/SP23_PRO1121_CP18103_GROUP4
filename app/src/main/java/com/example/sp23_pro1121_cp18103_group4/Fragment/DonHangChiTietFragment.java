@@ -34,8 +34,7 @@ import java.util.List;
 
 public class DonHangChiTietFragment extends Fragment {
 
-    TextView tvHoTen, tvSoDT, tvDiaChi, tvNgay, tvTongTien, tvTrangThai;
-    ImageView img_Update;
+    TextView tvHoTen, tvSoDT, tvDiaChi, tvNgay, tvTongTien, tvTrangThai ,img_Update;
     Button btn_Update;
     int maDatHang;
     DatHangDao datHangDao;
@@ -89,7 +88,7 @@ public class DonHangChiTietFragment extends Fragment {
         String soDT = bundle.getString("dhctSoDT");
         String diaChi = bundle.getString("dhctDiaChi");
         String ngay = bundle.getString("dhctNgay");
-        int tongTien = bundle.getInt("dhctTongTien");
+        float tongTien = bundle.getFloat("dhctTongTien");
         String trangThai = bundle.getString("dhctTrangThai");
         tvHoTen.setText("Họ tên: " + hoTen);
         tvSoDT.setText("Số điện thoại: " + soDT);

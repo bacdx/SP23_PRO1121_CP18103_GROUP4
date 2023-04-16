@@ -34,11 +34,11 @@ public class MonTrongBanDAO {
         ContentValues values=new ContentValues();
         values.put("maBan",monTrongBan.getMaBan());
         values.put("maMon",monTrongBan.getMaMon());
+        values.put("maHoaDon",monTrongBan.getMaHoaDon());
         values.put("soLuong",monTrongBan.getSoLuong());
         values.put("tenMon",monTrongBan.getTenMon());
         values.put("imgMon",monTrongBan.getImgMon());
-        values.put("giaMon",monTrongBan.getGiaMon());
-
+        values.put("tien",monTrongBan.getTien());
         return values;
     }
     public int update(MonTrongBan monTrongBan){
@@ -57,13 +57,14 @@ return db.delete("MonTrongBan","id=?",new String[]{id});
         cursor.moveToFirst();
         do {
             MonTrongBan monTrongBan=new MonTrongBan();
-            monTrongBan.setId(cursor.getInt(0));
+            monTrongBan.setId(Integer.valueOf(cursor.getString(0)));
             monTrongBan.setMaBan(cursor.getString(1));
             monTrongBan.setMaMon(cursor.getString(2));
-            monTrongBan.setSoLuong(Integer.parseInt(cursor.getString(6)));
-            monTrongBan.setTenMon(cursor.getString(3));
-            monTrongBan.setGiaMon(Integer.parseInt(cursor.getString(4)));
-            monTrongBan.setImgMon(cursor.getBlob(5));
+            monTrongBan.setMaHoaDon(cursor.getString(3));
+            monTrongBan.setSoLuong(Integer.parseInt(cursor.getString(7)));
+            monTrongBan.setTenMon(cursor.getString(4));
+            monTrongBan.setTien(cursor.getFloat(5));
+            monTrongBan.setImgMon(cursor.getBlob(6));
 
             list.add(monTrongBan);
         }while (cursor.moveToNext());
@@ -83,7 +84,7 @@ return db.delete("MonTrongBan","id=?",new String[]{id});
 
     public int getTong(String id){
 
-        String sql = "select sum(soLuong * giaMon) as tong from MonTrongBan where maBan = ?";
+        String sql = "select sum(soLuong * tien) as tong from MonTrongBan where maBan = ?";
         ArrayList<Integer> list = new ArrayList<>();
         Cursor c = db.rawQuery(sql,new String[]{id});
 
@@ -101,7 +102,7 @@ return db.delete("MonTrongBan","id=?",new String[]{id});
     @SuppressLint("Range")
 
     public int getGIamGia(String id){
-        String sql = "select ((sum(soLuong * giaMon))-((sum(soLuong * giaMon))*10/100)) as tong from MonTrongBan where maBan = ?";
+        String sql = "select ((sum(soLuong * tien))-((sum(soLuong * tien))*10/100)) as tong from MonTrongBan where maBan = ?";
         ArrayList<Integer> list = new ArrayList<>();
         Cursor c = db.rawQuery(sql,new String[]{id});
 
@@ -119,7 +120,7 @@ return db.delete("MonTrongBan","id=?",new String[]{id});
         return getData(sql,id);
     }
     public int getwid(String id){
-        String sql = "Select * from MonTrongBan where maBan= ?";
+        String sql = "Select * from MonTrongBan where maBan= ? and maHoaDon = '0'";
         ArrayList<MonTrongBan> list = getData(sql,id);
         if(list.size()>0){
             return 1;
@@ -130,7 +131,7 @@ return db.delete("MonTrongBan","id=?",new String[]{id});
 
 
     public int getwGia(String gia,String maban){
-        String sql = "Select * from MonTrongBan where giaMon= ? and maBan = ?";
+        String sql = "Select * from MonTrongBan where maMon= ? and maBan = ? and maHoaDon = '0'";
         ArrayList<MonTrongBan> list = getData(sql,gia,maban);
         if(list.size()>0){
             return 1;
@@ -145,19 +146,25 @@ return db.delete("MonTrongBan","id=?",new String[]{id});
     }
 
     @SuppressLint("Range")
-    public ArrayList<Top5> getTOp(){
+    public ArrayList<Top5>getTOp(){
 
-        String sqltop = "select tenMon,soLuong,sum(soLuong) as sl from MonTrongBan group by tenMon order by soLuong desc limit 5";
+        String sqltop = "select tenMon,sum(soLuong) as sl ,sum(tien) as tong from MonTrongBan where maHoaDon != '0' group by tenMon order by sl desc limit 5";
         ArrayList<Top5> list = new ArrayList<>();
         Cursor c = db.rawQuery(sqltop,null);
         while(c.moveToNext()){
             Top5 top10 = new Top5();
             top10.setTenmon(c.getString(c.getColumnIndex("tenMon")));
             top10.setSoluong(c.getString(c.getColumnIndex("sl")));
+            top10.setTongThu(c.getString(c.getColumnIndex("tong")));
             list.add(top10);
         }
         return list;
     }
+public  ArrayList<MonTrongBan> getDataByMaBanAndNull(String maBan){
+    String sql = "select * from MonTrongBan " +
+            "where maHoaDon=0 and maBan=?";
 
+    return getData(sql,maBan);
+}
 
 }

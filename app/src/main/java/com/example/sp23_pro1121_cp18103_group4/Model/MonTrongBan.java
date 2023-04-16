@@ -4,6 +4,9 @@ public class MonTrongBan {
     private int id;
     private String maBan;
     private String maMon;
+    private String maHoaDon;
+    private float tien;
+    private float aTien;
     private int soLuong;
 
     private byte[] imgMon;
@@ -16,15 +19,7 @@ public class MonTrongBan {
         this.imgMon = imgMon;
     }
 
-    int giaMon;
 
-    public int getGiaMon() {
-        return giaMon;
-    }
-
-    public void setGiaMon(int giaMon) {
-        this.giaMon = giaMon;
-    }
 
     String tenMon;
 
@@ -44,6 +39,7 @@ public class MonTrongBan {
         this.maBan = maBan;
         this.maMon = maMon;
         this.soLuong = soLuong;
+
     }
 
     public int getId() {
@@ -77,5 +73,22 @@ public class MonTrongBan {
     public void setSoLuong(int soLuong) {
         this.soLuong = soLuong;
     }
+
+    public float getTien() {
+        return tien;
+    }
+
+    public void setTien(float tien) {
+        this.tien = tien;
+    }
+
+    public String getMaHoaDon() {
+        return maHoaDon;
+    }
+
+    public void setMaHoaDon(String maHoaDon) {
+        this.maHoaDon = maHoaDon;
+    }
+
 
 }

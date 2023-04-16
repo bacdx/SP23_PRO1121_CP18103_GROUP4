@@ -35,7 +35,7 @@ public class MonTrongBan2Dao {
         values.put("soLuong",monTrongBan2.getSoLuong());
         values.put("tenMon",monTrongBan2.getTenMon());
         values.put("imgMon",monTrongBan2.getImgMon());
-        values.put("giaMon",monTrongBan2.getGiaMon());
+        values.put("giaMon",monTrongBan2.getTien());
 
         return values;
     }
@@ -51,7 +51,7 @@ public class MonTrongBan2Dao {
             monTrongBan.setMaMon(cursor.getString(2));
             monTrongBan.setSoLuong(Integer.parseInt(cursor.getString(6)));
             monTrongBan.setTenMon(cursor.getString(3));
-            monTrongBan.setGiaMon(Integer.parseInt(cursor.getString(4)));
+            monTrongBan.setTien(Integer.parseInt(cursor.getString(4)));
             monTrongBan.setImgMon(cursor.getBlob(5));
 
             list.add(monTrongBan);

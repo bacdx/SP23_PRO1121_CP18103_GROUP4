@@ -56,7 +56,6 @@ public class MainActivity extends AppCompatActivity {
     TextView tvHeaderUser;
     ImageView imgHeaderUser;
     NhanVienDao dao;
-
     NguoiDungDao nguoiDungDao;
     String user;
 
@@ -77,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
 
     //thiết lập drawable , toolbar , navigation
     public void setDraw() {
-        toolbar.setTitle("Quản Lý Quán Ăn");
+        setTitle("Quản Lý Quán Ăn");
         setSupportActionBar(toolbar);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open_draw, R.string.close_draw);
         drawerLayout.addDrawerListener(toggle);
@@ -105,15 +104,7 @@ public class MainActivity extends AppCompatActivity {
                 username = nhanVien.getHoten();
                 tvHeaderUser.setText("Wellcome: " + username);
                 String uyquyen = nhanVien.getUyQuyen();
-                if (uyquyen.equals("quanli")) {
-                    nav_View.getMenu().findItem(R.id.nav_ThanhVien).setVisible(false);
-                    nav_View.getMenu().findItem(R.id.nav_DoanhThu).setVisible(true);
-                    nav_View.getMenu().findItem(R.id.nav_Top5).setVisible(true);
-                    nav_View.getMenu().findItem(R.id.nav_dat_hang).setVisible(false);
-                    nav_View.getMenu().findItem(R.id.nav_NguoiDung).setVisible(true);
-                    nav_View.getMenu().findItem(R.id.nav_infoUser).setVisible(false);
-                    nav_View.getMenu().findItem(R.id.toolbar_giohang).setVisible(false);
-                } else {
+                if (uyquyen.equals(NhanVien.QUANLY)) {
                     nav_View.getMenu().findItem(R.id.nav_ThanhVien).setVisible(false);
                     nav_View.getMenu().findItem(R.id.nav_thong_ke).setVisible(false);
                     nav_View.getMenu().findItem(R.id.nav_DoanhThu).setVisible(false);
@@ -122,39 +113,32 @@ public class MainActivity extends AppCompatActivity {
                     nav_View.getMenu().findItem(R.id.nav_NguoiDung).setVisible(false);
                     nav_View.getMenu().findItem(R.id.nav_infoUser).setVisible(false);
                     nav_View.getMenu().findItem(R.id.toolbar_giohang).setVisible(false);
+
+                } else {
+                    nav_View.getMenu().findItem(R.id.nav_ThanhVien).setVisible(false);
+                    nav_View.getMenu().findItem(R.id.nav_DoanhThu).setVisible(true);
+                    nav_View.getMenu().findItem(R.id.nav_Top5).setVisible(true);
+                    nav_View.getMenu().findItem(R.id.nav_dat_hang).setVisible(false);
+                    nav_View.getMenu().findItem(R.id.nav_NguoiDung).setVisible(true);
+                    nav_View.getMenu().findItem(R.id.nav_infoUser).setVisible(false);
+                    nav_View.getMenu().findItem(R.id.toolbar_giohang).setVisible(false);
+
+
                 }
             } else {
                 username = user;
                 nguoiDungDao = new NguoiDungDao(this);
                 NguoiDung nguoiDung = nguoiDungDao.getID(user);
-                String username = nguoiDung.getHoTen();
-                tvHeaderUser.setText("Welcome: " + username);
+                if (nguoiDung.getHoTen().equals("")){
+                    tvHeaderUser.setText("Wellcome: user");
+                }else{
+                    String username = nguoiDung.getHoTen();
+                    tvHeaderUser.setText("Wellcome: "+username);
+                }
                 nav_View.getMenu().findItem(R.id.nav_thong_ke).setVisible(false);
                 nav_View.getMenu().findItem(R.id.nav_quan_ly).setVisible(false);
                 nav_View.getMenu().findItem(R.id.nav_dat_mon).setVisible(true);
                 nav_View.getMenu().findItem(R.id.toolbar_giohang).setVisible(false);
-            }
-
-        String user = mIntent.getStringExtra("user");
-        if (user.equalsIgnoreCase("admin")){
-            tvHeaderUser.setText("Welcome: Admin");
-        }else{
-            username = user;
-            dao = new NhanVienDao(this);
-            NhanVien nhanVien = dao.getID(user);
-            String username = nhanVien.getHoten();
-            tvHeaderUser.setText("Wellcome: "+username);
-            String uyquyen = nhanVien.getUyQuyen();
-            if(uyquyen.equals("quanli")){
-                nav_View.getMenu().findItem(R.id.nav_ThanhVien).setVisible(true);
-                nav_View.getMenu().findItem(R.id.nav_AddThanhVien).setVisible(false);
-                nav_View.getMenu().findItem(R.id.nav_DoanhThu).setVisible(true);
-                nav_View.getMenu().findItem(R.id.nav_Top5).setVisible(true);
-            }else{
-                nav_View.getMenu().findItem(R.id.nav_ThanhVien).setVisible(false);
-                nav_View.getMenu().findItem(R.id.nav_AddThanhVien).setVisible(false);
-                nav_View.getMenu().findItem(R.id.nav_DoanhThu).setVisible(false);
-                nav_View.getMenu().findItem(R.id.nav_Top5).setVisible(false);
             }
 
         }
@@ -194,7 +178,6 @@ public class MainActivity extends AppCompatActivity {
                         toolbar.setTitle("Top 5 sản phẩm");
                         replaceFragment(new Top5Fragment());
                         break;
-
                     case R.id.nav_dat_mon:
                         toolbar.setTitle("Đặt món");
                         replaceFragment(new FragmentAllMon());
@@ -236,10 +219,6 @@ public class MainActivity extends AppCompatActivity {
                         finish();
                         startActivity(new Intent(MainActivity.this, Login.class));
                         break;
-
-                    case R.id.nav_DangXuat:
-                        finish();
-                        startActivity(new Intent(MainActivity.this, Login.class));
                 }
                 drawerLayout.closeDrawer(GravityCompat.START);
                 return true;
@@ -300,5 +279,4 @@ public class MainActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-
 }

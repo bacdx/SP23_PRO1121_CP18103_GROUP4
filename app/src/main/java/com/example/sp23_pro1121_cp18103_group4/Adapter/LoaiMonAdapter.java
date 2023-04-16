@@ -73,8 +73,6 @@ public class LoaiMonAdapter extends RecyclerView.Adapter<LoaiMonAdapter.MyViewHo
         if(loaiMon.getImgLoaiMon()!=null){
             Bitmap imageContent = BitmapFactory.decodeByteArray(loaiMon.getImgLoaiMon(),0,loaiMon.getImgLoaiMon().length);
             holder.imgLoaiMon.setImageBitmap(imageContent);
-        }else{
-
         }
 
 

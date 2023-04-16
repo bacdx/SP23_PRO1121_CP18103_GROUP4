@@ -58,8 +58,10 @@ public class GioHangAdapter extends RecyclerView.Adapter<GioHangAdapter.MyViewHo
         holder.tvTenMon.setText("Tên món: " + mon.getTenMon());
         holder.tvSoLuong.setText("" + datHang.getSoLuong());
         holder.tvGiaTien.setText("Giá tiền: " + datHang.getGiaTien() + "đ");
-        Bitmap imageContent = BitmapFactory.decodeByteArray(mon.getImgMon(), 0, mon.getImgMon().length);
-        holder.imgMon.setImageBitmap(imageContent);
+       if(mon.getImgMon()!=null){
+           Bitmap imageContent = BitmapFactory.decodeByteArray(mon.getImgMon(), 0, mon.getImgMon().length);
+           holder.imgMon.setImageBitmap(imageContent);
+       }
         holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
@@ -165,8 +167,8 @@ public class GioHangAdapter extends RecyclerView.Adapter<GioHangAdapter.MyViewHo
     }
 
     public void updateprice(View view) {
-        int sum = 0, i;
-        for (i = 0; i < list.size(); i++)
+        float sum = 0;
+        for (int i = 0; i < list.size(); i++)
             sum = sum + (list.get(i).getSoLuong() * list.get(i).getGiaTien());
         tvTongTien.setText("" + sum + "đ");
     }

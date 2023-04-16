@@ -21,6 +21,7 @@ import com.example.sp23_pro1121_cp18103_group4.DAO.BanAnDao;
 import com.example.sp23_pro1121_cp18103_group4.DAO.MonDao;
 import com.example.sp23_pro1121_cp18103_group4.DAO.MonTrongBan2Dao;
 import com.example.sp23_pro1121_cp18103_group4.DAO.MonTrongBanDAO;
+import com.example.sp23_pro1121_cp18103_group4.DialogThanhToan;
 import com.example.sp23_pro1121_cp18103_group4.Model.BanAn;
 import com.example.sp23_pro1121_cp18103_group4.Model.Mon;
 import com.example.sp23_pro1121_cp18103_group4.Model.MonTrongBan;
@@ -34,9 +35,9 @@ public class Mon_Trong_Ban_Fragment extends Fragment {
 
     MonTrongBanDAO trongBanDAO;
 
-    MonTrongBan2Dao monTrongBan2Dao;
 
-    MonTrongBan monTrongBan,montrongban2;
+
+    MonTrongBan monTrongBan;
 
     Adapter_MaBan adapter_maBan;
     ArrayList<BanAn> listBanAN;
@@ -64,24 +65,28 @@ public class Mon_Trong_Ban_Fragment extends Fragment {
         Button luu = view.findViewById(R.id.luu);
         Button huy = view.findViewById(R.id.huy);
 
-        Intent intent = new Intent();
+
         Bundle bundle = this.getArguments();
-        String tenmon = bundle.getString("tenmon");
-        int giamon = bundle.getInt("giamon");
-        String trangthai = bundle.getString("trangthai");
+        String maMon = bundle.getString("maMon");
+        mon=new MonDao(getContext()).getID(maMon);
+
 
         listBanAN = new ArrayList<>();
+        BanAn banAn=DialogThanhToan.BAN_MANG_VE;
+
+
         banAnDao = new BanAnDao(getContext());
         adapter_maBan = new Adapter_MaBan(getContext());
         listBanAN = banAnDao.getALL();
+        listBanAN.add(banAn);
         adapter_maBan.setDaTa(listBanAN);
         spinner.setAdapter(adapter_maBan);
 
-        mon = new Mon();
-        monDao = new MonDao(getContext());
-        mon = monDao.getALLTien(giamon);
+//        mon = new Mon();
+//        monDao = new MonDao(getContext());
+//        mon = monDao.getALLTien(giamon);
         trongBanDAO = new MonTrongBanDAO(getContext());
-        monTrongBan2Dao = new MonTrongBan2Dao(getContext());
+//        monTrongBan2Dao = new MonTrongBan2Dao(getContext());
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -94,7 +99,7 @@ public class Mon_Trong_Ban_Fragment extends Fragment {
             }
         });
 
-        montrongban2 = new MonTrongBan();
+
 
 
 
@@ -113,13 +118,13 @@ public class Mon_Trong_Ban_Fragment extends Fragment {
                     return;
                 }
 
-                if(trangthai.equals("Hết hàng")){
+                if(mon.getTrangThai().equals("Hết hàng")){
                     Toast.makeText(getContext(), "Món Này Đã Hết Hàng !", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
                 try {
-                    check = trongBanDAO.getwGia(String.valueOf(giamon),id12);
+                    check = trongBanDAO.getwGia(String.valueOf(maMon),id12);
                     if(check>0){
                         Toast.makeText(getContext(), "Đã Có Món Ăn Này Trong Bàn", Toast.LENGTH_SHORT).show();
                         return;
@@ -129,18 +134,20 @@ public class Mon_Trong_Ban_Fragment extends Fragment {
 
                 monTrongBan.setImgMon(mon.getImgMon());
                 monTrongBan.setSoLuong(Integer.parseInt(soluong.getText().toString()));
-                monTrongBan.setTenMon(tenmon);
-                monTrongBan.setGiaMon(giamon);
+                monTrongBan.setTenMon(mon.getTenMon());
+                monTrongBan.setTien(mon.getGiaTien());
                 monTrongBan.setMaBan(String.valueOf(id12));
-
-                if(trongBanDAO.insert(monTrongBan)>0 && monTrongBan2Dao.insert2(monTrongBan)>0){
+                monTrongBan.setMaMon(String.valueOf(maMon));
+                monTrongBan.setMaHoaDon("0");
+                if(trongBanDAO.insert(monTrongBan)>0){
 
                     Fragment fragment = new ThemBanFragment();
                     FragmentTransaction transaction = ((getActivity())).getSupportFragmentManager().beginTransaction();
                     transaction.replace(R.id.mainFrame_collection_fragment,fragment).commit();
 
                     Toast.makeText(getContext(), "Thành CÔng" , Toast.LENGTH_SHORT).show();
-                }else{
+                }
+                else{
                     Toast.makeText(getContext(), "THất Bại", Toast.LENGTH_SHORT).show();
                 }
             }

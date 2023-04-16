@@ -26,11 +26,12 @@ public class DBHelper extends SQLiteOpenHelper {
             "tenBan text not null ," +
             "status text );";
     private static final String TABLE_MON_TRONG_BAN = "create table MonTrongBan (" +
-            "id integer not null primary key ," +
-            "maBan integer references Ban(maBan)," +
-            "maMon integer references Mon(maMon)," +
+            "id integer not null primary key autoincrement ," +
+            "maBan text references Ban(maBan)," +
+            "maMon text references Mon(maMon)," +
+            "maHoaDon text references HoaDon(maHoaDon),"+
             "tenMon text," +
-            "giaMon integer not null," +
+            "tien float not null," +
             "imgMon text," +
             "soLuong integer);";
 
@@ -39,7 +40,7 @@ public class DBHelper extends SQLiteOpenHelper {
             "maBan integer references Ban(maBan)," +
             "maMon integer references Mon(maMon)," +
             "tenMon text," +
-            "giaMon integer not null," +
+            "giaMon float not null," +
             "imgMon text," +
             "soLuong integer);";
 
@@ -48,7 +49,7 @@ public class DBHelper extends SQLiteOpenHelper {
             "imgLoaiMon text)";
     private static final String TABLE_MON = "Create Table Mon(maMon integer primary key autoincrement," +
             "tenMon text not null," +
-            "giaTien integer ," +
+            "giaTien float ," +
             "trangThai text not null," +
             "maLoaiMon integer references LoaiMon(maLoaiMon)," +
             "imgMon text)";
@@ -62,13 +63,13 @@ public class DBHelper extends SQLiteOpenHelper {
             "ngaySinh date," +
             "uyQuyen text," +
             "status text);";
+
     private static final String TABLE_HOADON = "create table HoaDon(" +
-            "maHoaDon integer not null primary key," +
-            "maBan integer references Ban(maBan)," +
+            "maHoaDon integer not null primary key autoincrement," +
             "maNV integer references NhanVien(maNV)," +
             "ngayLap date not null," +
             "maKhachHang integer references KhachHang(maKhachHang)," +
-            "tongTien integer); ";
+            "tongTien float); ";
 
 
 
@@ -84,9 +85,12 @@ public class DBHelper extends SQLiteOpenHelper {
     //khách hàng dùng appp
     String CreatTalbeDatHang = "Create table DatHang(" +
             "maDatHang integer not null primary key autoincrement," +
+            "maDonHang integer references DonHang(maDonHang),  " +
             "soLuong integer," +
             "giaTien integer," +
             "maMon integer references Mon(maMon))";
+
+
     String CreateTableNguoiDung = "Create table NguoiDung(" +
             "username text not null primary key," +
             "hoTen text," +
@@ -99,7 +103,6 @@ public class DBHelper extends SQLiteOpenHelper {
             "ngayThanhToan text," +
             "trangThai text," +
             "tongTien integer," +
-            "maDatHang integer references DatMon(maDatHang)," +
             "username text references NguoiDung(username)," +
             "tenNguoiDung text ," +
             "soDT text ," +
@@ -115,7 +118,7 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL(TABLE_kHACH_HANG);
         db.execSQL(TABLE_HOADON);
         db.execSQL(Data.insertNhanVien);
-        db.execSQL(TABLE_MON_TRONG_BAN2);
+
         db.execSQL(CreatTalbeDatHang);
         db.execSQL(CreateTableNguoiDung);
         db.execSQL(CreateTableDonHang);

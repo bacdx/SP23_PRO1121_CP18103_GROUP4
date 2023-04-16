@@ -2,11 +2,11 @@ package com.example.sp23_pro1121_cp18103_group4.Model;
 
 public class HoaDon {
     private String maHoaDon;
-    private String maBan;
+
     private String maNV;
     private String maKH;
     private String ngayLap;
-    private int tongTien;
+    private float tongTien;
 
 
 
@@ -14,14 +14,17 @@ public class HoaDon {
     }
 
 
-    public HoaDon(String maHoaDon, String maBan, String maNV, String maKH, String ngayLap, int tongTien) {
+    public HoaDon(String maHoaDon, String maNV, String maKH, String ngayLap, int tongTien) {
         this.maHoaDon = maHoaDon;
-        this.maBan = maBan;
+
         this.maNV = maNV;
         this.maKH = maKH;
         this.ngayLap = ngayLap;
         this.tongTien = tongTien;
+
     }
+
+
 
     public String getMaHoaDon() {
         return maHoaDon;
@@ -31,13 +34,6 @@ public class HoaDon {
         this.maHoaDon = maHoaDon;
     }
 
-    public String getMaBan() {
-        return maBan;
-    }
-
-    public void setMaBan(String maBan) {
-        this.maBan = maBan;
-    }
 
     public String getMaNV() {
         return maNV;
@@ -63,11 +59,14 @@ public class HoaDon {
         this.ngayLap = ngayLap;
     }
 
-    public int getTongTien() {
+    public float getTongTien() {
         return tongTien;
     }
 
-    public void setTongTien(int tongTien) {
+    public void setTongTien(float tongTien) {
         this.tongTien = tongTien;
     }
+
+
+
 }

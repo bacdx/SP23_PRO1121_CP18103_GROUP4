@@ -179,7 +179,7 @@ public class FragmentAllMon extends Fragment {
         Comparator<Mon> com = new Comparator<Mon>() {
             @Override
             public int compare(Mon o1, Mon o2) {
-                return Integer.valueOf(o1.getGiaTien()).compareTo(o2.getGiaTien());
+                return Float.valueOf(o1.getGiaTien()).compareTo(o2.getGiaTien());
             }
         };
         Collections.sort(list, com);
@@ -194,7 +194,7 @@ public class FragmentAllMon extends Fragment {
         Comparator<Mon> com = new Comparator<Mon>() {
             @Override
             public int compare(Mon o1, Mon o2) {
-                return Integer.valueOf(o2.getGiaTien()).compareTo(o1.getGiaTien());
+                return Float.valueOf(o2.getGiaTien()).compareTo(o1.getGiaTien());
             }
         };
         Collections.sort(list, com);
