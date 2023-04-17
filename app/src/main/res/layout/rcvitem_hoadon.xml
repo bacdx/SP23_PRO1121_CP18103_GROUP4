@@ -6,8 +6,8 @@
     android:orientation="vertical"
     app:cardCornerRadius="10dp"
     android:layout_margin="10dp"
-    android:backgroundTint="#3CAFE3"
     android:layout_height="wrap_content"
+    app:cardElevation="10dp"
     >
 
 
@@ -21,50 +21,42 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:layout_margin="10dp"
             >
             <TextView
-
-                android:layout_width="200dp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="1.5"
                 android:text="Mã Hóa Đơn :"
                 android:id="@+id/id"
-
-                android:textSize="20dp"
+                android:textSize="18dp"
                 android:textStyle="bold"
-                android:layout_marginTop="20dp"
-                android:layout_marginLeft="20dp"
                 />
 
             <TextView
-
-
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:text="Ngày Tạo :  "
-                android:textSize="20dp"
+                android:textSize="15dp"
                 android:textStyle="bold"
                 android:id="@+id/ngaytao"
-                android:layout_marginTop="20dp"
-                android:layout_marginLeft="20dp"
                 />
-
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:layout_margin="10dp"
             >
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Tên Nhân Viên :"
-
                 android:id="@+id/manv"
-                android:textSize="20dp"
+                android:textSize="18dp"
                 android:textStyle="bold"
-                android:layout_marginTop="20dp"
-                android:layout_marginLeft="20dp"
                 />
 
 
@@ -75,18 +67,18 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             >
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Tên Khách Hàng : "
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="Tên Khách Hàng : "-->
 
-                android:id="@+id/makh"
+<!--                android:id="@+id/makh"-->
 
-                android:textSize="20dp"
-                android:textStyle="bold"
-                android:layout_marginTop="20dp"
-                android:layout_marginLeft="20dp"
-                />
+<!--                android:textSize="20dp"-->
+<!--                android:textStyle="bold"-->
+<!--                android:layout_marginTop="20dp"-->
+<!--                android:layout_marginLeft="20dp"-->
+<!--                />-->
 
 
         </LinearLayout>
@@ -102,20 +94,17 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
-            android:layout_marginBottom="10dp"
+            android:layout_margin="10dp"
             android:orientation="horizontal"
             >
+
             <TextView
+                android:id="@+id/tong"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Tổng Tiền :"
-                android:textSize="20dp"
-                android:id="@+id/tong"
-                android:textStyle="bold"
-                android:layout_marginTop="20dp"
-                android:layout_marginLeft="20dp"
-                />
+                android:textSize="18dp"
+                android:textStyle="bold" />
 
 
         </LinearLayout>

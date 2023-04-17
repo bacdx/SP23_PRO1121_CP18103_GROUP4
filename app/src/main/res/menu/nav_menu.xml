@@ -1,11 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/nav_Home"
         android:icon="@drawable/ic_baseline_home_24_nav_home"
         android:title="Home"/>
     <item
+        android:id="@+id/toolbar_giohang"
+        android:icon="@drawable/ic_baseline_shopping_cart_24_gio_hang"
+        app:showAsAction="ifRoom"
+        android:title="Giỏ hàng" />
+    <item
         android:title="Quản Lý"
+        android:id="@+id/nav_quan_ly"
         >
         <menu
             >
@@ -31,13 +38,37 @@
                 <item
                     android:id="@+id/nav_KhachHang"
                     android:icon="@drawable/ic_baseline_account_circle_24_khach_hang"
-                    android:title="Khách hàng"/>
+                    android:title="Khách Hàng"/>
+                <item
+                    android:id="@+id/nav_NguoiDung"
+                    android:icon="@drawable/ic_baseline_person_24_ed_username"
+                    android:title="Người Dùng"/>
             </group>
         </menu>
     </item>
-
+    <item
+        android:title="Đặt Hàng"
+        android:id="@+id/nav_dat_hang"
+        >
+        <menu
+            >
+            <group
+                android:checkableBehavior="single"
+                >
+                <item
+                    android:id="@+id/nav_dat_mon"
+                    android:icon="@drawable/ic_baseline_dining_24_dat_mon"
+                    android:title="Đặt Món"/>
+                <item
+                    android:id="@+id/nav_don_hang_cua_ban"
+                    android:icon="@drawable/ic_baseline_sticky_note_2_24_nav_hoa_don"
+                    android:title="Đơn hàng của bạn"/>
+            </group>
+        </menu>
+    </item>
     <item
         android:title="Thống Kê"
+        android:id="@+id/nav_thong_ke"
         >
         <menu
             >
@@ -64,6 +95,10 @@
             <group
                 android:checkableBehavior="single"
                 >
+                <item
+                    android:id="@+id/nav_infoUser"
+                    android:icon="@drawable/ic_baseline_person_add_alt_24_add_user"
+                    android:title="Thông tin cá nhân"/>
                 <item
                     android:id="@+id/nav_DoiMK"
                     android:icon="@drawable/ic_baseline_key_24_nav_doi_mk"

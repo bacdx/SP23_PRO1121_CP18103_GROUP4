@@ -1,16 +1,19 @@
 package com.example.sp23_pro1121_cp18103_group4.Model;
 
 public class Mon {
-    private int maMon;
+    public static final int CON_HANG=1;
+    public static final int HET_HANG=0;
+    private String maMon;
     private String tenMon;
-    private int giaTien;
+    private float giaTien;
+//    private int trangThai=this.CON_HANG;
     private String trangThai;
     private int maLoaiMon;
     private byte[] imgMon;
     public Mon() {
     }
 
-    public Mon(int maMon, String tenMon, int giaTien, String trangThai, int maLoaiMon) {
+    public Mon(String maMon, String tenMon, float giaTien, String trangThai, int maLoaiMon) {
         this.maMon = maMon;
         this.tenMon = tenMon;
         this.giaTien = giaTien;
@@ -18,11 +21,11 @@ public class Mon {
         this.maLoaiMon = maLoaiMon;
     }
 
-    public int getMaMon() {
+    public String getMaMon() {
         return maMon;
     }
 
-    public void setMaMon(int maMon) {
+    public void setMaMon(String maMon) {
         this.maMon = maMon;
     }
 
@@ -34,11 +37,11 @@ public class Mon {
         this.tenMon = tenMon;
     }
 
-    public int getGiaTien() {
+    public float getGiaTien() {
         return giaTien;
     }
 
-    public void setGiaTien(int giaTien) {
+    public void setGiaTien(float giaTien) {
         this.giaTien = giaTien;
     }
 

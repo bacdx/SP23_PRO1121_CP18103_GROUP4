@@ -27,28 +27,39 @@ public class Top5Fragment extends Fragment {
     Top5Adapter top5Adapter;
     MonTrongBanDAO trongBanDAO;
 
-    MonTrongBan2Dao monTrongBan2Dao;
+    MonTrongBanDAO monTrongBanDAO ;
     ArrayList<Top5> list;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         View view= inflater.inflate(R.layout.fragment_top5, container, false);
+        return view;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
         rcv = view.findViewById(R.id.rcvtop5);
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
         list = new ArrayList<>();
         trongBanDAO = new MonTrongBanDAO(getContext());
-        monTrongBan2Dao = new MonTrongBan2Dao(getContext());
+        monTrongBanDAO = new MonTrongBanDAO(getContext());
 
         try {
-            list = monTrongBan2Dao.getTOp();
+            list = monTrongBanDAO.getTOp();
             top5Adapter = new Top5Adapter(list,getContext());
             rcv.setAdapter(top5Adapter);
         }catch (Exception e){
             Toast.makeText(getContext(), "Chưa Có Hóa ĐƠn ", Toast.LENGTH_SHORT).show();
         }
-        return view;
-    }
 
+    }
 }

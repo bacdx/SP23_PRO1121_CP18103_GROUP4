@@ -48,7 +48,6 @@ public class Dialog_MonTrongBan extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dialogthemmontrongban);
-
         TextInputEditText soluong = findViewById(R.id.soluong);
         Spinner spinner = findViewById(R.id.spn);
 
@@ -58,22 +57,14 @@ public class Dialog_MonTrongBan extends AppCompatActivity {
         Intent intent = new Intent();
 
         Bundle bundle = getIntent().getBundleExtra("thongtin");;
-        String tenmon = bundle.getString("tenmon");
-        int giamon = bundle.getInt("giamon");
-        String trangthai = bundle.getString("trangthai");
-
+        int maMon = bundle.getInt("maMon");
+        Mon mon=new MonDao(getApplicationContext()).getID(Integer.toString(maMon));
         listBanAN = new ArrayList<>();
         banAnDao = new BanAnDao(this);
         adapter_maBan = new Adapter_MaBan(this);
         listBanAN = banAnDao.getALL();
         adapter_maBan.setDaTa(listBanAN);
         spinner.setAdapter(adapter_maBan);
-
-        mon = new Mon();
-        monDao = new MonDao(this);
-        mon = monDao.getALLTien(giamon);
-        trongBanDAO = new MonTrongBanDAO(this);
-        monTrongBan2Dao = new MonTrongBan2Dao(this);
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -85,11 +76,6 @@ public class Dialog_MonTrongBan extends AppCompatActivity {
 
             }
         });
-
-        montrongban2 = new MonTrongBan();
-
-
-
         luu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -105,13 +91,13 @@ public class Dialog_MonTrongBan extends AppCompatActivity {
                     return;
                  }
 
-                 if(trangthai.equals("Hết hàng")){
+                 if(mon.getTrangThai().equals("Hết hàng")){
                      Toast.makeText(Dialog_MonTrongBan.this, "Món Này Đã Hết Hàng !", Toast.LENGTH_SHORT).show();
                      return;
                  }
 
                 try {
-                    check = trongBanDAO.getwGia(String.valueOf(giamon),id12);
+                    check = trongBanDAO.getwGia(String.valueOf(mon.getGiaTien()),id12);
                     if(check>0){
                         Toast.makeText(getApplicationContext(), "Đã Có Món Ăn Này Trong Bàn", Toast.LENGTH_SHORT).show();
                         return;
@@ -121,11 +107,12 @@ public class Dialog_MonTrongBan extends AppCompatActivity {
 
                 monTrongBan.setImgMon(mon.getImgMon());
                 monTrongBan.setSoLuong(Integer.parseInt(soluong.getText().toString()));
-                monTrongBan.setTenMon(tenmon);
-                monTrongBan.setGiaMon(giamon);
+                monTrongBan.setTenMon(mon.getTenMon());
+                monTrongBan.setTien(mon.getGiaTien());
                 monTrongBan.setMaBan(String.valueOf(id12));
+                monTrongBan.setMaHoaDon("0");
 
-                if(trongBanDAO.insert(monTrongBan)>0 && monTrongBan2Dao.insert2(monTrongBan)>0){
+                if(trongBanDAO.insert(monTrongBan)>0){
 
                     Fragment fragment = new ThemBanFragment();
                     FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();

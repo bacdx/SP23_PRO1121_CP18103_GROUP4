@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -46,8 +47,10 @@ public class AllMonFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_all_mon, container, false);
+        ((FragmentActivity)getContext()).setTitle("Quản lý món");
         init(view);
         showData();
+        openSearchView(view);
         openFilter();
         return view;
     }
@@ -72,7 +75,7 @@ public class AllMonFragment extends Fragment {
     //*******//
     //thiết lập search view tìm tên món
     public void openSearchView(View view) {
-        searchView = view.findViewById(R.id.mon_searchView);
+        searchView = view.findViewById(R.id.allmon_searchView);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -182,7 +185,7 @@ public class AllMonFragment extends Fragment {
         Comparator<Mon> com = new Comparator<Mon>() {
             @Override
             public int compare(Mon o1, Mon o2) {
-                return Integer.valueOf(o1.getGiaTien()).compareTo(o2.getGiaTien());
+                return Float.valueOf(o1.getGiaTien()).compareTo(o2.getGiaTien());
             }
         };
         Collections.sort(list, com);
@@ -197,7 +200,7 @@ public class AllMonFragment extends Fragment {
         Comparator<Mon> com = new Comparator<Mon>() {
             @Override
             public int compare(Mon o1, Mon o2) {
-                return Integer.valueOf(o2.getGiaTien()).compareTo(o1.getGiaTien());
+                return Float.valueOf(o2.getGiaTien()).compareTo(o1.getGiaTien());
             }
         };
         Collections.sort(list, com);
@@ -273,6 +276,7 @@ public class AllMonFragment extends Fragment {
         for (int i = 0; i < list.size(); i++) {
 
             String trangThai = list.get(i).getTrangThai();
+           // trangThai.equalsIgnoreCase("Còn hàng"
             if (trangThai.equalsIgnoreCase("Còn hàng")) {
                 temp_arraylist.add(list.get(i));
             }

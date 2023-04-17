@@ -40,7 +40,7 @@ public class BanAnDao {
         Cursor c = db.rawQuery(sql,SelectArgs);
         while(c.moveToNext()){
             BanAn banAn = new BanAn();
-            banAn.setId(Integer.parseInt(c.getString(c.getColumnIndex("maBan"))));
+            banAn.setId(c.getString(c.getColumnIndex("maBan")));
             banAn.setTenBanAN(c.getString(c.getColumnIndex("tenBan")));
             list.add(banAn);
         }
@@ -51,6 +51,11 @@ public class BanAnDao {
     public ArrayList<BanAn> getALL(){
         String sql = "select * from Ban ";
         return getDS(sql);
+    }
+    public BanAn getDataByID(String id){
+        String sql = "select * from Ban where maBan=? ";
+
+        return getDS(sql,id).get(0);
     }
 
 }

@@ -21,9 +21,10 @@
 
     <ImageView
         android:id="@+id/mon_addImg"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
         android:layout_margin="10dp"
+        android:scaleType="centerCrop"
         android:src="@drawable/images" />
 
     <com.google.android.material.textfield.TextInputLayout

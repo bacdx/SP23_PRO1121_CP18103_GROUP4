@@ -41,6 +41,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.sp23_pro1121_cp18103_group4.Activity.Dialog_MonTrongBan;
 import com.example.sp23_pro1121_cp18103_group4.DAO.MonDao;
+import com.example.sp23_pro1121_cp18103_group4.Fragment.ChiTietSanPhamFragment;
 import com.example.sp23_pro1121_cp18103_group4.Fragment.Mon_Trong_Ban_Fragment;
 import com.example.sp23_pro1121_cp18103_group4.Model.Mon;
 import com.example.sp23_pro1121_cp18103_group4.R;
@@ -63,6 +64,7 @@ public class MonAdapter extends RecyclerView.Adapter<MonAdapter.MyViewHolder> im
     ImageView imgMon;
     private static final int PICK_IMAGE_REQUEST = 100;
     static byte[] imageContent;
+
     public MonAdapter(Context mContext, List<Mon> list) {
         this.mContext = mContext;
         this.list = list;
@@ -82,38 +84,37 @@ public class MonAdapter extends RecyclerView.Adapter<MonAdapter.MyViewHolder> im
         Mon mon = list.get(position);
         holder.mon_tvTenMon.setText(mon.getTenMon());
         holder.mon_tvGiaTien.setText("Giá tiền: " + mon.getGiaTien());
-
-        holder.mon_tvTenMon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-//                Intent intent = new Intent(mContext, Dialog_MonTrongBan.class);
-                Bundle bundle = new Bundle();
-                bundle.putString("tenmon",mon.getTenMon());
-                bundle.putInt("giamon",mon.getGiaTien());
-                bundle.putString("trangthai",mon.getTrangThai());
-//                intent.putExtra("thongtin",bundle);
-                Fragment fragment = new Mon_Trong_Ban_Fragment();
-                fragment.setArguments(bundle);
-                FragmentTransaction transaction = ((FragmentActivity)mContext).getSupportFragmentManager().beginTransaction();
-                transaction.replace(R.id.mainFrame_collection_fragment,fragment).commit();
-
-
-            }
-        });
-
-
-
         if (mon.getTrangThai().equals("Còn hàng")) {
-            holder.mon_tvTrangThai.setText(mon.getTrangThai());
+            holder.mon_tvTrangThai.setText("Còn hàng");
             holder.mon_tvTrangThai.setTextColor(Color.BLUE);
             holder.mon_tvTrangThai.setPaintFlags(holder.mon_tvGiaTien.getPaintFlags() | Paint.FAKE_BOLD_TEXT_FLAG);
         } else {
-            holder.mon_tvTrangThai.setText(mon.getTrangThai());
+            holder.mon_tvTrangThai.setText("Hết hàng");
             holder.mon_tvTrangThai.setTextColor(Color.RED);
             holder.mon_tvTrangThai.setPaintFlags(holder.mon_tvGiaTien.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
         }
         Bitmap imageContent = BitmapFactory.decodeByteArray(mon.getImgMon(), 0, mon.getImgMon().length);
         holder.mon_imgMon.setImageBitmap(imageContent);
+        if (mon.getTrangThai().equals("Còn hàng")) {
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Bundle bundle = new Bundle();
+                    bundle.putString("maMon", mon.getMaMon());
+                    Fragment fragment = new Mon_Trong_Ban_Fragment();
+                    fragment.setArguments(bundle);
+                    FragmentTransaction transaction = ((FragmentActivity) mContext).getSupportFragmentManager().beginTransaction();
+                    transaction.replace(R.id.mainFrame_collection_fragment, fragment).commit();
+                }
+            });
+        } else {
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(mContext, "Sản phẩm này đã hết hàng!", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
         holder.img_popupMon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -127,7 +128,7 @@ public class MonAdapter extends RecyclerView.Adapter<MonAdapter.MyViewHolder> im
                                 openDiaLogUpdateMon(Gravity.CENTER, mon);
                                 break;
                             case R.id.popup_delete:
-                                openDialogDeleteMon(holder.getAdapterPosition(),mon);
+                                openDialogDeleteMon(holder.getAdapterPosition(), mon);
                                 break;
                         }
                         return false;
@@ -142,6 +143,7 @@ public class MonAdapter extends RecyclerView.Adapter<MonAdapter.MyViewHolder> im
     public int getItemCount() {
         return list.size();
     }
+
     //thiết lập getFilter cho search view
     @Override
     public Filter getFilter() {
@@ -149,13 +151,12 @@ public class MonAdapter extends RecyclerView.Adapter<MonAdapter.MyViewHolder> im
             @Override
             protected FilterResults performFiltering(CharSequence constraint) {
                 String strSearch = constraint.toString();
-                if (strSearch.isEmpty()){
+                if (strSearch.isEmpty()) {
                     list = listSearchView;
-                }
-                else{
+                } else {
                     List<Mon> mList = new ArrayList<>();
-                    for (Mon mon : listSearchView){
-                        if (mon.getTenMon().toLowerCase().contains(strSearch.toLowerCase())){
+                    for (Mon mon : listSearchView) {
+                        if (mon.getTenMon().toLowerCase().contains(strSearch.toLowerCase())) {
                             mList.add(mon);
                         }
                     }
@@ -178,6 +179,7 @@ public class MonAdapter extends RecyclerView.Adapter<MonAdapter.MyViewHolder> im
         TextView mon_tvTenMon, mon_tvGiaTien, mon_tvTrangThai;
         ImageView mon_imgMon;
         ImageView img_popupMon;
+
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             mon_tvTenMon = itemView.findViewById(R.id.mon_tvTenMon);
@@ -187,6 +189,7 @@ public class MonAdapter extends RecyclerView.Adapter<MonAdapter.MyViewHolder> im
             img_popupMon = itemView.findViewById(R.id.img_popupMenuMon);
         }
     }
+
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent intent) {
         if (requestCode == 100 && resultCode == RESULT_OK) {
             Uri imageUri = intent.getData();
@@ -242,9 +245,11 @@ public class MonAdapter extends RecyclerView.Adapter<MonAdapter.MyViewHolder> im
         } else {
             mon_chkTrangThai.setChecked(false);
         }
-        byte[] img = mon.getImgMon();
-        Bitmap bitmap = BitmapFactory.decodeByteArray(img, 0, img.length);
-        mon_imgMon.setImageBitmap(bitmap);
+        if (mon.getImgMon() != null) {
+            byte[] img = mon.getImgMon();
+            Bitmap bitmap = BitmapFactory.decodeByteArray(img, 0, img.length);
+            mon_imgMon.setImageBitmap(bitmap);
+        }
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

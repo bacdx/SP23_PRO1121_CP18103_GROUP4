@@ -48,9 +48,10 @@ public class MonDao {
         Cursor c = db.rawQuery(sql,Arg);
         c.moveToFirst();
         while (!c.isAfterLast()){
-            int maMon = c.getInt(0);
+            String maMon = c.getString(0);
             String tenMon = c.getString(1);
             int giaTien = c.getInt(2);
+//            int trangThai = c.getInt(3);
             String trangThai = c.getString(3);
             int maLoaiMon = c.getInt(4);
             byte[] imgMon = c.getBlob(5);
@@ -73,5 +74,11 @@ public class MonDao {
         String sql = "Select * from Mon";
         return getData(sql);
 
+    }
+
+    public Mon getID(String id){
+        String sql = "Select * from Mon where maMon=?";
+        List<Mon> list = getData(sql,id);
+        return list.get(0);
     }
 }

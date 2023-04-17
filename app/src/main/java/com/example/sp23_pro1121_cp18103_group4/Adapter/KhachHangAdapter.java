@@ -1,10 +1,8 @@
 package com.example.sp23_pro1121_cp18103_group4.Adapter;
 
 
+
 import android.annotation.SuppressLint;
-
-import android.app.AlertDialog;
-
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -12,9 +10,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.view.Gravity;
 import android.view.LayoutInflater;
-
 import android.view.MenuItem;
-
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -24,17 +20,13 @@ import android.widget.EditText;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
-
 import android.widget.PopupMenu;
-
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-
-
-
+import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.sp23_pro1121_cp18103_group4.DAO.KhachHangDao;
@@ -43,7 +35,6 @@ import com.example.sp23_pro1121_cp18103_group4.R;
 
 import java.util.ArrayList;
 import java.util.List;
-
 
 public class KhachHangAdapter extends RecyclerView.Adapter<KhachHangAdapter.MyViewHolder> implements Filterable {
 
@@ -87,7 +78,6 @@ public class KhachHangAdapter extends RecyclerView.Adapter<KhachHangAdapter.MyVi
         holder.tvSoDT.setText("Số điện thoại: " + khachHang.getSoDT());
         holder.tvDiaChi.setText("Địa chỉ: " + khachHang.getDiaChi());
         //set dialog xóa khách hàng
-
         holder.img_popupKhachHang.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -108,7 +98,6 @@ public class KhachHangAdapter extends RecyclerView.Adapter<KhachHangAdapter.MyVi
                     }
                 });
                 popupMenu.show();
-
             }
         });
     }
@@ -127,7 +116,6 @@ public class KhachHangAdapter extends RecyclerView.Adapter<KhachHangAdapter.MyVi
                 if (strSearch.isEmpty()){
 
                     list = listSearch;
-
                 }else{
                     List<KhachHang> mList = new ArrayList<>();
                     for (KhachHang khachHang : listSearch){
@@ -151,7 +139,6 @@ public class KhachHangAdapter extends RecyclerView.Adapter<KhachHangAdapter.MyVi
     }
 
     public final class MyViewHolder extends RecyclerView.ViewHolder {
-
         ImageView imgGioiTinh , img_popupKhachHang;
 
         TextView tvHoTen, tvNamSinh, tvGioiTinh, tvSoDT, tvDiaChi;
@@ -159,7 +146,6 @@ public class KhachHangAdapter extends RecyclerView.Adapter<KhachHangAdapter.MyVi
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             imgGioiTinh = itemView.findViewById(R.id.khachhang_imgGioiTinh);
-
             img_popupKhachHang = itemView.findViewById(R.id.khachhang_Popupmenu);
 
             tvHoTen = itemView.findViewById(R.id.khachhang_tvHoTen);
@@ -168,8 +154,6 @@ public class KhachHangAdapter extends RecyclerView.Adapter<KhachHangAdapter.MyVi
             tvSoDT = itemView.findViewById(R.id.khachhang_tvSoDT);
             tvDiaChi = itemView.findViewById(R.id.khachhang_tvDiaChi);
         }
-
-
     }
 
     @SuppressLint("MissingInflatedId")
@@ -224,6 +208,7 @@ public class KhachHangAdapter extends RecyclerView.Adapter<KhachHangAdapter.MyVi
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
                 public void onClick(View v) {
+
                 if (validate() > 0) {
                     dao = new KhachHangDao(mContext);
                     khachHang.setHoTen(khachhang_edHoTen.getText().toString());
@@ -275,7 +260,6 @@ public class KhachHangAdapter extends RecyclerView.Adapter<KhachHangAdapter.MyVi
             Toast.makeText(mContext, "Yêu cầu nhập số nguyên năm sinh", Toast.LENGTH_SHORT).show();
             check = -1;
         }
-
         else if(khachhang_rdNam.isChecked() == false && khachhang_rdNu.isChecked() == false && khachhang_rdKhac.isChecked() == false){
             Toast.makeText(mContext, "Giới tính không để trống", Toast.LENGTH_SHORT).show();
             check = -1;
@@ -307,5 +291,4 @@ public class KhachHangAdapter extends RecyclerView.Adapter<KhachHangAdapter.MyVi
         });
         builder.show();
     }
-
 }

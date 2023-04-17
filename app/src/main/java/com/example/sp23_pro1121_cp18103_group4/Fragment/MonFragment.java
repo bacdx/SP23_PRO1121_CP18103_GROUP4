@@ -2,6 +2,7 @@ package com.example.sp23_pro1121_cp18103_group4.Fragment;
 
 import static android.app.Activity.RESULT_OK;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -81,6 +82,7 @@ public class MonFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_mon, container, false);
+        ((Activity)getContext()).setTitle("Quản lý món");
         init(view);
         showData();
         insertMon();
@@ -208,7 +210,7 @@ public class MonFragment extends Fragment {
         Comparator<Mon> com = new Comparator<Mon>() {
             @Override
             public int compare(Mon o1, Mon o2) {
-                return Integer.valueOf(o1.getGiaTien()).compareTo(o2.getGiaTien());
+                return Float.valueOf(o1.getGiaTien()).compareTo(o2.getGiaTien());
             }
         };
         Collections.sort(list, com);
@@ -223,7 +225,7 @@ public class MonFragment extends Fragment {
         Comparator<Mon> com = new Comparator<Mon>() {
             @Override
             public int compare(Mon o1, Mon o2) {
-                return Integer.valueOf(o2.getGiaTien()).compareTo(o1.getGiaTien());
+                return Float.valueOf(o2.getGiaTien()).compareTo(o1.getGiaTien());
             }
         };
         Collections.sort(list, com);
@@ -295,10 +297,10 @@ public class MonFragment extends Fragment {
     //phương thức sắp xếp món còn hàng
     public void filterCheckMon() {
         List<Mon> temp_arraylist = new ArrayList<Mon>();
-
+//        int trangThai=0;
         for (int i = 0; i < list.size(); i++) {
 
-            String trangThai = list.get(i).getTrangThai();
+             String trangThai = list.get(i).getTrangThai();
             if (trangThai.equalsIgnoreCase("Còn hàng")) {
                 temp_arraylist.add(list.get(i));
             }
