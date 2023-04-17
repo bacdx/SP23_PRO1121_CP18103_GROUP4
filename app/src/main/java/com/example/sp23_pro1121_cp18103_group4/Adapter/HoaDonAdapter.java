@@ -52,16 +52,10 @@ public class HoaDonAdapter extends RecyclerView.Adapter<HoaDonAdapter.ViewHoaDon
     @Override
     public void onBindViewHolder(@NonNull ViewHoaDon holder, int position) {
         HoaDonHT hoaDonHT=list.get(position);
-
-        holder.maHoaDon.setText("Mã HD: "+hoaDonHT.getMaHD()+"");
-        holder.maNhanVien.setText("Tên NV: "+hoaDonHT.getTenNV());
-        holder.ngayLap.setText(hoaDonHT.getNgayLap());
+        holder.maHoaDon.setText("Mã hóa đơn: "+hoaDonHT.getMaHD()+"");
+        holder.maNhanVien.setText("Tên nhân viên: "+hoaDonHT.getTenNV());
+        holder.ngayLap.setText("Ngày: "+hoaDonHT.getNgayLap());
         holder.tongTien.setText("Tổng tiền: "+hoaDonHT.getTongTien()+" VND");
-
-
-
-
-
     }
 
     @Override

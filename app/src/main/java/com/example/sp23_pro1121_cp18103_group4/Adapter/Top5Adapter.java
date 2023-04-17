@@ -39,9 +39,8 @@ public class Top5Adapter extends RecyclerView.Adapter<Top5Adapter.ViewTop5> {
 
     @Override
     public void onBindViewHolder(@NonNull ViewTop5 holder, int position) {
-
         holder.temon.setText(list.get(position).getTenmon()+"");
-        holder.soluong.setText("So Luong Ban: "+list.get(position).getSoluong()+"");
+        holder.soluong.setText("Số lượng bán: "+list.get(position).getSoluong()+"");
         holder.tongTien.setText("Top: "+String.valueOf(position+1));
 
 

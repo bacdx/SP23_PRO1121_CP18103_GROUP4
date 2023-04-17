@@ -67,11 +67,10 @@ public class HoaDonDao {
         String sql = "select sum(tongTien) as doanhthu from HoaDon where ngayLap between ? and ?";
         ArrayList<Integer> list = new ArrayList<>();
         Cursor c = db.rawQuery(sql,new String[]{tungay,denngay});
-
         while(c.moveToNext()){
 
             try {
-                list.add(Integer.parseInt(c.getString(c.getColumnIndex("doanhthu"))));
+                list.add((int) Float.parseFloat(""+c.getString(c.getColumnIndex("doanhthu"))));
             }catch (Exception e){
                 list.add(0);
             }

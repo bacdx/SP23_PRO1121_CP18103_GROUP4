@@ -39,15 +39,17 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 public class DialogThanhToan extends Dialog {
-    public static final BanAn BAN_MANG_VE=new BanAn("0","Mang Ve","");
+    public static final BanAn BAN_MANG_VE = new BanAn("0", "Mang Ve", "");
     RecyclerView rcv;
     TextView tenban, ngay, checkBox1, tong, thanhtoan;
     float tongTien = 0;
     float tienGiamGia = 0;
     String maBan;
-    ArrayList<MonTrongBan> list=new ArrayList<>();
+    ArrayList<MonTrongBan> list = new ArrayList<>();
+    NhanVien nhanVien;
+    NhanVienDao dao;
 
-        public DialogThanhToan(@NonNull Context context, String maBan) {
+    public DialogThanhToan(@NonNull Context context, String maBan) {
         super(context);
         this.maBan = maBan;
     }
@@ -57,37 +59,35 @@ public class DialogThanhToan extends Dialog {
         super.onCreate(savedInstanceState);
         View view = LayoutInflater.from(getContext()).inflate(R.layout.dialog_tinh_tien, null);
         setContentView(view);
-        WindowManager.LayoutParams lp=new WindowManager.LayoutParams();
+        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
         lp.copyFrom(getWindow().getAttributes());
-        lp.width=WindowManager.LayoutParams.MATCH_PARENT;
-        lp.height=WindowManager.LayoutParams.MATCH_PARENT;
-        lp.gravity= Gravity.CENTER;
+        lp.width = WindowManager.LayoutParams.MATCH_PARENT;
+        lp.height = WindowManager.LayoutParams.MATCH_PARENT;
+        lp.gravity = Gravity.CENTER;
         getWindow().setAttributes(lp);
         // anhs xaj
-         rcv = view.findViewById(R.id.rcv);
-         tenban = view.findViewById(R.id.tenban);
-         ngay = view.findViewById(R.id.ngay);
-         checkBox1 = view.findViewById(R.id.checkb);
-         tong = view.findViewById(R.id.tong);
-         thanhtoan = view.findViewById(R.id.thanhtoan);
+        rcv = view.findViewById(R.id.rcv);
+        tenban = view.findViewById(R.id.tenban);
+        ngay = view.findViewById(R.id.ngay);
+        checkBox1 = view.findViewById(R.id.checkb);
+        tong = view.findViewById(R.id.tong);
+        thanhtoan = view.findViewById(R.id.thanhtoan);
 
 
-        DateFormat df = new SimpleDateFormat("d/M/yyyy");
+        DateFormat df = new SimpleDateFormat("dd/M/yyyy");
 
         //lay list MTB
-        try{
+        try {
             list = new MonTrongBanDAO(getContext()).getDataByMaBanAndNull(maBan);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
 
         }
         int tongAdapter;
-        BanAn banAn=new BanAn();
-        if(maBan== DialogThanhToan.BAN_MANG_VE.getId()){
-            banAn=DialogThanhToan.BAN_MANG_VE;
-        }
-        else {
-           banAn = new BanAnDao(getContext()).getDataByID(maBan);
+        BanAn banAn = new BanAn();
+        if (maBan == DialogThanhToan.BAN_MANG_VE.getId()) {
+            banAn = DialogThanhToan.BAN_MANG_VE;
+        } else {
+            banAn = new BanAnDao(getContext()).getDataByID(maBan);
         }
         MonTrongBanAdapter monTrongBanAdapter;
         tenban.setText(banAn.getTenBanAN());
@@ -96,7 +96,7 @@ public class DialogThanhToan extends Dialog {
         rcv.setAdapter(monTrongBanAdapter);
 
         tongTien = tinhTong(list);
-        tienGiamGia =  tongTien / 100 * 10;
+        tienGiamGia = tongTien / 100 * 10;
         tong.setText(String.valueOf(tongTien));
 
         checkBox1.setOnClickListener(new View.OnClickListener() {
@@ -113,30 +113,30 @@ public class DialogThanhToan extends Dialog {
                 }
             }
         });
+        dao = new NhanVienDao(getContext());
         thanhtoan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 SharedPreferences preferences = getContext().getSharedPreferences("USER_FILE", Context.MODE_PRIVATE);
-                String user=preferences.getString("Username","");
-                NhanVien nhanVien=new NhanVienDao(getContext()).getID(user);
-
-                HoaDon hoaDon =new HoaDon();
+                String user = preferences.getString("Username", "");
+                HoaDon hoaDon = new HoaDon();
+                nhanVien = dao.getID(user);
                 hoaDon.setMaNV(String.valueOf(nhanVien.getMaNV()));
                 hoaDon.setTongTien(tongTien);
                 hoaDon.setNgayLap(ngay.getText().toString());
 
-                HoaDonDao hoaDonDao=new HoaDonDao(getContext());
-                if(hoaDonDao.insertHoaDon(hoaDon)>0){
-                    int maHoaDon=hoaDonDao.getDataNew();
-                    MonTrongBanDAO monTrongBanDAO= new MonTrongBanDAO(getContext());
-                    for(int i=0;i<list.size();i++) {
+                HoaDonDao hoaDonDao = new HoaDonDao(getContext());
+                if (hoaDonDao.insertHoaDon(hoaDon) > 0) {
+                    int maHoaDon = hoaDonDao.getDataNew();
+                    MonTrongBanDAO monTrongBanDAO = new MonTrongBanDAO(getContext());
+                    for (int i = 0; i < list.size(); i++) {
                         list.get(i).setMaHoaDon(String.valueOf(maHoaDon));
                         monTrongBanDAO.update(list.get(i));
                     }
-                    Toast.makeText(view.getContext(),"Tao Thanh Cong",Toast.LENGTH_LONG);
+                    Toast.makeText(view.getContext(), "Tao Thanh Cong", Toast.LENGTH_LONG);
                     cancel();
-                }else {
-                    Toast.makeText(view.getContext(),"Tao That Bai",Toast.LENGTH_LONG);
+                } else {
+                    Toast.makeText(view.getContext(), "Tao That Bai", Toast.LENGTH_LONG);
                 }
             }
         });
@@ -146,8 +146,8 @@ public class DialogThanhToan extends Dialog {
 
     public int tinhTong(ArrayList<MonTrongBan> list) {
         int tong = 0;
-        for (int i = 0; i< list.size(); i++) {
-            tong += list.get(i).getTien()*list.get(i).getSoLuong();
+        for (int i = 0; i < list.size(); i++) {
+            tong += list.get(i).getTien() * list.get(i).getSoLuong();
         }
         return tong;
 

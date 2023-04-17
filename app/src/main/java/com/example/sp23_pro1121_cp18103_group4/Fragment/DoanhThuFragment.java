@@ -59,7 +59,6 @@ public class DoanhThuFragment extends Fragment {
         thongke.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 tong.setText(hoaDonDao.getDoanhThu(tungay.getText().toString(),denngay.getText().toString())+" VND");
 
             }

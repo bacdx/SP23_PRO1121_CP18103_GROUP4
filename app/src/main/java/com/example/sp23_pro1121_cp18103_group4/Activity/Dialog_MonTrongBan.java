@@ -48,7 +48,6 @@ public class Dialog_MonTrongBan extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dialogthemmontrongban);
-
         TextInputEditText soluong = findViewById(R.id.soluong);
         Spinner spinner = findViewById(R.id.spn);
 
@@ -67,12 +66,6 @@ public class Dialog_MonTrongBan extends AppCompatActivity {
         adapter_maBan.setDaTa(listBanAN);
         spinner.setAdapter(adapter_maBan);
 
-//        mon = new Mon();
-//        monDao = new MonDao(this);
-//        mon = monDao.getALLTien(giamon);
-//        trongBanDAO = new MonTrongBanDAO(this);
-//        monTrongBan2Dao = new MonTrongBan2Dao(this);
-
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -83,11 +76,6 @@ public class Dialog_MonTrongBan extends AppCompatActivity {
 
             }
         });
-
-//        montrongban2 = new MonTrongBan();
-
-
-
         luu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
